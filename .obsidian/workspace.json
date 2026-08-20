@@ -11,10 +11,14 @@
             "id": "0fd0c2a84692fd3e",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "Kaggriculture/Kaggriculture.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "Kaggriculture"
             }
           }
         ]
@@ -182,7 +186,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "eeab8e1334299198",
+  "active": "0fd0c2a84692fd3e",
   "lastOpenFiles": [
     "Kaggriculture/_which_engine.py",
     "Kaggriculture/_topops.py",

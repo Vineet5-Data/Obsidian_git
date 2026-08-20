@@ -1,0 +1,55 @@
+--- v140
++++ v142
+@@ -889,8 +889,5 @@
+         terminal = 5.0 if step >= DUMP_STEP else 1.0
+-        harvest_price = (0.0 if (product_price < 50
+-                         and animal["prod"] in
+-                         ("MELON", "STRAWBERRY", "MILK", "WOOL"))
+-                         else product_price)
++        harvest_price = max(float(product_price), 0.5 * MP[animal["prod"]]["base"])
+         jobs.append((held * harvest_price * (2.0 if near_cap else 1.0)
+-                     * terminal, (x, y), ["HARVEST"], None))
++                     * terminal + (200.0 if near_cap else 50.0), (x, y), ["HARVEST"], None))
+     if tile.get("fertilizer_available"):
+@@ -925,22 +922,13 @@
+             lifespan = -1
+-        expiring = 0 <= lifespan <= step + TPD
++        expiring = (0 <= lifespan <= step + 2 * TPD)
+         at_cap = cd["ong"] and held >= cd["my"]
+ 
+-        if (product_price < 50
+-                and tile["crop"] in ("MELON", "STRAWBERRY", "MILK", "WOOL")):
+-            if at_cap and not expiring:
+-                harvest_price = max(
+-                    product_price,
+-                    hold_fraction(step, day, storage_load) * MP[tile["crop"]]["base"])
+-            else:
+-                harvest_price = float(product_price)
+-        else:
+-            harvest_price = float(product_price)
+-        base_gain = (held * harvest_price + (14 if not cd["ong"] else 0)) * terminal
++        harvest_price = max(float(product_price), 0.5 * MP[tile["crop"]]["base"])
++        base_gain = (held * harvest_price + (14 if not cd["ong"] else 50.0)) * terminal
++        if expiring:
++            base_gain += 5000.0  # Emergency priority to guarantee collection before decay
+         gain = base_gain
+-        if storage_load > 90:
++        if storage_load > 95 and not expiring:
+             gain *= 0.1
+         jobs.append((gain, (x, y), ["HARVEST"], None))
+-        if expiring and base_gain < 25.0:
+-            jobs.append((25.0, (x, y), ["DIG"], None))
+ 
+@@ -1399,4 +1387,4 @@
+     # demand to the rival can increase their bank more than diversification
+-    # increases ours.
+-    for name in sorted(ANIMALS, key=lambda n: -opp_animal_counts.get(n, 0)):
++    livestock_candidates = [n for n in ANIMALS if n != "GOOSE"]
++    for name in sorted(livestock_candidates, key=lambda n: -opp_animal_counts.get(n, 0)):
+         if sum(want_animal.values()) >= animal_need:
+@@ -1418,3 +1406,4 @@
+         best = None
+-        for name, a in ANIMALS.items():
++        for name in livestock_candidates:
++            a = ANIMALS[name]
+             y = animal_yield(a, days_left)

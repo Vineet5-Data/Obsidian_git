@@ -1,0 +1,7 @@
+{
+  "concept_name": "Shed and Worker Logistics",
+  "mechanic_exploited": "Exploits Fibonacci daily worker hiring costs (cost resets daily at farmHandCostMult * fib(n): $1, $1, $2, $3...), 100-item non-seed shed storage capacity (shedCapacity = 100 with end-of-day overflow discard), shed adjacency drop-off requirements at central tiles (4,4), (5,4), (4,5), (5,5), and independent multi-unit action economy across passable grid land.",
+  "implementation_complexity": "Moderate",
+  "expected_yield_gain": "+500 to +2,000 coins net margin gain",
+  "uncertain": []
+}

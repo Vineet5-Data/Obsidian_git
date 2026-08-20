@@ -1,0 +1,7 @@
+{
+  "concept_name": "End-Game Capital Thresholds",
+  "mechanic_exploited": "Exploits the public visibility of opponent tile state and shared market prices to estimate the opponent's maximum possible asset value (bank balance + unharvested tile yields + tracked shed inventory). By establishing a definitive capital victory threshold (Your Bank > Opponent Bank + Opponent Max Liquidation Value), an agent can safely halt reinvestment and avoid risky market sales that might crash prices. Furthermore, maintaining a minimum reserved capital threshold for end-game operational costs (daily WHEAT animal feed at $25-$45 and farmhand HIRE costs scaling via fib(n)) ensures sufficient liquidity during the final liquidation phase (turns 648-719) to complete harvesting without risking bankruptcy or animal escape.",
+  "implementation_complexity": "Moderate (~50-100 lines for estimating opponent shed state from harvest actions, calculating theoretical asset value, and maintaining an operational reserve for end-game costs)",
+  "expected_yield_gain": "Win-rate stabilization (secures guaranteed wins) and +2,000 to +5,000 coin protection by ensuring complete liquidation liquidity",
+  "uncertain": []
+}

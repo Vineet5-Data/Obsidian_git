@@ -1,0 +1,89 @@
+{
+  "hypothesis": "Giving held ongoing-crop yield an explicit earliest-loss deadline and ranking its positive net rescue value after survival reservations but before optional CARE/FERTILIZE/PLANT will reduce held-yield expiry and production-cap loss without broadly displacing mandatory FEED/WATER. This directly targets the approximately 1053 held-yield expiry units/game observed for v204 on days 20-24.",
+  "exact_code_lever": {
+    "single_cause_candidate": "Replace a_v186 crop_service_jobs' flat expiring bonus and unconditional storage_load>90 suppression with harvest_rescue_value(tile, step, units) plus a deadline field consumed by assignment; change no portfolio, hiring, layout, or sales rule.",
+    "deadline": "earliest_loss_step = min(valid max_lifespan_step, next scheduled production step when held yield would clamp, latest step that still permits harvest + shed return + DROP/PLACE + SELL). Slack is earliest_loss_step - current_step - nearest_worker_distance - 1 HARVEST action.",
+    "score": "rescue_net = held * forecast_bankable_price + avoided_next_tick_loss * forecast_price - travel/labor - overflow/market-impact cost. If rescue_net<=0 or terminal banking is impossible, reject. Otherwise urgency multiplier = 1 + min(4, 4/max(1, slack+1)); classify slack<=0 as deadline class 1, below second-miss FEED/WATER class 0 and above optional work.",
+    "storage_fix": "Apply gain*=0.1 at storage_load>90 only to nonurgent harvest. An expiring/capped positive-net crop bypasses the penalty because engine worker inventory is uncapped, but it must carry an explicit later deposit/sale feasibility obligation. The multiplier and class boundary are [uncertain]."
+  },
+  "affected_phase": "Only tiles with held yield and either a valid expiry, imminent capped production, or terminal banking deadline are changed. It will usually activate from the first TOMATO/STRAWBERRY production through day 28, with special focus on days 15-24 congestion and days 27-29 liquidation. It is opponent-agnostic except for price forecasts; test every seat and opponent archetype.",
+  "engine_mechanism": "TOMATO produces on four daily ticks after an 8-day wait; STRAWBERRY on four two-day ticks after a 10-day wait. Ongoing held yield is clamped at max_yield=4, so a production tick on a full tile is silently lost. The final scheduled tick sets max_lifespan_step; after that step, _decay_plants subtracts one unit every other turn after unit actions, market orders, and town demand, eventually replacing the tile with a weed. HARVEST runs before decay, moves all held crop to uncapped worker inventory, resets held yield to zero, and leaves an ongoing plant in place. Two missed watering refreshes still kill the plant, so second-miss WATER must remain higher priority. Harvested cargo produces terminal cash only after deposit into the 100-item shed and SELL.",
+  "regime_trigger_and_forecast_error": {
+    "trigger": "Create rescue urgency when held>0 and any of: valid expiry within 24 turns, held at cap with another scheduled production before planned harvest, deadline slack<=4, or terminal bank deadline within the remaining route. Exit immediately after harvest or when net bankable value becomes nonpositive.",
+    "forecast": "Predict earliest loss, nearest feasible worker travel, harvested units, carry-to-shed route, headroom, sale slot, price after own sale and known town absorption. Log forecast versus realized decay units, capped ticks, route time, deposit, sale price, and displaced mandatory work.",
+    "error_risk": "Future worker collisions and price changes can make slack and net value wrong; next-tick timing near daily refresh must be verified in deterministic tests. The urgency window and multiplier are [uncertain]."
+  },
+  "decision_score_audit": "For every held ongoing tile log crop, planted day, held units, cap, next production, max_lifespan_step, terminal latest-bank step, chosen earliest deadline, nearest worker/distance, slack, forecast price, avoided decay/cap loss, labor/travel/overflow cost, rescue net, class, selected worker, displaced job, rejection reason, and selected-to-runner-up score gap.",
+  "admissible_workload_and_minimum_slack": "First reserve current and forecast second-miss FEED/WATER and their required pickups/travel. Allocate only remaining reachable worker-turns to rescue HARVEST in earliest-deadline order, requiring positive net value. Admit no new crop/optional service through this lever. Minimum slack is measured after nearest-worker matching; a negative-slack rescue is attempted only if it can still execute before the engine's next decay action.",
+  "constraint_utilization_profile": "Report worker-turns and movement used by survival, rescue harvest, ordinary harvest, and optional work; money realized; held/capped/expired tiles; shed occupancy; carried crop value/distance to shed; and SELL order slots. Ensure rescue share rises only when expiry/cap risk exists and does not consume the final sale capacity needed for higher-value cargo.",
+  "job_queue_health": "Track rescue queue count/value, crop, age, earliest loss, slack, lateness, assignment, execution, decay before execution, capped production lost, abandonment, and reason. The primary mechanism outcome is held units destroyed plus scheduled units clamped, not simply HARVEST count. Also report mandatory FEED/WATER age to detect crowd-out.",
+  "spatial_logistics_metrics": "Measure distance per rescue harvest, empty travel, rescue route switches, held units per trip, time from harvest to shed, shed trips, and same-area rescue batches. Compare urgent jobs selected by nearest feasible worker with the baseline's generic value-distance assignment.",
+  "expected_terminal_value": "[uncertain] Every genuinely rescued and banked unit has nonnegative incremental value, but extra travel can displace more valuable work and low-price cargo may never sell. Expected uplift must be measured; target mechanism is a large reduction from v204's approximately 1053 expiry units/game while keeping survival execution non-inferior.",
+  "marginal_value_per_worker_turn": "Use realized incremental banked sale value plus avoided lost future production minus harvest, movement, deposit, overflow, price-impact, and displaced-work costs, divided by all associated unit actions. Separate decay rescue from cap-unblocking because cap-unblocking earns only the production tick that would otherwise clamp.",
+  "shadow_price_vector": {
+    "money": "Usually zero at field harvest, then financing value of eventual sale proceeds.",
+    "labor": "Highest feasible mandatory or cash-producing job displaced by harvest/deposit actions.",
+    "movement": "Phase-specific opportunity value of travel to crop and shed.",
+    "tile": "Avoided loss of an ongoing plant plus best replacement value if decay reaches weed.",
+    "shed": "Value of displaced/overflowed unit or sale needed to make room.",
+    "cargo": "Time-to-bank and overflow risk despite uncapped worker inventory.",
+    "market_order": "Best displaced order, especially emergency wheat and competing SELL. Numerical values are [uncertain]."
+  },
+  "gross_to_net_value_decomposition": "Gross rescue value equals bankable held units plus the next avoided clamped tick and avoided tile loss where applicable. Subtract field and return movement, HARVEST/DROP actions, price depression from own sale, expected shed overflow, financing delay, terminal infeasibility, and opportunity cost of survival/other work. Do not credit held units already impossible to bank.",
+  "market_and_opponent_dependence": "Urgency is driven by physical deadlines, not opponent identity. Forecast bankable price uses current market inventory, known town consumption, visible rival crop supply, and own sale impact. Low price can reject a distant nonexpiring harvest, but cannot suppress a near deadline when positive net rescue remains. Stratify premium-glut and scarcity opponents because STRAWBERRY price sensitivity is extreme.",
+  "action_validity_and_noop_breakdown": "Count HARVEST attempts that are valid, executed, and silent no-ops due to zero held yield, immature crop, target already harvested, target decayed to weed, locked/stale tile, or duplicate claim. For follow-on logistics count DROP away from shed/full shed and SELL missing stock/truncated queue. Verify the stored max_lifespan_step parses safely and stale deadlines are removed.",
+  "micro_scenario_coverage": [
+    "A held ongoing crop at max_lifespan_step is harvested before same-step decay.",
+    "A held=4 crop before a scheduled tick is harvested to prevent clamp loss.",
+    "A first-miss animal and crop both outrank a low-slack harvest if they would otherwise die/escape.",
+    "At shed occupancy 95, urgent harvest bypasses the 0.1 field-score penalty but is rejected if no bank/sale path exists.",
+    "Another worker harvests the target, and the duplicate job revalidates to PASS without movement.",
+    "A low-price distant crop with negative net rescue is abandoned explicitly.",
+    "A harvested ongoing plant remains on the tile; a one-time control tile clears.",
+    "Terminal route includes HARVEST, return, DROP, and SELL before the last action."
+  ],
+  "terminal_feasibility": "Compute latest harvest start from remaining Manhattan distance to crop plus one HARVEST, distance to nearest shed-access tile, one deposit action, and a later market order with a free SELL slot. Bypass storage suppression only when that chain exists. From DUMP_STEP=648, terminal bank deadline may precede biological expiry; after FINAL_FARM_STEP=696 reject any rescue that cannot create sold cash.",
+  "paired_test_design": {
+    "control": "a_v186.py, SHA-256 8e24e4236a9b8c0b877f86695845985d4b4df5d797f465bc4f88277b0351a26a",
+    "candidate": "[uncertain] a_v186_harvest_expiry.py with only harvest rescue scoring/deadline metadata changed",
+    "screen": "80 opponents, both seats, four shared seeds = 640 games/agent; primary paired wins, mechanism co-primary held expiry plus clamped production loss with mandatory FEED/WATER execution guard.",
+    "validation": "Freeze urgency constants, then 80 opponents, both seats, 11 untouched offset-20 seeds = 1760 games/agent.",
+    "command": "python _loss_analysis.py a_v186.py a_v186_harvest_expiry.py --opponents 80 --seeds 11 --offset 20 --out harvest_expiry_validation.json"
+  },
+  "paired_discordance_and_effect_interval": "[uncertain] Report b control-only wins, c candidate-only wins, exact McNemar p-value, uplift=(c-b)/N, and paired bootstrap intervals for terminal margin, expiry units, cap-loss units, and survival execution. Compute actual MDE from discordance; 3-4 points is a rough N=1760 range under 25-35% discordance.",
+  "random_stream_alignment": "Match seed/opponent/seat, record first altered HARVEST, and compare shops, weeds, and market paths. Because harvest leaves ongoing tiles occupied it usually changes fewer empty-tile weed draws than portfolio changes, but decay-to-weed prevention can still alter conditional RNG and later shop choice. Include zero-weed and fixed-shop micro-panels.",
+  "optional_stopping_and_multiple_testing_budget": "Complete fixed screen and validation blocks without optional stopping. Register as one of 24 outline candidates; use Holm family-wise alpha 0.05 for final promotion. Storage bypass and deadline multiplier must be frozen together as this predeclared single mechanism or split into separate validation candidates.",
+  "tuning_validation_separation": "Tune at most six urgency/window variants on offsets 0-5 using expiry and mandatory-service constraints, freeze, then validate once on offset 20. No threshold adjustment from locked validation; a change requires new seeds.",
+  "distributional_guardrails": "Require non-inferior second-miss FEED/WATER completion, animal/plant survival, 10th/5th-percentile margin, shed overflow, and seat/opponent strata. Reject if survival failures rise, either seat loses >2 points, any archetype >3, q10 margin worsens >2000, catastrophes rise >1 point, or rescued cargo remains unsold.",
+  "robustness_regret": "[uncertain] Report regret versus best urgency setting and a_v186 for premium glut/scarcity, dense/sparse farms, high/low shed occupancy, each opponent archetype, and seat. Worst-stratum win regret versus control must be within 2 points.",
+  "rare_event_stress_results": "[uncertain] Pending: max_lifespan_step equal current step, multiple crops decaying on alternating parity, 48 simultaneous rescues, $1 STRAWBERRY, 100-item shed, worker already carrying valuable goods, day-29 corner crop, target decays before arrival, and same-turn rival price crash.",
+  "interaction_and_ablation_matrix": "[uncertain] Test deadline alone, storage-penalty bypass alone, cap-loss deadline alone, terminal-chain gate alone, full rescue, and leave-one-out variants. Combine only after isolated success with workload admission, utility stability, batching, spatial layout, and crop-portfolio candidates.",
+  "promotion_margin_and_reversion_trigger": "Promote with Holm-adjusted positive paired evidence, >=+1.5 observed win points, positive median margin, material expiry/cap-loss reduction, and unchanged mandatory survival. Revert on any survival regression, shed overflow increase, unsold terminal cargo, negative realized rescue value/action, or latency breach. Final combined agent still requires >=80% fresh-panel validation.",
+  "confidence_and_status": "High confidence in expiry/cap engine mechanics and in v204's measured failure; moderate confidence that narrow deadline rescue avoids crowd-out; score thresholds and win effect are [uncertain]. Status: research complete, implementation and validation pending.",
+  "computational_budget": "Scan at most 100 tiles, compute scheduled deadlines arithmetically, and nearest-match at most 13 units; O(tiles*units) with <200 deadline records. Target <50 ms/turn. On timeout retain class-0 survival jobs and a_v186 ordinary harvest scoring; emit a fallback count.",
+  "artifact_metadata": {
+    "research_date": "2026-08-19",
+    "baseline_record": "1203-557, 68.4%, 1760 games",
+    "baseline_path_sha256": "C:/Users/Vinee/Desktop/Kaggriculture/a_v186.py; 8e24e4236a9b8c0b877f86695845985d4b4df5d797f465bc4f88277b0351a26a",
+    "engine_path_sha256": "C:/Users/Vinee/Desktop/Kaggriculture/_env_src.py; c11baf358548d8dd6f3cba031899bc1614c0fcb31a27366f12753563154307e6",
+    "failure_evidence": "kaggriculture_winrate_80_research/outline.yaml: v204 held-yield expiry about 1053/game on days 20-24",
+    "candidate_path": "[uncertain] C:/Users/Vinee/Desktop/Kaggriculture/a_v186_harvest_expiry.py",
+    "external_references_from_outline": [
+      "https://epubs.siam.org/doi/10.1137/S0097539792236882",
+      "https://arxiv.org/abs/2207.05305"
+    ]
+  },
+  "uncertain": [
+    "exact_code_lever",
+    "regime_trigger_and_forecast_error",
+    "expected_terminal_value",
+    "shadow_price_vector",
+    "paired_test_design",
+    "paired_discordance_and_effect_interval",
+    "robustness_regret",
+    "rare_event_stress_results",
+    "interaction_and_ablation_matrix",
+    "confidence_and_status",
+    "artifact_metadata"
+  ]
+}

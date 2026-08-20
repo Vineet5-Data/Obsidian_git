@@ -1,0 +1,1226 @@
+# --- MARKDOWN ---
+# Kaggriculture: rank your agent against a known ladder
+
+[Kaggriculture](https://www.kaggle.com/competitions/kaggriculture) scores you on
+**head-to-head wins**, not on an absolute metric. That makes progress genuinely hard
+to read. Your agent banked 40,000 coins — is that good? It depends entirely on who it
+played. Beating the built-in `starter` baseline tells you almost nothing, and the
+public leaderboard only updates after you have spent a submission.
+
+So I built a fixed ladder to measure against. This notebook:
+
+1. loads **ten documented reference agents** spanning a very wide skill range, plus the
+   top-meta agent that beats all ten of them,
+2. lets you plug in **your own agent** three different ways,
+3. plays a seat-swapped round robin and ranks everyone with **Bradley-Terry** —
+   the same method the competition uses for final standings,
+4. tells you which rung you landed on,
+5. and writes a **submittable `submission.tar.gz`**, so the agent you ranked is
+   literally the artifact you submit.
+
+The whole default run takes a couple of minutes. There is a knob at the bottom for a
+much heavier evaluation when you want tighter error bars.
+
+> **What you need:** the
+> [Kaggriculture Reference Agents](https://www.kaggle.com/datasets/raykkretzschmar/kaggriculture-reference-agents)
+> dataset attached (Add Input → Datasets), the output of
+> [Findings from Zero to Top Meta](https://www.kaggle.com/code/raykkretzschmar/kaggriculture-findings-from-zero-to-top-meta)
+> attached (Add Input → Notebook Output) for the rung above the ladder, and
+> **Internet on** so the notebook can install a matching `kaggle-environments`.
+
+
+# --- MARKDOWN ---
+---
+## 1. Setup
+
+One thing worth being fussy about: **pin the engine version**. Kaggriculture's rules
+have changed between releases (1.32.2 blocked movement onto locked tiles, 1.32.3
+allows it), and a mismatch will silently change your results. I check the version
+rather than assume it.
+
+
+# --- CODE ---
+import subprocess, sys
+from importlib.metadata import PackageNotFoundError, version as pkg_version
+
+ENGINE_VERSION = "1.32.3"   # the version these reference agents were measured on
+
+
+def installed_engine():
+    try:
+        return pkg_version("kaggle-environments")
+    except PackageNotFoundError:
+        return None
+
+
+def ensure_engine(want=ENGINE_VERSION):
+    have = installed_engine()
+    if have != want:
+        print(f"installing kaggle-environments=={want} (found: {have})")
+        subprocess.run(
+            [sys.executable, "-m", "pip", "install", "-q", f"kaggle-environments=={want}"],
+            check=False,
+        )
+        for mod in [m for m in list(sys.modules) if m.startswith("kaggle_environments")]:
+            del sys.modules[mod]
+        have = installed_engine()
+    return have
+
+
+actual = ensure_engine()
+print("kaggle-environments:", actual)
+if actual != ENGINE_VERSION:
+    print(f"  NOTE: expected {ENGINE_VERSION}. The ladder's measured banks assume that")
+    print("  version; head-to-head ordering is usually stable, absolute coins are not.")
+
+from kaggle_environments import make
+make("kaggriculture", configuration={"episodeSteps": 24})
+print("kaggriculture environment loads OK")
+
+
+# --- CODE ---
+import importlib.util, itertools, json, math, os, shutil, sys, tarfile, time, zipfile
+from pathlib import Path
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+pd.set_option("display.width", 200)
+pd.set_option("display.max_colwidth", 90)
+
+def find_dataset():
+    """Locate the reference-agent dataset.
+
+    Prefers the canonical mount, but falls back to scanning /kaggle/input for the
+    manifest so a renamed or forked copy still works.
+    """
+    root = Path("/kaggle/input")
+    # Kaggle has two input layouts depending on the image: the older flat
+    # /kaggle/input/SLUG and the newer /kaggle/input/datasets/OWNER/SLUG.
+    # Try both, then fall back to searching for the manifest.
+    for candidate in (root / "kaggriculture-reference-agents", root / "datasets" / "raykkretzschmar/kaggriculture-reference-agents"):
+        if (candidate / "agents_manifest.csv").exists():
+            return candidate
+    for hit in sorted(root.rglob("agents_manifest.csv")):
+        return hit.parent
+    raise SystemExit(
+        "Reference-agent dataset not attached.\n"
+        "Add Input -> Datasets -> search 'Kaggriculture Reference Agents', then re-run."
+    )
+
+
+DATASET_DIR = find_dataset()
+print("dataset:", DATASET_DIR)
+print("contents:", sorted(p.name for p in DATASET_DIR.iterdir()))
+
+
+# --- MARKDOWN ---
+---
+## 2. Meet the opponents
+
+Ten agents in two bands, and they isolate different variables.
+
+**Tiers 0–5 — authored.** Written from scratch, all sharing a **byte-identical action
+scheduler**; the only difference between them is a `POLICY` dict at the top of each
+file. That is deliberate: any gap in results comes from *economic decisions* alone, not
+from one agent having better pathfinding than another. Diff two of these and the diff
+is the lesson.
+
+**Tiers 6–9 — the shared meta line.** These hold the opposite variable constant. All
+four run the *same* production plan — the public meta line that shows up identically
+across large groups of unrelated teams in public replays — and differ only in their
+**market layer**: what to sell, in what order, and when to hold. They bank within ~1%
+of each other against the baseline and still separate cleanly head-to-head.
+
+Together: tiers 0–5 teach you how to build a farm, tiers 6–9 show you that once
+everyone builds the same farm, selling is the whole game. Expect a large jump between
+the two bands — tier 5 banks ~53k, tier 6 ~187k.
+
+
+# --- CODE ---
+manifest = pd.read_csv(DATASET_DIR / "agents_manifest.csv").sort_values("tier")
+manifest[["tier", "agent_name", "headline", "expected_bank",
+          "hands", "extra_quadrants", "crops", "animals"]].to_string(index=False)
+
+
+# --- CODE ---
+for _, row in manifest.iterrows():
+    print(f"--- tier {row.tier}: {row.agent_name} " + "-" * (52 - len(str(row.agent_name))))
+    print("  strategy:", row.strategy)
+    print("  lesson  :", row.lesson)
+    print()
+
+
+# --- MARKDOWN ---
+---
+## 3. Why the top tiers do what they do
+
+Before ranking anything, look at this table. It is the single most useful thing I
+worked out about this game, and it explains the whole top half of the ladder.
+
+Every product has an independent **glut curve**. Sell into the market and the price
+drops — but *how fast* varies enormously. The `units_until_price_floor` column is the
+punchline: it is how many units you can sell before that product is worth $1.
+
+
+# --- CODE ---
+curves = pd.read_csv(DATASET_DIR / "price_curves.csv")
+curves.sort_values("base_price", ascending=False).to_string(index=False)
+
+
+# --- CODE ---
+# Same thing as a picture: revenue you can actually extract per product.
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(13, 4.6))
+
+sold = [50, 150, 400, 1000]
+for _, r in curves.iterrows():
+    prices = [r.price_at_50_sold, r.price_at_150_sold,
+              r.price_at_400_sold, r.price_at_1000_sold]
+    style = "-o" if r.glut_target >= 1.0 else "--s"
+    ax1.plot(sold, prices, style, label=f"{r['product']} ({r.glut_shape})", alpha=.85)
+ax1.set_xscale("log")
+ax1.set_xlabel("net units sold into the market")
+ax1.set_ylabel("price per unit ($)")
+ax1.set_title("Price decay by product\n(solid = collapses under one field's output)")
+ax1.legend(fontsize=7, ncol=2)
+ax1.grid(alpha=.3)
+
+# Cumulative revenue if you sold N units, at the price after N units.
+for _, r in curves.iterrows():
+    rev = [n * p for n, p in zip(sold, [r.price_at_50_sold, r.price_at_150_sold,
+                                        r.price_at_400_sold, r.price_at_1000_sold])]
+    ax2.plot(sold, rev, "-o", label=r["product"], alpha=.85)
+ax2.set_xscale("log")
+ax2.set_yscale("log")
+ax2.set_xlabel("net units sold")
+ax2.set_ylabel("gross revenue at that price ($)")
+ax2.set_title("Where the money actually is")
+ax2.legend(fontsize=7, ncol=2)
+ax2.grid(alpha=.3)
+
+plt.tight_layout(); plt.show()
+
+
+# --- MARKDOWN ---
+Read that chart and the ladder stops looking arbitrary:
+
+- **MELON** grosses ~115 per tile per day, about five times wheat — but its glut curve
+  is *quadratic* (`above_target` 3.60), so the market absorbs only ~150 melons before
+  the price floors. That is why **Melon Mateo** meters his sales into 12-unit lots and
+  holds a price floor, and why buying more land does *not* help him.
+- **MILK** and **WOOL** floor almost as fast. **Rancher Rita** still wins with them,
+  because livestock earns far more *per action* than crops once `CARE` is running.
+- **WHEAT** and **EGG** are logarithmic (`above_target` 0.20) — nearly glut-proof.
+  Wheat is why Rita can run a feed chain without wrecking her own margins.
+
+The general lesson: **in this game, deciding what to sell matters more than deciding
+what to grow.**
+
+
+# --- MARKDOWN ---
+---
+## 4. Load the reference agents
+
+Nothing clever here — the agents are plain single-file Python modules exposing
+`agent(obs)`, so `importlib` is all it takes. This is exactly how the competition
+loads your `main.py`, which makes it a good habit.
+
+
+# --- CODE ---
+def load_agent(path, name=None):
+    """Import a single-file Kaggriculture agent and return its `agent` callable."""
+    path = Path(path)
+    name = name or path.stem
+    spec = importlib.util.spec_from_file_location(f"kagri_{name}", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    if not hasattr(module, "agent"):
+        raise AttributeError(f"{path} defines no `agent` function")
+    return module.agent
+
+
+reference = {}
+for _, row in manifest.iterrows():
+    reference[row.agent_slug] = load_agent(DATASET_DIR / row.file, row.agent_slug)
+
+TIER_OF = dict(zip(manifest.agent_slug, manifest.tier))
+NAME_OF = dict(zip(manifest.agent_slug, manifest.agent_name))
+print(f"loaded {len(reference)} reference agents:",
+      ", ".join(f"{s} (t{TIER_OF[s]})" for s in reference))
+
+
+# --- MARKDOWN ---
+### One more opponent: the top of the public meta
+
+The ladder above tops out at Closer Cleo. There is a rung above it that is not in the
+dataset, because it is not mine to redistribute: the agent shipped by my other notebook,
+[Kaggriculture: Findings from Zero to Top Meta](https://www.kaggle.com/code/raykkretzschmar/kaggriculture-findings-from-zero-to-top-meta),
+which is built on a public replay tape and beats **all ten** reference agents 60–0–0 —
+Cleo included, by about 13,500 coins.
+
+It is attached here as a *notebook output* (Add Input → Notebook Output) rather than
+copied, so what you rank against is byte-for-byte the artifact that notebook published.
+If the input is missing the cell below just skips it and the rest of the notebook runs
+unchanged.
+
+
+# --- CODE ---
+def find_top_meta():
+    """Locate the top-meta agent from the attached notebook output, if present."""
+    root = Path("/kaggle/input")
+    if not root.exists():
+        return None
+    for candidate in (root / "kaggriculture-findings-from-zero-to-top-meta" / "main.py",
+                      root / "kernels" / "raykkretzschmar/kaggriculture-findings-from-zero-to-top-meta" / "main.py"):
+        if candidate.exists():
+            return candidate
+    # Fall back to any attached main.py that carries the tape the agent is built on.
+    for hit in sorted(root.rglob("main.py")):
+        try:
+            head = hit.read_text(errors="ignore")[:4000]
+        except OSError:
+            continue
+        if "_ACTIONS" in head and "b85decode" in head:
+            return hit
+    return None
+
+
+TOP_META_PATH = find_top_meta()
+TOP_META_SLUG = "top_meta_host"
+if TOP_META_PATH is None:
+    top_meta = None
+    print("top-meta host not attached -- skipping it. Add Input -> Notebook Output ->")
+    print("  raykkretzschmar/kaggriculture-findings-from-zero-to-top-meta")
+else:
+    top_meta = load_agent(TOP_META_PATH, TOP_META_SLUG)
+    TIER_OF[TOP_META_SLUG] = 10
+    NAME_OF[TOP_META_SLUG] = "Top Meta Host"
+    print(f"top-meta host: {TOP_META_PATH} ({TOP_META_PATH.stat().st_size:,} bytes)")
+
+
+# --- MARKDOWN ---
+---
+## 5. Two worked examples: an idea I killed, and one that survived
+
+Before you plug in your own agent, here is the harness doing the job it exists for —
+on me. I had a new agent, I was fairly confident in it, and it is not in the dataset.
+This is why.
+
+### The hypothesis
+
+Straight out of `price_curves.csv`: **EGG never floors.** Its glut curve is logarithmic
+with `above_target` 0.20, so 4,700 eggs only move the price from 50 to about 35. MILK is
+linear at 1.60 and floors after roughly **76** units; WOOL is quadratic and floors after
+**59**. Rancher Rita (tier 5) sells milk and wool. Her ceiling therefore looked like a
+*price* problem, not a production problem — so bolting a goose wing onto her working
+wheat feed chain should add an uncapped revenue stream to a herd already paid for.
+
+That is a clean, evidence-backed argument. It is also wrong.
+
+### Attempt 1 — add geese to Rita
+
+32 configurations: coop share, flock size, when the coops start, feed float, sell chunk.
+**All 32 lost to Rita**, the best by −7,569. But that test moved three things at once —
+more mouths on the feed chain, fewer tiles growing wheat, more structures — so it does
+not tell you *which* one hurt.
+
+### Attempt 2 — hold everything constant, vary only the mix
+
+Same 16 animals, same 16 structures, same land, same feed load. Only the composition
+changes:
+
+| cows | sheep | geese | bank | vs Rita |
+| ---: | ---: | ---: | ---: | ---: |
+| 10 | 6 | 0 | 52,957 | — (Rita) |
+| 12 | 4 | 0 | 54,512 | +1,555 |
+| **16** | **0** | **0** | **57,407** | **+4,450** |
+| 10 | 0 | 6 | 38,845 | −14,112 |
+| 8 | 0 | 8 | 36,638 | −16,319 |
+| 0 | 0 | 16 | 10,602 | −42,356 |
+
+Every goose variant loses badly, and an all-goose farm is a catastrophe. Meanwhile
+dropping the sheep and running 16 cows looked like a **+4,450** improvement.
+
+### The part that matters
+
+That +4,450 was measured on the same seeds I tuned on. Re-run on **held-out** seeds
+(8000–8005, both seats), the all-cow agent **loses to Rita 3–9**, margin −3,627. It beats
+every other tier 12–0 and loses to the one that counts.
+
+So there is no new tier. The idea died, and it died specifically because I checked it on
+seeds it had not seen. If you take one habit from this notebook, take that one: **tune on
+one seed set, decide on another.** Six games on the seeds you tuned with will tell you
+whatever you want to hear.
+
+The cell below reproduces the flip on a 3-seed subset so it finishes in about a minute —
+expect roughly 4–2 for the candidate on the tuned seeds and 1–5 against it on the
+held-out ones. The 12-game run quoted above (3–9) is the same effect measured harder.
+
+
+# --- MARKDOWN ---
+### Why eggs lose, and why the price curve misled me
+
+`price_curves.csv` measures a **static** market. Real games are not static: town shops
+consume product every four turns, all season, which continuously drains inventory and
+holds the price up. What actually decides your realised price is **how many shops demand
+your product**, not how steep its glut curve is.
+
+| Product | Shops demanding it | Base price | Shop demand/day |
+| :--- | ---: | ---: | ---: |
+| WHEAT | 5 | 25 | 30 |
+| STRAWBERRY | 4 | 120 | 24 |
+| **MILK** | **3** | **160** | **18** |
+| EGG | 2 | 50 | 12 |
+| CARROT / TOMATO | 2 | 35 / 60 | 12 |
+| WOOL | 1 | 200 | 12 |
+| **MELON** | **0** | **250** | **0** |
+
+Measured at the end of a 720-turn season, this is what that does:
+
+| Farm | MILK inventory | MILK price | EGG inventory | EGG price |
+| :--- | ---: | ---: | ---: | ---: |
+| 16 cows | **−148** (scarce) | **266** | −302 | 68 |
+| 16 geese | −464 | 347 | **+104** (glutted) | **42** |
+
+Three shops drain milk faster than sixteen cows can supply it, so milk sells **above** its
+$160 base for the entire season — the 76-unit "ceiling" never binds. Eggs, on two shops at
+a $50 base, do glut and sell at 42. The uncapped product is worth less per action than the
+capped one that nobody can keep in stock.
+
+The same table explains the rest of the ladder. **Melon appears in no shop at all** —
+only the town centre buys it, a couple of units a day — which is the real reason Melon
+Mateo tops out around 44k no matter how much land he buys. And **wool has a single shop**,
+which is why deleting the sheep helped at all.
+
+So: `units_until_price_floor` is the wrong column to optimise. Multiply base price by shop
+demand and you get much closer to what you can actually bank.
+
+
+# --- CODE ---
+# Build the candidate, so you can re-run the experiment yourself.
+#
+# Every shipped agent exposes `act(obs, policy)` -- the scheduler and the policy are
+# separate -- so a new agent is a dict, not a new file. This is the cheapest way to
+# test a production idea in this game.
+import copy
+
+spec = importlib.util.spec_from_file_location("rita_mod", DATASET_DIR / "rancher_rita.py")
+rita_mod = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(rita_mod)
+
+DROVER = copy.deepcopy(rita_mod.POLICY)          # Rita's plan...
+DROVER["build"] = [{"kind": "PASTURE", "target": 16, "share": 0.5,
+                    "from_day": 0, "until_day": 20}]
+DROVER["animals"] = ["COW"]                       # ...with the sheep leg replaced
+DROVER["animal_target"] = {"COW": 16}             #    by four more cows
+DROVER["sell_order"] = ["MILK", "WHEAT"]
+
+drover = lambda obs: rita_mod.act(obs, DROVER)
+rita = lambda obs: rita_mod.act(obs, rita_mod.POLICY)
+
+
+def quick_duel(a, b, seeds):
+    """Minimal seat-swapped comparison. Self-contained so this section can be read
+    and run on its own, before the full harness further down."""
+    wins = losses = 0
+    margins = []
+    for seed in seeds:
+        for seat in (0, 1):
+            pair = [a, b] if seat == 0 else [b, a]
+            env = make("kaggriculture",
+                       configuration={"episodeSteps": 720, "seed": seed}, debug=False)
+            env.run(pair)
+            r = [s.reward for s in env.steps[-1]]
+            x, y = r[seat], r[1 - seat]
+            if x is None or y is None:
+                continue
+            margins.append(x - y)
+            wins += x > y
+            losses += x < y
+    return wins, losses, sum(margins) / len(margins)
+
+
+# Tuning seeds say the all-cow build is better. Held-out seeds disagree.
+for label, seed_set in (("tuned-on  (7000-7002)", [7000, 7001, 7002]),
+                        ("held-out  (8000-8002)", [8000, 8001, 8002])):
+    w, l, margin = quick_duel(drover, rita, seed_set)
+    verdict = "candidate wins" if w > l else "Rita wins"
+    print(f"{label}:  {w}-{l}  margin {margin:+,.0f}   -> {verdict}")
+
+
+# --- MARKDOWN ---
+---
+### The same discipline, applied to something that worked
+
+Drover Dag died on held-out seeds. Here is the change that lived — found by pointing the
+same machinery not at the middle of the ladder but at the rung *above* the top of it.
+
+The Top Meta Host loaded in section 4 beats all ten reference agents 60–0–0. Beating
+**that** is the only interesting target left, and it is a hard one: it replays a fixed
+action tape with a market controller bolted on, so a mirror match between two copies of
+it is a dead tie by construction. Everything I tried in its market layer lost:
+
+| Idea | Result vs the host |
+| --- | --- |
+| Liquidate the shed one turn before its own terminal dump | 2–2–2, −12 to 0 — by then the shed is empty |
+| Push every SELL into the earliest market slots | 2–4–0, −7 |
+| Rank sells by gross revenue, or by unit price, instead of price impact | 0–6–0, −1,622 / −7,394 |
+| Hold each product to a reservation price | 0–6–0, −11,814 to −15,003 |
+
+So the market layer is at a hard local optimum, and the field plan is a recording. The
+edge has to come from somewhere the tape does not reach — and there is somewhere,
+because the tape does not reach 15% of its own turns:
+
+```
+total actor-ops across the 719-step tape:  6,900
+                                    PASS:  1,050  (15.2%)
+```
+
+Those 1,050 turns are already paid for. A hand has been hired, has walked somewhere, and
+is told to do nothing. **Idle Ida** gives each of them a job on the tile it is already
+standing on.
+
+**Nothing moves.** That constraint is the whole design. Tape actions are actor-local —
+`["WEST"]`, `["WATER"]`, `["HARVEST"]`, with no coordinates anywhere — so an actor's
+route is dead reckoning. Displace an idle hand by one tile and every remaining `WATER`
+in its season lands on the wrong square. A stationary job is invisible to the tape.
+
+#### What the idle jobs are actually worth
+
+Ablated one at a time against the host, seeds 9001–9003, both seats:
+
+| Idle job set | Record | Mean margin |
+| --- | --- | ---: |
+| `COLLECT_FERTILIZER` only, ranked first | **6–0–0** | **+258** |
+| everything, `COLLECT_FERTILIZER` ranked first | 6–0–0 | +258 |
+| everything, `COLLECT_FERTILIZER` ranked last | 6–0–0 | +227 |
+| everything, including harvesting ongoing crops | 6–0–0 | +208 |
+| `FEED` only / `CARE` only / `WATER` only / `HARVEST` only | 2–2–2 | 0 |
+| everything *except* `COLLECT_FERTILIZER` | 2–2–2 | 0 |
+
+The entire edge is **one op**. The host's crew walks past animals with fertilizer
+standing on them and does nothing. Fertilizer doubles a plant's production on any day it
+is also watered, and the host is short of it. Every other idle job is worth exactly
+zero — by the time an actor is idle, the tape has already fed, watered and harvested
+whatever it is next to.
+
+That is worth sitting with. I went looking for a scheduling improvement and found a
+single missed pickup. **The ablation is what told me that, and nothing else would have.**
+Without it I would have shipped all six jobs, banked +208 instead of +258, and believed
+the gain came from the clever part.
+
+#### And what does not work
+
+Once fertilizer looked like the lever, every obvious follow-up lost, and lost big:
+
+| Idea | Result vs the host |
+| --- | --- |
+| Idle actors spread the fertilizer they collect | 0–6–0, **−14,576** |
+| …only above a 3-unit carried reserve | 6–0–0, +258 — it never fires |
+| `BUY_PRODUCT FERTILIZER`, pick it up at the shed, spread it | 0–6–0, **−120,769** |
+
+Spreading fertilizer by hand starves the tiles the tape collected it for. Buying it is
+worse than useless: `BUY_PRODUCT` *removes* units from market inventory, so bulk buying
+walks fertilizer's own price up the curve — the same trap wheat sets for feed chains.
+
+#### The result
+
+| Opponent | Seeds | Record | Mean margin |
+| --- | --- | --- | ---: |
+| Top Meta Host | 9001–9003, 8000–8002, 7000–7002 × both seats | **18–0–0** | +257 |
+| all ten reference agents | 8000–8002 (held out) × both seats | **60–0–0** | +6,700 … +185,000 |
+
+Six of those nine seeds were never used while tuning, and the margin is the same +257 on
+every one of them. That flatness is itself informative: this is not a strategy that gets
+lucky on some maps, it is the same missed pickup on all of them.
+
+A +257 edge on a ~107,000 bank is **0.24%** — and in a head-to-head competition it is a
+clean sweep. Absolute banks are not the currency here; winning the game is.
+
+### Packaging it as a real submission
+
+A Kaggriculture submission has to be a self-contained `main.py`. Idle Ida is the host
+file with the overlay below appended to it, so the diff you are trusting is one you can
+read in full — it is the next cell.
+
+`idle_overlay.py` is written out but never imported. It is not valid on its own: it calls
+the host's `_get`, `_seat` and `_farm` helpers. It gets concatenated onto the host source
+in the cell after it.
+
+That produces `/kaggle/working/submission.tar.gz`, which does double duty:
+
+1. **It is what gets evaluated below.** The default `CHALLENGER_MODE` is `"archive"`
+   pointing at this file, so the ranking further down measures the *actual artifact*,
+   not a copy of the source. Packaging mistakes surface here instead of on the
+   leaderboard.
+2. **It is what you submit.** Save a version of this notebook and the tarball becomes
+   its output, so
+   `kaggle competitions submit kaggriculture -k YOUR_USER/kaggriculture-rank-your-agent -f submission.tar.gz -v VERSION`
+   works — or attach it from the notebook's Output tab.
+
+To submit something else, point `main.py` at your own code and re-save.
+
+
+# --- CODE ---
+%%writefile idle_overlay.py
+# ===========================================================================
+# Idle-crew overlay -- see scripts/build_counter.py for the measurements
+# ===========================================================================
+
+# Each job may be switched off independently so the sweep can price it.
+_IDLE_ON = True
+_IDLE_FEED = True             # unfed animal, actor carrying wheat
+_IDLE_WATER = True            # unwatered plant; the only source of crop yield
+_IDLE_HARVEST_ANIMAL = True   # milk/wool/eggs standing on the tile
+_IDLE_CARE = True             # +1 banked product, but only on a day it is also fed
+_IDLE_COLLECT = True          # free fertilizer off an animal tile
+_IDLE_HARVEST_ONGOING = False # measured: -31 against the host; see the builder
+_IDLE_COLLECT_FIRST = True    # fertilizer outranks every other idle job (measured)
+
+
+def _idle_tile(farm, pos):
+    """The tile an actor is standing on, or None if it cannot be worked."""
+    try:
+        x, y = int(pos[0]), int(pos[1])
+    except (TypeError, ValueError, IndexError):
+        return None
+    rows = farm.get("tiles") or []
+    if not (0 <= y < len(rows) and 0 <= x < len(rows[y])):
+        return None
+    tile = rows[y][x]
+    return tile if isinstance(tile, dict) else None
+
+
+def _idle_job(tile, inv, day):
+    """Best stationary op for `tile`, or None. Order is by measured value per op."""
+    if "animal" in tile:
+        if _IDLE_COLLECT_FIRST and _IDLE_COLLECT and tile.get("fertilizer_available"):
+            return ["COLLECT_FERTILIZER"]
+        if _IDLE_FEED and not tile.get("fed_today") and int(inv.get("WHEAT", 0) or 0) > 0:
+            return ["FEED"]
+        if _IDLE_HARVEST_ANIMAL and int(tile.get("yield_units", 0) or 0) > 0:
+            return ["HARVEST"]
+        # The engine banks the care bonus only on a day the animal is also fed, so
+        # caring an unfed animal spends an op for nothing.
+        if _IDLE_CARE and tile.get("fed_today") and not tile.get("cared_today"):
+            return ["CARE"]
+        if _IDLE_COLLECT and tile.get("fertilizer_available"):
+            return ["COLLECT_FERTILIZER"]
+        return None
+    if tile.get("kind") == "PLANT":
+        if _IDLE_WATER and not tile.get("watered_today"):
+            return ["WATER"]
+        if _IDLE_HARVEST_ONGOING and int(tile.get("yield_units", 0) or 0) > 0:
+            crop = tile.get("crop")
+            # Only ongoing crops survive their own harvest; clearing a one-shot
+            # crop early would delete a tile the tape still plans to work.
+            if crop in ("STRAWBERRY", "TOMATO"):
+                first = 10 if crop == "STRAWBERRY" else 8
+                if int(day) - int(tile.get("planted_day", 0) or 0) >= first:
+                    return ["HARVEST"]
+    return None
+
+
+def _idle_fill(obs, action):
+    """Replace every PASS in `action` with a job on the actor's own tile."""
+    if not _IDLE_ON:
+        return action
+    step = int(_get(obs, "step", 0) or 0)
+    seat = _seat(obs)
+    farm = _farm(obs, seat)
+    day = int(_get(obs, "day", step // 24) or 0)
+    private = _get(obs, "private", {}) or {}
+    inventories = _get(private, "inventories", []) or []
+
+    def inv_of(index):
+        return inventories[index] if index < len(inventories) else {}
+
+    def job_for(pos, inv):
+        tile = _idle_tile(farm, pos)
+        return _idle_job(tile, inv, day) if tile is not None else None
+
+    order = action.get("farmer") or ["PASS"]
+    if order and order[0] == "PASS":
+        job = job_for(_get(farm, "farmer", [0, 0]), inv_of(0))
+        if job:
+            action["farmer"] = job
+
+    hands = list(action.get("hands") or [])
+    positions = _get(farm, "hands", []) or []
+    for index, order in enumerate(hands):
+        if not (order and order[0] == "PASS") or index >= len(positions):
+            continue
+        job = job_for(positions[index], inv_of(index + 1))
+        if job:
+            hands[index] = job
+    action["hands"] = hands
+    return action
+
+
+_idle_host_agent = agent
+
+
+def agent(obs, config=None):
+    """`c44_kaito_impact`, with its 1,050 idle actor-turns put to work."""
+    action = _idle_host_agent(obs, config)
+    try:
+        return _idle_fill(obs, action)
+    except Exception:
+        return action
+
+
+# --- CODE ---
+# Build Idle Ida = the top-meta host + the overlay above, then package it exactly as the
+# competition wants.
+WORK = Path("/kaggle/working") if Path("/kaggle/working").exists() else Path(".")
+
+if TOP_META_PATH is None:
+    raise SystemExit(
+        "Idle Ida is an overlay on the top-meta host, which is not attached.\n"
+        "Add Input -> Notebook Output -> raykkretzschmar/kaggriculture-findings-from-zero-to-top-meta\n"
+        "or set CHALLENGER_MODE to \"cell\" below to rank the template agent instead."
+    )
+
+host_src = TOP_META_PATH.read_text()
+overlay_src = Path("idle_overlay.py").read_text()
+
+NL = chr(10)      # so the docstring below needs no escape sequences
+_doc = '"""Idle Ida -- the top meta agent, with its idle crew put to work.\n\nThe host agent replays a recorded field plan and overlays a market controller on it.\nAcross the 719-step tape, 1,050 of its 6,900 actor-turns are PASS: a hand that has\nbeen hired, has walked somewhere, and is told to do nothing. This agent gives each of\nthose turns a job on the tile the actor is already standing on -- feed, water, harvest,\ncare, collect fertilizer -- and changes nothing else.\n\nNothing here moves an actor. Tape actions carry no coordinates, so an actor\'s route is\ndead reckoning: displace it by one tile and every remaining WATER in its season lands\non the wrong square. Staying put is what makes the overlay safe to bolt onto a tape.\n\nThe market layer is untouched, and that is a measured decision rather than an omission.\nAgainst the host itself, every market variant tried lost:\n\n    stock mirror                     2-2-2       +0\n    _EARLY_TERMINAL 710..717         2-2-2      -12..0\n    _SELLS_FIRST                     2-4-0       -7\n    _SORT_KEY gross / unit           0-6-0   -1,622 / -7,394\n    _RESERVE sells at 0.7 / 1.0      0-6-0  -11,814 / -15,003\n\nGenerated by scripts/build_counter.py -- do not edit by hand.\n"""'
+
+# Swap the host's docstring for ours; everything below it is reused byte-for-byte, then
+# the overlay is appended verbatim.
+_stripped = host_src.lstrip()
+_q = _stripped[:3]
+main_py = _doc + NL + _stripped[_stripped.index(_q, 3) + 3:].lstrip(NL) + NL + overlay_src
+
+# The overlay is only safe because it never moves an actor. Assert that rather than
+# trusting it: a single direction op in here would desynchronise the tape for good.
+for _move in ("NORTH", "SOUTH", "EAST", "WEST"):
+    assert _move not in overlay_src, f"overlay emits a movement op ({_move}) -- unsafe"
+assert "_idle_host_agent = agent" in overlay_src, "overlay lost its host binding"
+
+(WORK / "main.py").write_text(main_py)
+
+archive = WORK / "submission.tar.gz"
+with tarfile.open(archive, "w:gz") as tf:
+    tf.add(WORK / "main.py", arcname="main.py")     # arcname: main.py must be at the ROOT
+
+print(f"host    {TOP_META_PATH.name}  ({len(host_src):,} bytes)")
+print(f"overlay idle_overlay.py  ({len(overlay_src):,} bytes)")
+print(f"wrote {WORK / 'main.py'}  ({len(main_py):,} bytes)")
+print(f"wrote {archive}  ({archive.stat().st_size:,} bytes)")
+
+# Prove the packaged artifact imports and plays a full season before trusting it.
+_check = load_agent(WORK / "main.py", "packaged_check")
+_env = make("kaggriculture", configuration={"episodeSteps": 720, "seed": 8000}, debug=True)
+_env.run([_check, "starter"])
+_final = _env.steps[-1][0]
+print(f"packaged main.py: status={_final.status}  bank={_final.reward:,.0f}")
+assert _final.status == "DONE", "packaged agent did not survive a full season"
+
+
+# --- MARKDOWN ---
+---
+## 6. Plug in your own agent
+
+Three ways, pick whichever suits you. **Option A** is the one to use if you are just
+forking this notebook to try an idea.
+
+
+# --- MARKDOWN ---
+### Option A — write it in a cell
+
+Edit the cell below. The template is a deliberately mediocre wheat loop so you can see
+the machinery work end to end; replace the body with your own policy.
+
+
+# --- CODE ---
+%%writefile my_agent.py
+"""My Kaggriculture agent.
+
+Contract: `agent(obs) -> {"farmer": [op, *args], "hands": [...], "market": [...]}`
+Handy reminders:
+  - tiles are indexed tiles[y][x]; the farmer is at [x, y]
+  - the only shed-access tile while just NW is unlocked is (4, 4)
+  - plants die after 2 unwatered days; animals die after 2 unfed days (permanently)
+  - end of day dumps every inventory into the shed, which caps at 100 items
+"""
+
+def agent(obs):
+    me = obs["farms"][obs["player"]]
+    priv = obs["private"]
+    fx, fy = me["farmer"]
+    tile = me["tiles"][fy][fx]
+
+    market = []
+    if priv["seeds"].get("WHEAT", 0) < 4 and me["money"] >= 40:
+        market.append(["BUY_SEED", "WHEAT", 4])
+    if obs["hour"] == 0:
+        market += [["HIRE"]] * 4          # four hands cost 7 coins for the whole day
+    wheat = priv["shed"].get("WHEAT", 0)
+    if wheat:
+        market.append(["SELL", "WHEAT", wheat])
+
+    # One naive farmer loop; the hands just mirror it.
+    if tile is None and priv["seeds"].get("WHEAT", 0) > 0:
+        op = ["PLANT", "WHEAT"]
+    elif isinstance(tile, dict) and tile.get("kind") == "PLANT":
+        age = obs["day"] - tile["planted_day"]
+        if age >= 4:                       # wait for the full watering bonus window
+            op = ["HARVEST"]
+        elif not tile["watered_today"]:
+            op = ["WATER"]
+        else:
+            op = ["EAST" if fx < 4 else "WEST"]
+    else:
+        op = ["EAST" if fx < 4 else "WEST"]
+
+    return {"farmer": op, "hands": [["PASS"]] * len(me["hands"]), "market": market}
+
+
+# --- MARKDOWN ---
+### Option B — from your own Kaggle dataset
+
+If your agent already lives in a dataset (handy for anything with weights or several
+modules), attach it and point at the file.
+
+### Option C — from a submission archive
+
+If you submit a `submission.tar.gz`, evaluate *that exact artifact* rather than a copy
+of the source. This is the option I trust most, because it catches packaging mistakes —
+a missing module or a wrong path shows up here instead of on the leaderboard.
+
+Handles `.tar.gz` / `.tgz` / `.tar.bz2` / `.tar.xz` / plain `.tar`, and `.zip`.
+**`.7z` is not supported** — `py7zr` is not installed on Kaggle images, and the
+competition wants a `.tar.gz` anyway, so repack rather than fight it.
+
+
+# --- CODE ---
+# ---------------------------------------------------------------------------
+# Choose how to load your challenger: "cell", "dataset" or "archive".
+#
+# Default is "archive" pointing at the submission.tar.gz built above, so the
+# ranking below measures the exact artifact this notebook submits. Switch to
+# "cell" to rank the template agent instead, or "dataset" for your own file.
+# ---------------------------------------------------------------------------
+CHALLENGER_MODE = "archive"
+
+CHALLENGER_NAME = "idle_ida"                     # label used in the results table
+DATASET_AGENT_PATH = "/kaggle/input/my-agent-dataset/main.py"
+ARCHIVE_PATH = str(WORK / "submission.tar.gz")   # what we just packaged
+
+
+def _unsafe(name):
+    """Reject absolute paths and anything escaping the extraction directory."""
+    parts = Path(name).parts
+    return Path(name).is_absolute() or ".." in parts or name.startswith("/")
+
+
+def load_from_archive(archive_path, workdir=None):
+    """Extract a submission archive and import the main.py inside it.
+
+    Supports the .tar.gz the competition expects, its siblings (.tgz, .tar.bz2,
+    .tar.xz, plain .tar) and .zip. 7-Zip is deliberately not supported: py7zr is
+    not installed on Kaggle images.
+    """
+    archive_path = Path(archive_path)
+    if not archive_path.exists():
+        raise FileNotFoundError(f"no archive at {archive_path}")
+    # Derive from WORK rather than hard-coding /kaggle/working, so this also runs
+    # locally or in a fork with a different working directory.
+    workdir = Path(workdir) if workdir else WORK / "_unpacked"
+    if workdir.exists():
+        shutil.rmtree(workdir)               # never mix two runs' extractions
+    workdir.mkdir(parents=True, exist_ok=True)
+
+    # Check zip first: a .zip is not a tarfile, and vice versa.
+    if zipfile.is_zipfile(archive_path):
+        with zipfile.ZipFile(archive_path) as zf:
+            bad = [n for n in zf.namelist() if _unsafe(n)]
+            if bad:
+                raise ValueError(f"unsafe path in archive: {bad[0]}")
+            zf.extractall(workdir)
+    elif tarfile.is_tarfile(archive_path):
+        with tarfile.open(archive_path) as tf:
+            bad = [n for n in tf.getnames() if _unsafe(n)]
+            if bad:
+                raise ValueError(f"unsafe path in archive: {bad[0]}")
+            try:
+                tf.extractall(workdir, filter="data")   # Python 3.12+
+            except TypeError:
+                tf.extractall(workdir)
+    else:
+        raise ValueError(
+            f"{archive_path.name} is not a readable tar or zip archive. "
+            "7-Zip (.7z) is not supported here -- py7zr is not installed on Kaggle "
+            "images, and the competition expects submission.tar.gz. Repack with: "
+            "tar -czf submission.tar.gz main.py ..."
+        )
+
+    main = workdir / "main.py"
+    if not main.exists():
+        found = sorted(workdir.rglob("main.py"))
+        if not found:
+            raise FileNotFoundError(
+                "no main.py in the archive. The competition requires main.py at the "
+                f"root; archive contains: {sorted(p.name for p in workdir.rglob('*'))[:12]}"
+            )
+        # Not fatal here, but it *is* fatal on submission -- so say so loudly.
+        main = found[0]
+        print(f"WARNING: main.py is not at the archive root (found at "
+              f"{main.relative_to(workdir)}). Kaggle will reject this submission.")
+    sys.path.insert(0, str(main.parent))       # so sibling modules import cleanly
+    return load_agent(main, "challenger")
+
+
+if CHALLENGER_MODE == "cell":
+    challenger = load_agent("my_agent.py", "challenger")
+elif CHALLENGER_MODE == "dataset":
+    challenger = load_agent(DATASET_AGENT_PATH, "challenger")
+elif CHALLENGER_MODE == "archive":
+    challenger = load_from_archive(ARCHIVE_PATH)
+else:
+    raise ValueError(f"unknown CHALLENGER_MODE: {CHALLENGER_MODE!r}")
+
+print("challenger loaded:", CHALLENGER_NAME, "via", CHALLENGER_MODE)
+
+
+# --- MARKDOWN ---
+### Sanity check first
+
+Before spending minutes on a round robin, play one short game and confirm the agent
+does not crash. A Kaggriculture agent that raises gets status `ERROR` and forfeits, and
+because invalid actions are *silent no-ops* you can otherwise burn a full evaluation on
+an agent that quietly did nothing at all.
+
+
+# --- CODE ---
+def play(agent_a, agent_b, seed=0, steps=720, debug=False):
+    """One episode. Returns (rewards, statuses)."""
+    env = make("kaggriculture",
+               configuration={"episodeSteps": steps, "seed": seed},
+               debug=debug)
+    env.run([agent_a, agent_b])
+    final = env.steps[-1]
+    return [s.reward for s in final], [s.status for s in final]
+
+
+rewards, statuses = play(challenger, reference["fallow_finn"], seed=1, steps=120, debug=True)
+print("120-turn smoke test — rewards:", rewards, "statuses:", statuses)
+assert statuses[0] == "DONE", f"challenger did not survive: {statuses[0]}"
+print("OK")
+
+
+# --- MARKDOWN ---
+---
+## 7. The evaluation
+
+Two details make the difference between a number you can trust and one you cannot:
+
+**Swap seats.** Player 0 and player 1 are not symmetric — market orders are processed
+in player order, so seat 0 gets first call on a contested price. Every pairing is
+played from both seats.
+
+**Fix the seeds.** Weeds, shop unlock order and shop selection are all seeded. Reusing
+the same seed list keeps runs comparable when you tweak your agent.
+
+
+# --- CODE ---
+# ---- evaluation budget ----------------------------------------------------
+SEEDS = [9001, 9002, 9003]     # add more for tighter error bars
+FULL_ROUND_ROBIN = False       # True also replays reference-vs-reference (much slower)
+# ---------------------------------------------------------------------------
+
+def duel(name_a, agent_a, name_b, agent_b, seeds=SEEDS):
+    """Seat-swapped series. Returns a result row from name_a's perspective."""
+    wins_a = wins_b = ties = errors = 0
+    margins = []
+    for seed in seeds:
+        for seat_a in (0, 1):
+            pair = [agent_a, agent_b] if seat_a == 0 else [agent_b, agent_a]
+            rewards, statuses = play(*pair, seed=seed)
+            mine, theirs = rewards[seat_a], rewards[1 - seat_a]
+            if mine is None or theirs is None or any(
+                    s in {"ERROR", "INVALID"} for s in statuses):
+                errors += 1
+                continue
+            margins.append(mine - theirs)
+            if mine > theirs:
+                wins_a += 1
+            elif mine < theirs:
+                wins_b += 1
+            else:
+                ties += 1
+    return {
+        "agent_a": name_a, "agent_b": name_b,
+        "wins_a": wins_a, "wins_b": wins_b, "ties": ties, "errors": errors,
+        "games": wins_a + wins_b + ties,
+        "mean_margin_a": round(sum(margins) / len(margins), 1) if margins else 0.0,
+    }
+
+
+# --- CODE ---
+started = time.time()
+rows = []
+
+# Challenger against every rung. This is the part that must be measured fresh.
+for slug, ref in reference.items():
+    row = duel(CHALLENGER_NAME, challenger, slug, ref)
+    rows.append(row)
+    print(f"  {CHALLENGER_NAME} {row['wins_a']}-{row['wins_b']} {slug}"
+          f"  (tier {TIER_OF[slug]}, margin {row['mean_margin_a']:+,.0f})")
+
+# The rung above the ladder, plus one pairing that ties it to the ladder -- otherwise
+# Bradley-Terry sees the host only through the challenger and cannot place either one.
+if top_meta is not None:
+    row = duel(CHALLENGER_NAME, challenger, TOP_META_SLUG, top_meta)
+    rows.append(row)
+    print(f"  {CHALLENGER_NAME} {row['wins_a']}-{row['wins_b']} {TOP_META_SLUG}"
+          f"  (tier 10, margin {row['mean_margin_a']:+,.0f})")
+    row = duel(TOP_META_SLUG, top_meta, "closer_cleo", reference["closer_cleo"])
+    rows.append(row)
+    print(f"  {TOP_META_SLUG} {row['wins_a']}-{row['wins_b']} closer_cleo"
+          f"  (margin {row['mean_margin_a']:+,.0f})")
+
+# Reference-vs-reference comes precomputed in the dataset, so the default run stays
+# fast. Flip FULL_ROUND_ROBIN to replay it on your own seeds instead.
+if FULL_ROUND_ROBIN:
+    print("\nreplaying reference-vs-reference...")
+    for a, b in itertools.combinations(reference, 2):
+        row = duel(a, reference[a], b, reference[b])
+        rows.append(row)
+        print(f"  {a} {row['wins_a']}-{row['wins_b']} {b}")
+else:
+    baseline = pd.read_csv(DATASET_DIR / "baseline_league.csv")
+    rows += baseline.to_dict("records")
+    print(f"\nreused {len(baseline)} precomputed reference pairings from the dataset")
+
+results = pd.DataFrame(rows)
+print(f"\n{len(results)} pairings in {time.time() - started:.0f}s"
+      f"   errors: {int(results.errors.sum())}")
+
+
+# --- MARKDOWN ---
+---
+## 8. Ranking with Bradley-Terry
+
+Win rate alone is misleading in a ladder: beating tier 0 four times is not the same
+achievement as beating tier 5 twice, but a raw win rate treats them identically.
+
+Bradley-Terry fits each agent a latent strength from *who* it beat, so wins against
+strong opponents count for more. The competition uses the same family of model for
+final standings, which is the main reason I rank this way locally.
+
+I report it on an Elo-like scale (400 points per 10x strength, mean anchored at 1500)
+because those numbers are easier to hold in your head than raw strengths.
+
+
+# --- CODE ---
+def bradley_terry(rows, iterations=10_000, tol=1e-10, prior=0.5):
+    """Fit BT strengths by MM iteration.
+
+    `prior` adds half a phantom win each way against an average opponent, which keeps
+    an undefeated (or winless) agent from running off to infinity.
+    """
+    pairs = {}
+    for r in rows:
+        key = (r["agent_a"], r["agent_b"])
+        wa, wb = pairs.get(key, (0.0, 0.0))
+        # A tie counts as half a win to each side.
+        pairs[key] = (wa + r["wins_a"] + 0.5 * r["ties"],
+                      wb + r["wins_b"] + 0.5 * r["ties"])
+
+    names = sorted({n for pair in pairs for n in pair})
+    strength = {n: 1.0 for n in names}
+    wins = {n: 0.0 for n in names}
+    games = {n: [] for n in names}
+    for (a, b), (wa, wb) in pairs.items():
+        wins[a] += wa
+        wins[b] += wb
+        games[a].append((b, wa + wb))
+        games[b].append((a, wa + wb))
+
+    for _ in range(iterations):
+        delta = 0.0
+        for n in names:
+            numerator = wins[n] + prior
+            denominator = prior / (prior + 1.0) * 2.0
+            for other, total in games[n]:
+                denominator += total / (strength[n] + strength[other])
+            if denominator <= 0:
+                continue
+            updated = numerator / denominator
+            delta = max(delta, abs(updated - strength[n]) / max(updated, 1e-12))
+            strength[n] = updated
+        geo = math.exp(sum(math.log(max(s, 1e-12)) for s in strength.values()) / len(strength))
+        for n in names:
+            strength[n] /= geo
+        if delta < tol:
+            break
+
+    return {n: 1500 + 400 * math.log10(max(s, 1e-12)) for n, s in strength.items()}
+
+
+def rank_table(rows):
+    ratings = bradley_terry(rows)
+    stats = {n: {"wins": 0, "losses": 0, "ties": 0, "margins": []} for n in ratings}
+    for r in rows:
+        a, b = r["agent_a"], r["agent_b"]
+        stats[a]["wins"] += r["wins_a"]; stats[a]["losses"] += r["wins_b"]
+        stats[b]["wins"] += r["wins_b"]; stats[b]["losses"] += r["wins_a"]
+        stats[a]["ties"] += r["ties"];   stats[b]["ties"] += r["ties"]
+        stats[a]["margins"].append(r["mean_margin_a"])
+        stats[b]["margins"].append(-r["mean_margin_a"])
+
+    out = []
+    for n, s in stats.items():
+        played = s["wins"] + s["losses"] + s["ties"]
+        out.append({
+            "agent": NAME_OF.get(n, n),
+            "slug": n,
+            "tier": TIER_OF.get(n, "you"),
+            "bt_rating": round(ratings[n]),
+            "record": f"{s['wins']}-{s['losses']}-{s['ties']}",
+            "win_pct": round(100 * s["wins"] / played, 1) if played else 0.0,
+            "mean_margin": round(sum(s["margins"]) / len(s["margins"])) if s["margins"] else 0,
+        })
+    return (pd.DataFrame(out)
+            .sort_values("bt_rating", ascending=False)
+            .reset_index(drop=True))
+
+
+table = rank_table(results.to_dict("records"))
+table.index += 1
+table
+
+
+# --- CODE ---
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(13, 4.4))
+
+colors = ["#d1495b" if s == CHALLENGER_NAME else "#4c6ef5" for s in table.slug]
+ax1.barh(table.agent[::-1], table.bt_rating[::-1], color=colors[::-1])
+ax1.set_xlabel("Bradley-Terry rating (1500 = field average)")
+ax1.set_title("Ranking — your agent in red")
+ax1.grid(axis="x", alpha=.3)
+
+ref_rows = table[table.slug != CHALLENGER_NAME].sort_values("tier")
+ax2.plot(ref_rows.tier, ref_rows.bt_rating, "-o", color="#4c6ef5", label="reference ladder")
+you = table[table.slug == CHALLENGER_NAME]
+if len(you):
+    ax2.axhline(you.bt_rating.iloc[0], color="#d1495b", ls="--",
+                label=f"you ({int(you.bt_rating.iloc[0])})")
+ax2.set_xlabel("reference tier"); ax2.set_ylabel("BT rating")
+ax2.set_title("Which rung did you land on?")
+ax2.legend(); ax2.grid(alpha=.3)
+
+plt.tight_layout(); plt.show()
+
+
+# --- MARKDOWN ---
+---
+## 9. Reading the result
+
+Find the highest tier you beat consistently, then look up what that tier does in the
+manifest above. The gaps are where your next improvement is.
+
+
+# --- CODE ---
+you_rows = results[(results.agent_a == CHALLENGER_NAME) | (results.agent_b == CHALLENGER_NAME)]
+print(f"{CHALLENGER_NAME} vs the ladder\n" + "=" * 58)
+beaten = []
+for _, r in you_rows.iterrows():
+    if r.agent_a == CHALLENGER_NAME:
+        opp, my_w, their_w, margin = r.agent_b, r.wins_a, r.wins_b, r.mean_margin_a
+    else:
+        opp, my_w, their_w, margin = r.agent_a, r.wins_b, r.wins_a, -r.mean_margin_a
+    verdict = "WIN " if my_w > their_w else ("tie " if my_w == their_w else "LOSS")
+    if my_w > their_w:
+        beaten.append(TIER_OF[opp])
+    print(f"  {verdict} vs tier {TIER_OF[opp]} {NAME_OF[opp]:<18} "
+          f"{my_w}-{their_w}   margin {margin:+,.0f}")
+
+print()
+if beaten:
+    top = max(beaten)
+    top_slug = next(k for k, v in TIER_OF.items() if v == top)
+    nxt = manifest[manifest.tier == top + 1]
+    print(f"Highest tier beaten: {top} ({NAME_OF[top_slug]})")
+    if len(nxt):
+        print(f"\nNext rung — tier {top + 1}, {nxt.agent_name.iloc[0]}:")
+        print("  " + nxt.headline.iloc[0])
+        print("  " + nxt.lesson.iloc[0])
+    elif top_meta is not None and top >= TIER_OF[TOP_META_SLUG]:
+        print("\nYou beat the top-meta host as well. There is no rung left here --")
+        print("raise SEEDS for tighter error bars, then submit.")
+    else:
+        print("\nYou beat the whole ladder. Time to raise the seed count and submit.")
+else:
+    print("No wins yet. Start with tier 0 (Fallow Finn) — it literally passes every turn,")
+    print("so losing to it means the agent is destroying value: buying seeds it never")
+    print("waters, or livestock it never feeds.")
+
+
+# --- MARKDOWN ---
+### The checklist I actually use
+
+Most of my own broken agents failed one of these, and every one of them is cheap to
+check. In rough order of how much money they cost me:
+
+1. **Hire hands.** Four hands cost `1+1+2+3 = 7` coins for a whole day and take you
+   from 24 actions to 120. Not hiring is the single most expensive mistake available.
+2. **Sell before you buy, in the same turn.** The market queue is processed in list
+   order, so a `SELL` placed ahead of a `BUY` funds it immediately. Budget against
+   post-sale cash or you will sit at zero coins all season with a full shed.
+3. **Feed before you expand.** An animal dies *permanently* after two unfed days.
+   Wheat has to be bought before land or livestock, never after.
+4. **Do not hoard seeds.** Twenty-five melon seeds is 2,000 coins earning nothing.
+   Hold only what you can plant in the next few turns.
+5. **Spread your carriers.** One hand with a full sack cannot walk a whole quadrant in
+   24 turns. Send several part-loaded hands instead.
+6. **Meter premium sales.** Melon, milk, wool and strawberry all floor fast. Check
+   `price_curves.csv` before dumping a harvest.
+7. **Stop investing near the end.** Coins spent on day 28 never come back, and produce
+   still in the shed at the final bell scores exactly nothing — liquidate.
+8. **Count what your hands are carrying.** Wheat in a hand's inventory is still yours;
+   forget it and you will sell your feed each morning and buy it back at double by
+   afternoon.
+
+Two engine details that cost me real time, and that the written rules get wrong:
+
+- The rules say `CARE` banks **+2** per day. The engine adds **+1**
+  (`kaggriculture.py`, `_daily_refresh_animals`). Trust the source.
+- While only NW is unlocked, `(4, 4)` is the **only** usable shed tile — the other
+  three access tiles sit in locked quadrants, and `PICKUP`/`DROP` silently no-op on
+  `LOCKED`. Hired hands spawn on those locked tiles and lose a turn walking in.
+
+
+# --- MARKDOWN ---
+---
+## 10. Turning up the rigour
+
+The default budget (3 seeds, challenger-only) is tuned to be fast enough that you
+actually run it. Before trusting a close result, raise it:
+
+```python
+SEEDS = list(range(9001, 9021))   # 20 seeds
+FULL_ROUND_ROBIN = True           # replay the reference pairings on your seeds too
+```
+
+That is 20 seeds x 2 seats x 21 pairings = 840 games, roughly 20 minutes. Worth it when
+two candidates are within ~50 BT points, because a 6-game sample cannot separate them.
+
+A few other things worth trying from here:
+
+- **Beat the ladder, then beat yourself.** Add your previous submission as a seventh
+  agent — the rung that matters most is your own last version.
+- **Check seat bias.** If your agent wins from seat 0 and loses from seat 1, you have a
+  market-ordering dependency worth understanding.
+- **Watch a game.** `env.render(mode="ipython", width=900, height=700)` after a `play()`
+  call is the fastest way to spot a farmer walking in circles.
+
+---
+
+*Reference agents: [kaggriculture-reference-agents](https://www.kaggle.com/datasets/raykkretzschmar/kaggriculture-reference-agents)
+(CC BY-SA 4.0, written from scratch — no competitor replays or third-party notebook code).
+Measured on `kaggle-environments` 1.32.3. If you find a rung mis-ranked, tell me
+in the comments and I will re-measure.*

@@ -1,0 +1,56 @@
+Act as an ECONOMETRICIAN researching the Kaggle "Kaggriculture" simulation
+competition (https://www.kaggle.com/competitions/kaggriculture). Research only.
+Do not modify files. Do not run long simulations.
+
+CONTEXT ALREADY ESTABLISHED (verify or refute these; do not just restate them):
+
+Engine facts read from kaggle_environments' kaggriculture source:
+- price p(I) = base +/- amp * shape(|I - I0|), I0 = 10000, per-item shape and
+  target differ above vs below I0. Floor $1.
+- Market orders are matched BY SLOT INDEX between the two players, then settled
+  in a per-unit lockstep loop, so each unit of a SELL is priced against the
+  running inventory.
+- SHOPS = {BAKERY:[EGG,WHEAT], PIZZA_SHOP:[MILK,TOMATO,WHEAT],
+  BRUNCH_SPOT:[EGG,WHEAT,STRAWBERRY], YARN_STORE:[WOOL],
+  ICE_CREAM_SHOP:[STRAWBERRY,MILK,WHEAT], PET_CAFE:[CARROT],
+  SMOOTHIE_SHOP:[STRAWBERRY,MILK], FARMERS_MARKET:[WHEAT,CARROT,TOMATO,
+  STRAWBERRY]}; single-product shops consume 2x; shops fire every 4 steps;
+  town centre every 12 steps at 1x/2x/4x from days 0/10/20; town centre
+  excludes FERTILIZER.
+- Measured glut (2-player supply / seasonal drain): WHEAT 1.00, WOOL 1.20,
+  STRAWBERRY 1.21, MILK 1.45, MELON 2.29 (0 shops), FERTILIZER infinite
+  (0 shops AND excluded from town centre, so demand is exactly zero).
+
+Empirical results from ~60 tested strategy configurations:
+- Every "hold inventory / reserve price" policy loses money, monotonically in
+  how much it holds. Inferred reason: glut >= 1 for every product means every
+  price path declines, so sell-immediately dominates and the optimal market
+  policy is state-INDEPENDENT.
+- A from-scratch greedy production controller scores far worse than a recorded
+  action tape.
+- Perturbing the herd mix (COW/SHEEP) away from 8/6 is strictly worse even
+  though both animals share a PASTURE.
+- Under a marketParams stress test the agent is robust to 5 of 6 regimes but
+  collapses (0-16) when ALL premium goods drop 40%, because its revenue is
+  premium-concentrated while a rival "wheat-heavy" archetype is not.
+
+RESEARCH QUESTIONS:
+1. Is the "sell-immediately dominates" claim correct as economics, or is there a
+   standard result (Hotelling, dynamic Cournot, exhaustible resource, durable
+   goods monopoly / Coase conjecture, war of attrition) that predicts a regime
+   where withholding supply pays even with a declining price path? State the
+   condition under which it would flip.
+2. With two sellers, zero-drain goods (FERTILIZER, MELON), and per-unit lockstep
+   settlement, what is the game-theoretically correct sell schedule? Is this a
+   Cournot quantity game, a preemption/racing game, or something else?
+3. Given a fixed physical production plan, what portfolio/hedging logic should
+   choose WHICH goods to concentrate revenue in, when rival supply is observable
+   only through market inventory? Reference standard techniques.
+4. Search Kaggle discussions/notebooks for this competition for any published
+   strategy insight not covered above, especially about market timing, order
+   slots, town shop demand, or robustness to the evolving meta.
+5. Name any econometric technique that would let an agent infer a rival's
+   production capacity online from market inventory alone, and its identification
+   assumptions.
+
+Deliver a cited synthesis. Flag clearly where you disagree with the claims above.

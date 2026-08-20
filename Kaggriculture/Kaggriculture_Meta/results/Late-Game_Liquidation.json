@@ -1,0 +1,7 @@
+{
+  "concept_name": "Late-Game Liquidation & Harvest Fire Sale",
+  "mechanic_exploited": "Exploits the end-game score calculation (where win/reward is strictly final bank balance at turn 719, and unsold shed produce, seeds, livestock, or unharvested tile products count as $0) combined with the market order cap of 10 orders per turn (maxMarketOrdersPerTurn = 10) and town demand absorption. From turns 648 to 719 (Days 27-30), the strategy halts all capital reinvestment (buying land, seeds, animals, or expensive farm hands), redirects all unit movement to sweep and harvest remaining tile products, drops items to shed-adjacent tiles, and queues prioritized SELL orders across multiple turns. Phased liquidation avoids market price crashes on glut-sensitive items (Melon, Strawberry, Milk, Wool) by allowing 4x town center demand and unlocked town shops to absorb supply, while ensuring zero produce remains stranded in shed or field when turn 719 finishes.",
+  "implementation_complexity": "Low to Moderate (~30-60 lines of code for turn-based state checks, reinvestment cutoffs, tile harvest sweeping, and 10-order/turn prioritized sell queueing)",
+  "expected_yield_gain": "+5,000 to +25,000+ coins net gain by converting all accumulated crops, animal produce, and shed inventory into liquid cash before turn 719 while avoiding single-turn price collapse",
+  "uncertain": []
+}

@@ -1,0 +1,10 @@
+{
+  "concept_name": "Late Game Land Rush",
+  "mechanic_exploited": "Delaying BUY_LAND actions for the $1k, $2k, and $4k quadrants until the late game to avoid early capital drain, then rapidly expanding farm capacity.",
+  "implementation_complexity": "Moderate [uncertain]",
+  "expected_yield_gain": "Variable based on dynamic market pricing and saturation [uncertain]",
+  "uncertain": [
+    "implementation_complexity",
+    "expected_yield_gain"
+  ]
+}

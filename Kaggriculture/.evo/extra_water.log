@@ -1,0 +1,9 @@
+surplus-hand controller -- 4 opponents x 6 seeds x 2 seats
+
+preset                    Seb   family B     Wufang     mirror    OVERALL    win%
+off                    -1,077     +2,094     +2,599       -266       +838   62.5%  <= control (v27)
+to9_nojob             -11,145    -25,581    -26,284    -15,504    -19,628    8.3%
+to7_water              -5,282     +1,919     +2,404       -467       -356   54.2%
+to9_water             -11,145    -25,581    -26,284    -15,504    -19,628    8.3%
+to12_water             +7,680   -173,390   -165,254   -166,352   -124,329   25.0%
+to9_water_early       -11,035    -25,471    -26,174    -15,394    -19,518    8.3%

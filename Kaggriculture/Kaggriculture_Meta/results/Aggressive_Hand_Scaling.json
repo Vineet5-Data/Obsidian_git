@@ -1,0 +1,9 @@
+{
+  "concept_name": "Aggressive Hand Scaling",
+  "mechanic_exploited": "Exploits the Kaggriculture game mechanic where hiring farm hands incurs a cost governed by a Fibonacci sequence (1, 1, 2, 3, 5, 8...) that resets each day. By hiring multiple hands early in the day, players gain a massive action economy advantage at a very low marginal coin cost, allowing them to rapidly execute farming tasks.",
+  "implementation_complexity": "Low",
+  "expected_yield_gain": "[uncertain]",
+  "uncertain": [
+    "expected_yield_gain"
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "hypothesis": "Replacing raw heterogeneous job values with hard feasibility gates followed by normalized, aged utility and a small switching hysteresis will reduce silent no-ops, route thrashing, and starvation of repeatedly deferred HARVEST work. The candidate should outperform a_v186 most when the board is saturated on days 15-24, without weakening the existing emergency FEED/WATER protection.",
+  "exact_code_lever": {
+    "single_cause_candidate": "Add a post-job-generation function stable_job_score(job, unit, state) and use it in both Hungarian passes. Reject a job before scoring when its action precondition, required inventory, exclusive-tile ownership, reachable-before-deadline condition, shed headroom, or terminal bank-and-sell path fails.",
+    "score": "Within each lexicographic class, score = clamp(net_terminal_value / max(1, service_actions + MOVE_FRAC * Manhattan_distance), 0, phase_p90) / max(1, phase_p90) + min(0.48, 0.08 * queue_age_turns) + 0.12 * same_unit_same_job - 0.15 * switched_last_two_turns.",
+    "classes": [
+      "0: second-miss FEED or WATER and terminal banking with zero slack",
+      "1: first-miss survival, crop decay/production-cap rescue, and other jobs at non-positive deadline slack",
+      "2: positive net-value service and logistics",
+      "3: development and discretionary work"
+    ],
+    "hysteresis": "Keep the current unit-job commitment for up to two turns while valid; switch only if the challenger is in a higher class or exceeds current normalized utility by 0.15. Clear commitment immediately after execution, invalidation, or deadline change.",
+    "minimal_state": "A per-seat dictionary keyed by (opcode, target, resource) storing first_seen_step, last_assigned_step, last_unit, and cooldown_until; prune keys absent for two turns. Thresholds 0.08, 0.12, 0.15, and two turns are [uncertain] tuning seeds, not established optima."
+  },
+  "affected_phase": "Active throughout the season, but the aging and hysteresis terms matter primarily from day 10 onward and especially during the observed day-15-to-24 service congestion. Hard terminal reachability activates from DUMP_STEP=648 and becomes strict at FINAL_FARM_STEP=696. Apply against every opponent and both seats; disable persistence across day boundaries because hired hands disappear and all units respawn at shed-access tiles.",
+  "engine_mechanism": "Unit actions execute before market orders. Invalid unit actions are silent no-ops. PLANT requires an empty unlocked tile and sufficient shared seed count; excess same-crop PLANT requests are atomically converted to PASS. FEED/FERTILIZE consume carried WHEAT/FERTILIZER, PICKUP works only on a shed-access tile, and DROP/PLACE obey the 100-item shed cap. Two consecutive missed daily refreshes kill plants or release animals. Market orders are capped at 10, and unit deposits can be sold in the same turn. Therefore feasibility must be checked before utility, shared resources must be reserved across assignments, and last-step cargo value is zero unless it can be harvested, carried to a shed-access tile, deposited, and sold.",
+  "regime_trigger_and_forecast_error": {
+    "trigger": "Enter congestion mode when forecast mandatory service plus lower-bound travel over the next 24 turns exceeds 80% of available worker-turns, any deadline slack is at most two turns, or the oldest positive-net job has waited at least three turns. Exit only after utilization stays below 65%, minimum slack exceeds four turns, and no job is older than two turns for six consecutive turns.",
+    "forecast": "Recompute from current tile flags, production/expiry steps, carried resources, worker positions, shed headroom, and known town schedule. Log forecast service actions, travel lower bound, prices, and deadlines versus realized executed actions, travel, price, expiry, and no-ops.",
+    "known_risk": "Travel interactions and shared resource collisions make the lower bound optimistic; conditional weed RNG also prevents perfectly aligned realized workloads after policies diverge. The 80/65% thresholds are [uncertain]."
+  },
+  "decision_score_audit": {
+    "required_log_row": [
+      "step, unit, opcode, target, class, raw_value, net_terminal_value",
+      "service_actions, distance, deadline, slack, normalized_utility, age_bonus, persistence_bonus, switch_penalty",
+      "feasible, rejection_reason, selected_score, best_rejected_score, score_gap"
+    ],
+    "rejection_reasons": [
+      "invalid_tile_state", "missing_resource", "shared_resource_reserved", "exclusive_target_claimed", "unreachable_before_deadline", "no_shed_headroom", "cannot_bank_and_sell", "nonpositive_net_value", "cooldown"
+    ],
+    "audit_rule": "A lower-class job may never displace a feasible higher-class job. Aging may reorder jobs only within a class and may not make a negative-net discretionary job admissible."
+  },
+  "admissible_workload_and_minimum_slack": "For every turn, reserve one action for each currently due FEED/WATER, one action for each resource pickup that is not already carried, and a Manhattan travel lower bound using nearest-worker matching. Add HARVEST plus return/drop/sale actions when expiry or the terminal boundary lies inside the horizon. Admit PLANT, BUILD, CARE, COLLECT_FERTILIZER, or FERTILIZE only if projected utilization remains at most 0.80 and minimum mandatory-job slack remains at least two turns. Record minimum slack by day and the count/value of work rejected by the gate.",
+  "constraint_utilization_profile": "Report by day and five-day window: executed actions / available worker-turns; movement / executed actions; cash committed / cash available; occupied / unlocked tiles; shed used / 100; carried items by unit; and market orders / 10. The target is no increase in total footprint when forecast labor utilization exceeds 0.80, shed occupancy below 90 before harvest waves, and no admission that consumes the final required order slot for liquidation.",
+  "job_queue_health": "Maintain counts and estimated terminal value by opcode and class, median/max age, deadline-slack histogram, late count, starvation count (positive-net job age >=3 with feasible execution opportunities), and abandonment reason. The primary mechanism metric is candidate-minus-control reduction in positive-net HARVEST starvation and in jobs repeatedly assigned but not executed.",
+  "spatial_logistics_metrics": "Measure Manhattan movement per completed job, percentage of movement with empty inventory, target/opcode switches per unit per day, mean same-cluster batch length, shed trips, and route reversals. Hysteresis is successful only if switches and empty travel fall while deadline misses and survival failures do not rise.",
+  "expected_terminal_value": "[uncertain] Expected direction is positive because fewer movements and no-ops release actions for cash-producing harvest and because aging prevents valuable held yield from being indefinitely dominated. Magnitude must be measured; no cash uplift is claimed from research alone. Translate paired terminal-margin changes to win probability against the same 80-opponent panel.",
+  "marginal_value_per_worker_turn": "For each admitted job use (forecast sale revenue plus avoided asset/decay loss minus resource, market-impact, financing, overflow, and displaced-work costs) / (unit actions plus MOVE_FRAC times movement). Report realized terminal cash attributable to completed job classes divided by their service and travel actions; compare aged jobs with equivalent non-aged jobs.",
+  "shadow_price_vector": {
+    "money": "Marginal foregone terminal value of one coin reserved for feed, hires, or investment; rises under low liquidity.",
+    "labor": "Best feasible rejected net value per remaining worker action; rises sharply near survival/expiry deadlines.",
+    "movement": "MOVE_FRAC=1.5 times the phase reference job value per Manhattan step, then calibrated from paired movement ablations.",
+    "tile": "Best replacement project's net terminal value plus weed/expiry clearing cost.",
+    "shed": "Value of the best unit likely to overflow or the sale opportunity needed to free one slot.",
+    "cargo": "Uncapped in the engine, so zero physical-capacity price; retain only return-to-shed and end-of-day overflow risk.",
+    "market_order": "Best displaced order among the ten per-turn slots, with sales and emergency wheat taking precedence. All numerical shadow prices are [uncertain] until logged and calibrated."
+  },
+  "gross_to_net_value_decomposition": "For every selected and rejected job log gross product value; subtract expected decay/expiry that is not avoided, missed higher-class work, Manhattan movement, seed/feed/fertilizer purchase or foregone-sale cost, financing reserve, shed overflow probability times lost value, own market-price impact, and the best alternative feasible job. Add avoided animal escape, plant death, production-cap loss, or terminal cargo loss where applicable.",
+  "market_and_opponent_dependence": "Net values use current prices plus known town absorption and visible opponent crops/animals, but feasibility classes do not depend on opponent identity. A contested premium market may change within-class ordering; it cannot override survival or deadline gates. Evaluate separately against premium-crop, animal-heavy, staple/glut, fast-expansion, and passive archetypes and by seat.",
+  "action_validity_and_noop_breakdown": "Count attempted, locally feasible, assigned, executed, and silent-no-op actions by opcode. Attribute failures to stale target, already-watered/fed/cared, no held yield, missing carried input, exhausted seed, atomic seed over-request, nonempty structure/tile, locked tile, shed not adjacent/full, market order truncation, unaffordable order, and same-turn target collision. Promotion requires no increase in total no-op rate and zero gate-approved actions whose recorded precondition was false.",
+  "micro_scenario_coverage": [
+    "Two animals share one carried wheat; only one FEED assignment reserves it.",
+    "Two workers see one seed; atomic PLANT over-request is prevented.",
+    "A first-miss plant or animal becomes class 0 before end of day and is not preempted by aged CARE.",
+    "An expiring crop at low price outranks development only when harvest is reachable and bankable.",
+    "A full shed rejects DROP but permits a sale-financed same-turn deposit only when order sequence is valid.",
+    "A persisted job invalidates after another worker harvests the target.",
+    "Day rollover clears hand commitments and preserves only target age that remains meaningful.",
+    "A challenger inside the 0.15 hysteresis band does not cause a route switch; a higher class does."
+  ],
+  "terminal_feasibility": "For cargo jobs, compute harvest_step + Manhattan distance to nearest shed-access tile + one DROP/PLACE action and require a subsequent market-processing step with an available SELL slot no later than the last executable action. Treat end-of-day auto-drop as unsafe when the shed may overflow. After FINAL_FARM_STEP=696 reject development, CARE, FEED, WATER, and FERTILIZE unless a deterministic micro-test proves terminal cash benefit.",
+  "paired_test_design": {
+    "control": "a_v186.py, SHA-256 8e24e4236a9b8c0b877f86695845985d4b4df5d797f465bc4f88277b0351a26a",
+    "candidate": "[uncertain] a_v186_utility_stability.py after implementation of only this lever",
+    "screen": "Run both agents together against the same first 80 opponents, both seats, 4 fixed seeds (640 paired games per agent); primary metric is paired win indicator, secondary is terminal cash margin.",
+    "validation": "Freeze thresholds, then run 11 untouched seeds at a new offset against 80 opponents and both seats (1760 games per agent). Report overall and opponent-archetype/seat strata.",
+    "command": "python _loss_analysis.py a_v186.py a_v186_utility_stability.py --opponents 80 --seeds 11 --offset 20 --out utility_stability_validation.json"
+  },
+  "paired_discordance_and_effect_interval": "[uncertain] Report control-only wins b, candidate-only wins c, uplift=(c-b)/N, exact McNemar p-value, and a paired bootstrap 95% interval for win-rate uplift and terminal-margin delta. With N=1760 and plausible discordance 0.25-0.35, an approximately 3-4 percentage-point uplift is the rough 80%-power detectable range; compute the actual minimum detectable effect from observed discordance.",
+  "random_stream_alignment": "Same seed and seat align initialization, but perfect event alignment is not guaranteed. The engine reseeds daily, then conditionally draws weeds only for empty unlocked tiles and chooses a shop from the remaining list after those draws; different layouts can therefore change later weed and shop draws. Log first policy divergence, shop sequence, weed spawns, and market path; also run weedSpawnChance=0 plus fixed-shop micro-scenarios to isolate policy mechanics.",
+  "optional_stopping_and_multiple_testing_budget": "Do not inspect or stop within a fixed screen or validation block. Predeclare the 640-game screen and 1760-game validation. Treat the 24 outline candidates as one family: use Holm correction at family-wise alpha 0.05 for final promotion claims; exploratory screen ranking is descriptive and cannot promote a candidate without locked validation.",
+  "tuning_validation_separation": "Tune only the four stated constants on offsets 0-5 with at most six candidate iterations. Freeze code and thresholds before offset-20 validation; do not reuse validation results for retuning. Any retune creates a new candidate and requires a new untouched offset.",
+  "distributional_guardrails": "Report win rate, median and 10th/5th percentile terminal margin, catastrophic-loss rate (margin <= -20000), survival failures, held-yield expiry, no-op rate, and movement share. Reject if overall uplift is driven by one archetype, either seat falls by more than 2 percentage points, 10th-percentile margin worsens by more than 2000 coins, catastrophic losses rise by more than 1 point, or animal/plant losses increase.",
+  "robustness_regret": "[uncertain] For each opponent archetype compute candidate regret versus the best tested single-cause policy and versus a_v186. Require worst-stratum regret no more than 2 win-rate points worse than a_v186 and publish max, median, and seat-specific regret.",
+  "rare_event_stress_results": "[uncertain] Pending deterministic stress runs: full shed at 98-100 items during simultaneous crop expiry; zero wheat with first-miss animals; 1-dollar premium prices; unfavorable shop unlocks; weeds blocking near-shed lanes; low cash during hiring; 48 simultaneous jobs; and day-29 cargo at maximum distance. Record no-op, death/escape, expiry, overflow, and terminal cash outcomes.",
+  "interaction_and_ablation_matrix": "[uncertain] After this single-cause candidate passes, test normalized score alone, gates alone, age alone, hysteresis alone, full package, and leave-one-out variants. Cross only with independently positive workload-admission, spatial, batching, harvest-expiry, and fertilizer candidates; report main and pairwise win/margin effects before combining.",
+  "promotion_margin_and_reversion_trigger": "Promote the isolated lever only if locked validation has positive paired uplift with Holm-adjusted significance, at least +1.5 percentage points observed uplift, positive median margin change, and all distributional guardrails pass. Revert immediately if class inversion is observed, silent no-ops increase, survival failure rises, candidate-only losses are concentrated in either seat, or decision latency exceeds budget. The final combined agent still must reach at least 80% on a fresh 1760-game panel.",
+  "confidence_and_status": "Mechanism confidence is high because the engine and a_v186 preconditions are locally verifiable and v204 shows a concrete congested-regime failure. Threshold and win-rate confidence are [uncertain]. Status: research complete, implementation and benchmark pending; do not accept until the locked paired test passes.",
+  "computational_budget": "Keep per-turn work bounded by at most 100 tiles, 13 units, and the existing 48 Hungarian job columns. Compute gates and scores in O(units*jobs), store fewer than 200 queue records, and target below 50 ms per decision. If scoring exceeds budget, preserve class-0/1 jobs, use current a_v186 value-distance scoring for the remainder, and emit a fallback counter.",
+  "artifact_metadata": {
+    "research_date": "2026-08-19",
+    "baseline_record": "1203-557, 68.4%, 1760 games",
+    "baseline_path": "C:/Users/Vinee/Desktop/Kaggriculture/a_v186.py",
+    "baseline_sha256": "8e24e4236a9b8c0b877f86695845985d4b4df5d797f465bc4f88277b0351a26a",
+    "engine_evidence": "C:/Users/Vinee/Desktop/Kaggriculture/_env_src.py, SHA-256 c11baf358548d8dd6f3cba031899bc1614c0fcb31a27366f12753563154307e6",
+    "regression_evidence": "C:/Users/Vinee/Desktop/Kaggriculture/a_v204.py and kaggriculture_winrate_80_research/outline.yaml",
+    "candidate_path": "[uncertain] C:/Users/Vinee/Desktop/Kaggriculture/a_v186_utility_stability.py after implementation",
+    "external_references_from_outline": [
+      "https://www.gameaipro.com/GameAIPro3/GameAIPro3_Chapter13_Choosing_Effective_Utility-Based_Considerations.pdf",
+      "https://epubs.siam.org/doi/10.1137/S0097539792236882"
+    ]
+  },
+  "uncertain": [
+    "exact_code_lever",
+    "regime_trigger_and_forecast_error",
+    "expected_terminal_value",
+    "shadow_price_vector",
+    "paired_test_design",
+    "paired_discordance_and_effect_interval",
+    "robustness_regret",
+    "rare_event_stress_results",
+    "interaction_and_ablation_matrix",
+    "confidence_and_status",
+    "artifact_metadata"
+  ]
+}

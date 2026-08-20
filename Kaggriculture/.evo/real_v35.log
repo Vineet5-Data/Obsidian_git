@@ -1,0 +1,5 @@
+REAL field: 12 current opponents x 6 seeds x 2 seats
+
+agent           W-L    win%       mean     worst   losing matchups
+v33.py       112-32   77.8%     +4,612   -10,438   90874645:2 90879807:4 MohitRao:6 mrgrish:7 CemBas:6 kakuteki:7
+v35.py       114-30   79.2%     +4,651   -10,319   90874645:2 90879807:4 MohitRao:4 mrgrish:7 CemBas:6 kakuteki:7

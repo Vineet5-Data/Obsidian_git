@@ -1,0 +1,8 @@
+impact-budgeted order size -- 4 opponents x 6 seeds x 2 seats
+
+preset          mirror         Seb    family B      Wufang     OVERALL    win%
+off               -266      -1,077      +2,094      +2,599        +838   62.5%  <= control (v27)
+tol05           -4,690        -524        +338      -3,381      -2,064   25.0%
+tol10           -2,672        -448      +2,085        -825        -465   41.7%
+tol20           -1,116        -168      +2,402      +1,096        +553   56.2%
+tol10_f         -1,781        -969      +1,442         -65        -343   43.8%

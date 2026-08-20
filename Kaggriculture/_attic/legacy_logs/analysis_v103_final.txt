@@ -1,0 +1,1126 @@
+
+======================================================================
+LOSING OPPONENTS: 65 / 80
+======================================================================
+
+1. 91642421_1: W0-L2-T0 mean=-29,974 worst=-36,879
+    L -23,070
+    L -36,879
+
+2. 91642421_0: W0-L2-T0 mean=-29,970 worst=-36,874
+    L -23,065
+    L -36,874
+
+3. 91640723_0: W0-L2-T0 mean=-24,702 worst=-33,845
+    L -15,560
+    L -33,845
+
+4. 91640723_1: W0-L2-T0 mean=-32,384 worst=-33,845
+    L -30,924
+    L -33,845
+
+5. 91637781_0: W0-L2-T0 mean=-32,110 worst=-32,110
+    L -32,110
+    L -32,110
+
+6. 91640589_0: W0-L2-T0 mean=-25,288 worst=-26,551
+    L -24,025
+    L -26,551
+
+7. 91642568_0: W0-L2-T0 mean=-23,916 worst=-25,812
+    L -22,020
+    L -25,812
+
+8. 91642568_1: W0-L2-T0 mean=-23,916 worst=-25,812
+    L -22,020
+    L -25,812
+
+9. 91639766_1: W0-L2-T0 mean=-21,946 worst=-24,894
+    L -24,894
+    L -18,998
+
+10. 91640589_1: W0-L2-T0 mean=-23,223 worst=-24,772
+    L -21,674
+    L -24,772
+
+11. 91642489_0: W0-L2-T0 mean=-22,705 worst=-23,458
+    L -23,458
+    L -21,952
+
+12. 91640724_0: W0-L2-T0 mean=-22,306 worst=-22,958
+    L -21,653
+    L -22,958
+
+13. 91636880_1: W0-L2-T0 mean=-20,678 worst=-21,045
+    L -20,312
+    L -21,045
+
+14. 91635004_1: W0-L2-T0 mean=-18,782 worst=-19,893
+    L -19,893
+    L -17,672
+
+15. 91637919_0: W0-L2-T0 mean=-15,552 worst=-18,860
+    L -18,860
+    L -12,244
+
+16. 91637919_1: W0-L2-T0 mean=-11,002 worst=-18,860
+    L -18,860
+    L -3,145
+
+17. 91635144_0: W0-L2-T0 mean=-11,986 worst=-18,626
+    L -5,346
+    L -18,626
+
+18. 91639766_0: W0-L2-T0 mean=-17,324 worst=-17,880
+    L -17,880
+    L -16,769
+
+19. 91638795_1: W0-L2-T0 mean=-17,062 worst=-17,870
+    L -16,255
+    L -17,870
+
+20. 91638760_0: W0-L2-T0 mean=-15,499 worst=-17,697
+    L -17,697
+    L -13,301
+
+======================================================================
+DEEP ANALYSIS: Top 10 worst losses
+======================================================================
+
+  Analyzing: 91642421_1 seat 0 (margin -23,070)
+    Final: us=$104,601 vs opp=$127,671
+    Day-by-day money delta:
+         Day  1: us=$      55 opp=$      10 delta=++++++45 plants=9/10 animals=5/5
+         Day  2: us=$     123 opp=$       9 delta=+++++114 plants=9/10 animals=5/5
+         Day  3: us=$     590 opp=$     164 delta=+++++426 plants=9/10 animals=5/5
+         Day  4: us=$     524 opp=$     176 delta=+++++348 plants=9/14 animals=6/5
+         Day  5: us=$     688 opp=$     531 delta=+++++157 plants=9/14 animals=6/5
+         Day  6: us=$   1,017 opp=$     488 delta=+++++529 plants=9/19 animals=6/6
+         Day  7: us=$     383 opp=$      64 delta=+++++319 plants=33/19 animals=13/7
+         Day  8: us=$     900 opp=$      57 delta=+++++843 plants=33/31 animals=13/10
+         Day  9: us=$     845 opp=$      15 delta=+++++830 plants=29/36 animals=13/11
+         Day 10: us=$   2,057 opp=$   2,037 delta=++++++20 plants=34/36 animals=13/11
+      << Day 11: us=$   1,244 opp=$   3,503 delta=++-2,259 plants=41/50 animals=13/11
+      << Day 12: us=$   1,084 opp=$   4,660 delta=++-3,576 plants=56/53 animals=14/11
+      >>> Day 13: us=$     784 opp=$   6,053 delta=++-5,269 plants=56/53 animals=14/11
+      >>> Day 14: us=$     796 opp=$   7,274 delta=++-6,478 plants=55/53 animals=14/11
+      << Day 15: us=$   6,740 opp=$  10,141 delta=++-3,401 plants=53/53 animals=16/11
+      >>> Day 16: us=$   8,434 opp=$  16,203 delta=++-7,769 plants=53/53 animals=16/11
+      << Day 17: us=$  19,691 opp=$  22,844 delta=++-3,153 plants=35/53 animals=16/11
+         Day 18: us=$  28,991 opp=$  24,228 delta=+++4,763 plants=37/53 animals=16/11
+      << Day 19: us=$  32,606 opp=$  33,500 delta=++++-894 plants=41/53 animals=16/11
+      << Day 20: us=$  38,019 opp=$  39,722 delta=++-1,703 plants=41/53 animals=16/11
+      << Day 21: us=$  47,291 opp=$  52,061 delta=++-4,770 plants=39/53 animals=16/11
+      >>> Day 22: us=$  52,546 opp=$  62,677 delta=+-10,131 plants=33/55 animals=16/12
+      >>> Day 23: us=$  62,464 opp=$  69,789 delta=++-7,325 plants=32/58 animals=16/12
+      >>> Day 24: us=$  65,500 opp=$  78,768 delta=+-13,268 plants=33/59 animals=16/12
+      >>> Day 25: us=$  73,471 opp=$  87,474 delta=+-14,003 plants=35/57 animals=16/12
+      >>> Day 26: us=$  80,431 opp=$  95,793 delta=+-15,362 plants=36/59 animals=16/12
+      >>> Day 27: us=$  88,883 opp=$ 100,710 delta=+-11,827 plants=23/59 animals=16/12
+      >>> Day 28: us=$  97,368 opp=$ 109,835 delta=+-12,467 plants=6/43 animals=16/12
+      >>> Day 29: us=$ 102,714 opp=$ 117,458 delta=+-14,744 plants=0/27 animals=16/12
+
+  Analyzing: 91642421_1 seat 1 (margin -36,879)
+    Final: us=$109,933 vs opp=$146,812
+    Day-by-day money delta:
+         Day  1: us=$      55 opp=$      10 delta=++++++45 plants=9/10 animals=5/5
+         Day  2: us=$     123 opp=$       9 delta=+++++114 plants=9/10 animals=5/5
+         Day  3: us=$     590 opp=$     164 delta=+++++426 plants=9/10 animals=5/5
+         Day  4: us=$     524 opp=$     176 delta=+++++348 plants=9/14 animals=6/5
+         Day  5: us=$     688 opp=$     531 delta=+++++157 plants=9/14 animals=6/5
+         Day  6: us=$   1,017 opp=$     488 delta=+++++529 plants=9/19 animals=6/6
+         Day  7: us=$     383 opp=$      64 delta=+++++319 plants=33/19 animals=13/7
+         Day  8: us=$     900 opp=$      57 delta=+++++843 plants=33/31 animals=13/9
+         Day  9: us=$     845 opp=$      15 delta=+++++830 plants=29/36 animals=13/11
+         Day 10: us=$   2,467 opp=$   1,958 delta=+++++509 plants=34/36 animals=13/11
+      << Day 11: us=$     926 opp=$   4,867 delta=++-3,941 plants=40/52 animals=13/11
+      << Day 12: us=$   1,426 opp=$   6,038 delta=++-4,612 plants=57/57 animals=16/11
+      >>> Day 13: us=$   1,378 opp=$   8,009 delta=++-6,631 plants=57/57 animals=16/11
+      >>> Day 14: us=$   1,515 opp=$  10,571 delta=++-9,056 plants=57/57 animals=16/11
+      >>> Day 15: us=$   7,773 opp=$  13,402 delta=++-5,629 plants=54/57 animals=16/11
+      >>> Day 16: us=$   9,406 opp=$  19,108 delta=++-9,702 plants=54/57 animals=16/11
+      >>> Day 17: us=$  21,133 opp=$  28,314 delta=++-7,181 plants=34/57 animals=16/11
+      << Day 18: us=$  26,910 opp=$  29,744 delta=++-2,834 plants=36/57 animals=16/11
+      >>> Day 19: us=$  32,463 opp=$  39,599 delta=++-7,136 plants=44/57 animals=16/11
+      >>> Day 20: us=$  41,552 opp=$  48,087 delta=++-6,535 plants=44/57 animals=16/11
+      >>> Day 21: us=$  46,374 opp=$  60,806 delta=+-14,432 plants=41/55 animals=16/11
+      >>> Day 22: us=$  57,145 opp=$  72,642 delta=+-15,497 plants=37/57 animals=16/12
+      >>> Day 23: us=$  65,385 opp=$  79,621 delta=+-14,236 plants=35/60 animals=16/12
+      >>> Day 24: us=$  66,040 opp=$  89,221 delta=+-23,181 plants=22/62 animals=16/12
+      >>> Day 25: us=$  74,736 opp=$  99,715 delta=+-24,979 plants=30/60 animals=16/12
+      >>> Day 26: us=$  82,861 opp=$ 109,130 delta=+-26,269 plants=39/62 animals=16/12
+      >>> Day 27: us=$  89,700 opp=$ 114,973 delta=+-25,273 plants=26/62 animals=16/12
+      >>> Day 28: us=$ 101,489 opp=$ 124,691 delta=+-23,202 plants=15/45 animals=16/12
+      >>> Day 29: us=$ 105,594 opp=$ 136,090 delta=+-30,496 plants=0/27 animals=16/12
+
+  Analyzing: 91642421_0 seat 0 (margin -23,065)
+    Final: us=$104,601 vs opp=$127,666
+    Day-by-day money delta:
+         Day  1: us=$      55 opp=$       5 delta=++++++50 plants=9/10 animals=5/5
+         Day  2: us=$     123 opp=$       4 delta=+++++119 plants=9/10 animals=5/5
+         Day  3: us=$     590 opp=$     159 delta=+++++431 plants=9/10 animals=5/5
+         Day  4: us=$     524 opp=$     171 delta=+++++353 plants=9/14 animals=6/5
+         Day  5: us=$     688 opp=$     526 delta=+++++162 plants=9/14 animals=6/5
+         Day  6: us=$   1,017 opp=$     483 delta=+++++534 plants=9/19 animals=6/6
+         Day  7: us=$     383 opp=$      59 delta=+++++324 plants=33/19 animals=13/7
+         Day  8: us=$     900 opp=$      52 delta=+++++848 plants=33/31 animals=13/10
+         Day  9: us=$     845 opp=$      10 delta=+++++835 plants=29/36 animals=13/11
+         Day 10: us=$   2,057 opp=$   2,032 delta=++++++25 plants=34/36 animals=13/11
+      << Day 11: us=$   1,244 opp=$   3,498 delta=++-2,254 plants=41/50 animals=13/11
+      << Day 12: us=$   1,084 opp=$   4,655 delta=++-3,571 plants=56/53 animals=14/11
+      >>> Day 13: us=$     784 opp=$   6,048 delta=++-5,264 plants=56/53 animals=14/11
+      >>> Day 14: us=$     796 opp=$   7,269 delta=++-6,473 plants=55/53 animals=14/11
+      << Day 15: us=$   6,740 opp=$  10,136 delta=++-3,396 plants=53/53 animals=16/11
+      >>> Day 16: us=$   8,434 opp=$  16,198 delta=++-7,764 plants=53/53 animals=16/11
+      << Day 17: us=$  19,691 opp=$  22,839 delta=++-3,148 plants=35/53 animals=16/11
+         Day 18: us=$  28,991 opp=$  24,223 delta=+++4,768 plants=37/53 animals=16/11
+      << Day 19: us=$  32,606 opp=$  33,495 delta=++++-889 plants=41/53 animals=16/11
+      << Day 20: us=$  38,019 opp=$  39,717 delta=++-1,698 plants=41/53 animals=16/11
+      << Day 21: us=$  47,291 opp=$  52,056 delta=++-4,765 plants=39/53 animals=16/11
+      >>> Day 22: us=$  52,546 opp=$  62,672 delta=+-10,126 plants=33/55 animals=16/12
+      >>> Day 23: us=$  62,464 opp=$  69,784 delta=++-7,320 plants=32/58 animals=16/12
+      >>> Day 24: us=$  65,500 opp=$  78,763 delta=+-13,263 plants=33/59 animals=16/12
+      >>> Day 25: us=$  73,471 opp=$  87,469 delta=+-13,998 plants=35/57 animals=16/12
+      >>> Day 26: us=$  80,431 opp=$  95,788 delta=+-15,357 plants=36/59 animals=16/12
+      >>> Day 27: us=$  88,883 opp=$ 100,705 delta=+-11,822 plants=23/59 animals=16/12
+      >>> Day 28: us=$  97,368 opp=$ 109,830 delta=+-12,462 plants=6/43 animals=16/12
+      >>> Day 29: us=$ 102,714 opp=$ 117,453 delta=+-14,739 plants=0/27 animals=16/12
+
+  Analyzing: 91642421_0 seat 1 (margin -36,874)
+    Final: us=$109,933 vs opp=$146,807
+    Day-by-day money delta:
+         Day  1: us=$      55 opp=$       5 delta=++++++50 plants=9/10 animals=5/5
+         Day  2: us=$     123 opp=$       4 delta=+++++119 plants=9/10 animals=5/5
+         Day  3: us=$     590 opp=$     159 delta=+++++431 plants=9/10 animals=5/5
+         Day  4: us=$     524 opp=$     171 delta=+++++353 plants=9/14 animals=6/5
+         Day  5: us=$     688 opp=$     526 delta=+++++162 plants=9/14 animals=6/5
+         Day  6: us=$   1,017 opp=$     483 delta=+++++534 plants=9/19 animals=6/6
+         Day  7: us=$     383 opp=$      59 delta=+++++324 plants=33/19 animals=13/7
+         Day  8: us=$     900 opp=$      52 delta=+++++848 plants=33/31 animals=13/9
+         Day  9: us=$     845 opp=$      10 delta=+++++835 plants=29/36 animals=13/11
+         Day 10: us=$   2,467 opp=$   1,953 delta=+++++514 plants=34/36 animals=13/11
+      << Day 11: us=$     926 opp=$   4,862 delta=++-3,936 plants=40/52 animals=13/11
+      << Day 12: us=$   1,426 opp=$   6,033 delta=++-4,607 plants=57/57 animals=16/11
+      >>> Day 13: us=$   1,378 opp=$   8,004 delta=++-6,626 plants=57/57 animals=16/11
+      >>> Day 14: us=$   1,515 opp=$  10,566 delta=++-9,051 plants=57/57 animals=16/11
+      >>> Day 15: us=$   7,773 opp=$  13,397 delta=++-5,624 plants=54/57 animals=16/11
+      >>> Day 16: us=$   9,406 opp=$  19,103 delta=++-9,697 plants=54/57 animals=16/11
+      >>> Day 17: us=$  21,133 opp=$  28,309 delta=++-7,176 plants=34/57 animals=16/11
+      << Day 18: us=$  26,910 opp=$  29,739 delta=++-2,829 plants=36/57 animals=16/11
+      >>> Day 19: us=$  32,463 opp=$  39,594 delta=++-7,131 plants=44/57 animals=16/11
+      >>> Day 20: us=$  41,552 opp=$  48,082 delta=++-6,530 plants=44/57 animals=16/11
+      >>> Day 21: us=$  46,374 opp=$  60,801 delta=+-14,427 plants=41/55 animals=16/11
+      >>> Day 22: us=$  57,145 opp=$  72,637 delta=+-15,492 plants=37/57 animals=16/12
+      >>> Day 23: us=$  65,385 opp=$  79,616 delta=+-14,231 plants=35/60 animals=16/12
+      >>> Day 24: us=$  66,040 opp=$  89,216 delta=+-23,176 plants=22/62 animals=16/12
+      >>> Day 25: us=$  74,736 opp=$  99,710 delta=+-24,974 plants=30/60 animals=16/12
+      >>> Day 26: us=$  82,861 opp=$ 109,125 delta=+-26,264 plants=39/62 animals=16/12
+      >>> Day 27: us=$  89,700 opp=$ 114,968 delta=+-25,268 plants=26/62 animals=16/12
+      >>> Day 28: us=$ 101,489 opp=$ 124,686 delta=+-23,197 plants=15/45 animals=16/12
+      >>> Day 29: us=$ 105,594 opp=$ 136,085 delta=+-30,491 plants=0/27 animals=16/12
+
+  Analyzing: 91640723_0 seat 0 (margin -15,560)
+    Final: us=$86,685 vs opp=$102,245
+    Day-by-day money delta:
+         Day  1: us=$      55 opp=$      10 delta=++++++45 plants=9/10 animals=5/5
+         Day  2: us=$     123 opp=$       9 delta=+++++114 plants=9/10 animals=5/5
+         Day  3: us=$     590 opp=$     164 delta=+++++426 plants=9/10 animals=5/5
+         Day  4: us=$     521 opp=$     176 delta=+++++345 plants=9/13 animals=6/5
+         Day  5: us=$     758 opp=$     530 delta=+++++228 plants=9/13 animals=6/5
+         Day  6: us=$   1,113 opp=$     497 delta=+++++616 plants=9/18 animals=6/6
+         Day  7: us=$     981 opp=$      65 delta=+++++916 plants=31/19 animals=12/7
+         Day  8: us=$   1,163 opp=$      44 delta=+++1,119 plants=33/31 animals=12/10
+         Day  9: us=$     900 opp=$       6 delta=+++++894 plants=30/36 animals=12/11
+      << Day 10: us=$   1,836 opp=$   1,946 delta=++++-110 plants=34/36 animals=13/11
+      << Day 11: us=$   1,247 opp=$   3,416 delta=++-2,169 plants=42/45 animals=13/11
+      << Day 12: us=$   1,375 opp=$   4,525 delta=++-3,150 plants=58/48 animals=14/11
+      << Day 13: us=$   1,394 opp=$   5,876 delta=++-4,482 plants=58/48 animals=14/11
+      >>> Day 14: us=$   1,078 opp=$   6,835 delta=++-5,757 plants=55/48 animals=14/11
+      << Day 15: us=$   8,908 opp=$   9,071 delta=++++-163 plants=54/48 animals=14/11
+      << Day 16: us=$   9,779 opp=$  12,140 delta=++-2,361 plants=54/48 animals=15/11
+         Day 17: us=$  23,985 opp=$  17,232 delta=+++6,753 plants=40/48 animals=15/11
+         Day 18: us=$  31,596 opp=$  18,495 delta=++13,101 plants=43/48 animals=15/11
+         Day 19: us=$  33,302 opp=$  26,048 delta=+++7,254 plants=42/48 animals=16/11
+         Day 20: us=$  37,581 opp=$  31,365 delta=+++6,216 plants=39/49 animals=16/11
+         Day 21: us=$  44,702 opp=$  39,865 delta=+++4,837 plants=35/52 animals=16/11
+      << Day 22: us=$  47,659 opp=$  48,475 delta=++++-816 plants=43/55 animals=16/12
+      << Day 23: us=$  53,833 opp=$  55,246 delta=++-1,413 plants=50/57 animals=16/9
+      << Day 24: us=$  57,818 opp=$  62,722 delta=++-4,904 plants=37/58 animals=16/9
+      >>> Day 25: us=$  64,903 opp=$  70,448 delta=++-5,545 plants=32/56 animals=16/9
+      >>> Day 26: us=$  66,467 opp=$  75,620 delta=++-9,153 plants=37/58 animals=16/9
+      >>> Day 27: us=$  72,085 opp=$  80,305 delta=++-8,220 plants=27/58 animals=16/9
+      >>> Day 28: us=$  81,416 opp=$  87,798 delta=++-6,382 plants=8/42 animals=16/9
+      >>> Day 29: us=$  84,285 opp=$  93,574 delta=++-9,289 plants=0/27 animals=16/9
+
+  Analyzing: 91640723_0 seat 1 (margin -33,845)
+    Final: us=$97,919 vs opp=$131,764
+    Day-by-day money delta:
+         Day  1: us=$      55 opp=$      10 delta=++++++45 plants=9/10 animals=5/5
+         Day  2: us=$     123 opp=$       9 delta=+++++114 plants=9/10 animals=5/5
+         Day  3: us=$     590 opp=$     164 delta=+++++426 plants=9/10 animals=5/5
+         Day  4: us=$     521 opp=$     176 delta=+++++345 plants=9/14 animals=6/5
+         Day  5: us=$     758 opp=$     530 delta=+++++228 plants=9/14 animals=6/5
+         Day  6: us=$   1,113 opp=$     497 delta=+++++616 plants=9/19 animals=6/6
+         Day  7: us=$     981 opp=$      65 delta=+++++916 plants=31/19 animals=12/7
+         Day  8: us=$   1,163 opp=$      44 delta=+++1,119 plants=33/31 animals=12/10
+         Day  9: us=$     900 opp=$       6 delta=+++++894 plants=30/36 animals=12/11
+         Day 10: us=$   2,211 opp=$   1,947 delta=+++++264 plants=34/36 animals=13/11
+      << Day 11: us=$   1,087 opp=$   4,878 delta=++-3,791 plants=40/49 animals=13/11
+      << Day 12: us=$   1,072 opp=$   5,988 delta=++-4,916 plants=59/53 animals=14/11
+      >>> Day 13: us=$   1,881 opp=$   7,717 delta=++-5,836 plants=59/53 animals=16/11
+      >>> Day 14: us=$     939 opp=$   9,704 delta=++-8,765 plants=57/53 animals=16/11
+      << Day 15: us=$  10,195 opp=$  12,398 delta=++-2,203 plants=56/53 animals=16/11
+      >>> Day 16: us=$  11,102 opp=$  18,177 delta=++-7,075 plants=56/53 animals=16/11
+      << Day 17: us=$  22,891 opp=$  24,940 delta=++-2,049 plants=33/53 animals=16/11
+         Day 18: us=$  27,434 opp=$  26,204 delta=+++1,230 plants=35/53 animals=16/11
+      << Day 19: us=$  33,832 opp=$  34,798 delta=++++-966 plants=42/53 animals=16/11
+      >>> Day 20: us=$  36,839 opp=$  42,380 delta=++-5,541 plants=45/53 animals=16/11
+      >>> Day 21: us=$  40,334 opp=$  52,945 delta=+-12,611 plants=38/54 animals=16/11
+      >>> Day 22: us=$  50,062 opp=$  63,907 delta=+-13,845 plants=33/56 animals=16/12
+      >>> Day 23: us=$  54,710 opp=$  70,739 delta=+-16,029 plants=33/59 animals=16/12
+      >>> Day 24: us=$  60,789 opp=$  79,320 delta=+-18,531 plants=24/61 animals=16/12
+      >>> Day 25: us=$  69,019 opp=$  88,097 delta=+-19,078 plants=35/59 animals=16/12
+      >>> Day 26: us=$  73,777 opp=$  96,915 delta=+-23,138 plants=41/61 animals=16/12
+      >>> Day 27: us=$  79,029 opp=$ 101,931 delta=+-22,902 plants=27/61 animals=16/12
+      >>> Day 28: us=$  91,865 opp=$ 111,316 delta=+-19,451 plants=10/44 animals=16/12
+      >>> Day 29: us=$  94,667 opp=$ 120,410 delta=+-25,743 plants=0/27 animals=16/12
+
+  Analyzing: 91640723_1 seat 0 (margin -30,924)
+    Final: us=$97,573 vs opp=$128,497
+    Day-by-day money delta:
+         Day  1: us=$      55 opp=$      10 delta=++++++45 plants=9/10 animals=5/5
+         Day  2: us=$     123 opp=$       9 delta=+++++114 plants=9/10 animals=5/5
+         Day  3: us=$     590 opp=$     164 delta=+++++426 plants=9/10 animals=5/5
+         Day  4: us=$     521 opp=$     176 delta=+++++345 plants=9/14 animals=6/5
+         Day  5: us=$     758 opp=$     530 delta=+++++228 plants=9/14 animals=6/5
+         Day  6: us=$   1,113 opp=$     497 delta=+++++616 plants=9/19 animals=6/6
+         Day  7: us=$     981 opp=$      65 delta=+++++916 plants=31/19 animals=12/7
+         Day  8: us=$   1,163 opp=$      44 delta=+++1,119 plants=33/31 animals=12/10
+         Day  9: us=$     900 opp=$       6 delta=+++++894 plants=30/36 animals=12/11
+         Day 10: us=$   2,211 opp=$   1,947 delta=+++++264 plants=34/36 animals=13/11
+      << Day 11: us=$   1,087 opp=$   4,878 delta=++-3,791 plants=40/49 animals=13/11
+      << Day 12: us=$   1,072 opp=$   5,988 delta=++-4,916 plants=59/53 animals=14/11
+      >>> Day 13: us=$   1,881 opp=$   7,717 delta=++-5,836 plants=59/53 animals=16/11
+      >>> Day 14: us=$     939 opp=$   9,704 delta=++-8,765 plants=57/53 animals=16/11
+      << Day 15: us=$  10,195 opp=$  12,398 delta=++-2,203 plants=56/53 animals=16/11
+      >>> Day 16: us=$  11,102 opp=$  18,177 delta=++-7,075 plants=56/53 animals=16/11
+      << Day 17: us=$  22,891 opp=$  24,940 delta=++-2,049 plants=33/53 animals=16/11
+         Day 18: us=$  27,434 opp=$  26,204 delta=+++1,230 plants=35/53 animals=16/11
+      << Day 19: us=$  33,832 opp=$  34,798 delta=++++-966 plants=42/53 animals=16/11
+      >>> Day 20: us=$  36,839 opp=$  42,380 delta=++-5,541 plants=45/53 animals=16/11
+      >>> Day 21: us=$  40,334 opp=$  52,945 delta=+-12,611 plants=38/54 animals=16/11
+      >>> Day 22: us=$  50,062 opp=$  63,907 delta=+-13,845 plants=33/56 animals=16/12
+      >>> Day 23: us=$  54,716 opp=$  70,741 delta=+-16,025 plants=33/59 animals=16/12
+      >>> Day 24: us=$  61,516 opp=$  79,325 delta=+-17,809 plants=22/61 animals=16/12
+      >>> Day 25: us=$  68,898 opp=$  88,033 delta=+-19,135 plants=27/59 animals=16/12
+      >>> Day 26: us=$  73,656 opp=$  96,154 delta=+-22,498 plants=39/61 animals=16/12
+      >>> Day 27: us=$  78,614 opp=$ 101,162 delta=+-22,548 plants=29/61 animals=16/12
+      >>> Day 28: us=$  88,966 opp=$ 110,503 delta=+-21,537 plants=9/44 animals=16/12
+      >>> Day 29: us=$  95,169 opp=$ 117,377 delta=+-22,208 plants=0/27 animals=16/12
+
+  Analyzing: 91640723_1 seat 1 (margin -33,845)
+    Final: us=$97,919 vs opp=$131,764
+    Day-by-day money delta:
+         Day  1: us=$      55 opp=$      10 delta=++++++45 plants=9/10 animals=5/5
+         Day  2: us=$     123 opp=$       9 delta=+++++114 plants=9/10 animals=5/5
+         Day  3: us=$     590 opp=$     164 delta=+++++426 plants=9/10 animals=5/5
+         Day  4: us=$     521 opp=$     176 delta=+++++345 plants=9/14 animals=6/5
+         Day  5: us=$     758 opp=$     530 delta=+++++228 plants=9/14 animals=6/5
+         Day  6: us=$   1,113 opp=$     497 delta=+++++616 plants=9/19 animals=6/6
+         Day  7: us=$     981 opp=$      65 delta=+++++916 plants=31/19 animals=12/7
+         Day  8: us=$   1,163 opp=$      44 delta=+++1,119 plants=33/31 animals=12/10
+         Day  9: us=$     900 opp=$       6 delta=+++++894 plants=30/36 animals=12/11
+         Day 10: us=$   2,211 opp=$   1,947 delta=+++++264 plants=34/36 animals=13/11
+      << Day 11: us=$   1,087 opp=$   4,878 delta=++-3,791 plants=40/49 animals=13/11
+      << Day 12: us=$   1,072 opp=$   5,988 delta=++-4,916 plants=59/53 animals=14/11
+      >>> Day 13: us=$   1,881 opp=$   7,717 delta=++-5,836 plants=59/53 animals=16/11
+      >>> Day 14: us=$     939 opp=$   9,704 delta=++-8,765 plants=57/53 animals=16/11
+      << Day 15: us=$  10,195 opp=$  12,398 delta=++-2,203 plants=56/53 animals=16/11
+      >>> Day 16: us=$  11,102 opp=$  18,177 delta=++-7,075 plants=56/53 animals=16/11
+      << Day 17: us=$  22,891 opp=$  24,940 delta=++-2,049 plants=33/53 animals=16/11
+         Day 18: us=$  27,434 opp=$  26,204 delta=+++1,230 plants=35/53 animals=16/11
+      << Day 19: us=$  33,832 opp=$  34,798 delta=++++-966 plants=42/53 animals=16/11
+      >>> Day 20: us=$  36,839 opp=$  42,380 delta=++-5,541 plants=45/53 animals=16/11
+      >>> Day 21: us=$  40,334 opp=$  52,945 delta=+-12,611 plants=38/54 animals=16/11
+      >>> Day 22: us=$  50,062 opp=$  63,907 delta=+-13,845 plants=33/56 animals=16/12
+      >>> Day 23: us=$  54,710 opp=$  70,739 delta=+-16,029 plants=33/59 animals=16/12
+      >>> Day 24: us=$  60,789 opp=$  79,320 delta=+-18,531 plants=24/61 animals=16/12
+      >>> Day 25: us=$  69,019 opp=$  88,097 delta=+-19,078 plants=35/59 animals=16/12
+      >>> Day 26: us=$  73,777 opp=$  96,915 delta=+-23,138 plants=41/61 animals=16/12
+      >>> Day 27: us=$  79,029 opp=$ 101,931 delta=+-22,902 plants=27/61 animals=16/12
+      >>> Day 28: us=$  91,865 opp=$ 111,316 delta=+-19,451 plants=10/44 animals=16/12
+      >>> Day 29: us=$  94,667 opp=$ 120,410 delta=+-25,743 plants=0/27 animals=16/12
+
+  Analyzing: 91637781_0 seat 0 (margin -32,110)
+    Final: us=$96,631 vs opp=$128,741
+    Day-by-day money delta:
+         Day  1: us=$      55 opp=$      10 delta=++++++45 plants=9/10 animals=5/5
+         Day  2: us=$     123 opp=$       9 delta=+++++114 plants=9/10 animals=5/5
+         Day  3: us=$     590 opp=$     164 delta=+++++426 plants=9/10 animals=5/5
+         Day  4: us=$     424 opp=$     176 delta=+++++248 plants=9/14 animals=6/5
+         Day  5: us=$     657 opp=$     531 delta=+++++126 plants=9/14 animals=6/5
+         Day  6: us=$   1,013 opp=$     488 delta=+++++525 plants=9/19 animals=6/6
+         Day  7: us=$     693 opp=$      62 delta=+++++631 plants=26/20 animals=13/7
+         Day  8: us=$   1,519 opp=$   1,426 delta=++++++93 plants=31/33 animals=13/10
+         Day  9: us=$   1,857 opp=$     953 delta=+++++904 plants=30/38 animals=13/12
+      << Day 10: us=$     932 opp=$   2,811 delta=++-1,879 plants=50/38 animals=15/12
+      << Day 11: us=$   2,929 opp=$   7,632 delta=++-4,703 plants=52/56 animals=16/12
+      >>> Day 12: us=$   2,901 opp=$   8,710 delta=++-5,809 plants=54/63 animals=16/12
+      << Day 13: us=$   9,400 opp=$  10,877 delta=++-1,477 plants=53/63 animals=16/12
+      << Day 14: us=$  10,166 opp=$  14,542 delta=++-4,376 plants=53/63 animals=16/12
+      << Day 15: us=$  13,315 opp=$  17,112 delta=++-3,797 plants=56/63 animals=16/12
+      >>> Day 16: us=$  17,241 opp=$  23,651 delta=++-6,410 plants=56/63 animals=16/12
+      >>> Day 17: us=$  26,626 opp=$  32,147 delta=++-5,521 plants=44/63 animals=16/12
+         Day 18: us=$  35,293 opp=$  33,862 delta=+++1,431 plants=40/63 animals=16/12
+      >>> Day 19: us=$  36,039 opp=$  42,494 delta=++-6,455 plants=40/63 animals=16/12
+      << Day 20: us=$  47,389 opp=$  51,808 delta=++-4,419 plants=31/63 animals=16/12
+      >>> Day 21: us=$  49,220 opp=$  58,956 delta=++-9,736 plants=31/59 animals=16/12
+      >>> Day 22: us=$  57,463 opp=$  70,099 delta=+-12,636 plants=33/59 animals=16/13
+      >>> Day 23: us=$  62,190 opp=$  76,968 delta=+-14,778 plants=40/61 animals=16/13
+      >>> Day 24: us=$  64,110 opp=$  85,438 delta=+-21,328 plants=38/62 animals=16/13
+      >>> Day 25: us=$  76,227 opp=$  94,235 delta=+-18,008 plants=35/60 animals=16/13
+      >>> Day 26: us=$  80,394 opp=$ 102,248 delta=+-21,854 plants=35/62 animals=16/13
+      >>> Day 27: us=$  82,263 opp=$ 106,992 delta=+-24,729 plants=18/62 animals=16/13
+      >>> Day 28: us=$  94,326 opp=$ 113,367 delta=+-19,041 plants=7/45 animals=16/13
+      >>> Day 29: us=$  94,710 opp=$ 121,268 delta=+-26,558 plants=4/27 animals=16/13
+
+  Analyzing: 91637781_0 seat 1 (margin -32,110)
+    Final: us=$96,631 vs opp=$128,741
+    Day-by-day money delta:
+         Day  1: us=$      55 opp=$      10 delta=++++++45 plants=9/10 animals=5/5
+         Day  2: us=$     123 opp=$       9 delta=+++++114 plants=9/10 animals=5/5
+         Day  3: us=$     590 opp=$     164 delta=+++++426 plants=9/10 animals=5/5
+         Day  4: us=$     424 opp=$     176 delta=+++++248 plants=9/14 animals=6/5
+         Day  5: us=$     657 opp=$     531 delta=+++++126 plants=9/14 animals=6/5
+         Day  6: us=$   1,013 opp=$     488 delta=+++++525 plants=9/19 animals=6/6
+         Day  7: us=$     693 opp=$      62 delta=+++++631 plants=26/20 animals=13/7
+         Day  8: us=$   1,519 opp=$   1,426 delta=++++++93 plants=31/33 animals=13/10
+         Day  9: us=$   1,857 opp=$     953 delta=+++++904 plants=30/38 animals=13/12
+      << Day 10: us=$     932 opp=$   2,811 delta=++-1,879 plants=50/38 animals=15/12
+      << Day 11: us=$   2,929 opp=$   7,632 delta=++-4,703 plants=52/56 animals=16/12
+      >>> Day 12: us=$   2,901 opp=$   8,710 delta=++-5,809 plants=54/63 animals=16/12
+      << Day 13: us=$   9,400 opp=$  10,877 delta=++-1,477 plants=53/63 animals=16/12
+      << Day 14: us=$  10,166 opp=$  14,542 delta=++-4,376 plants=53/63 animals=16/12
+      << Day 15: us=$  13,315 opp=$  17,112 delta=++-3,797 plants=56/63 animals=16/12
+      >>> Day 16: us=$  17,241 opp=$  23,651 delta=++-6,410 plants=56/63 animals=16/12
+      >>> Day 17: us=$  26,626 opp=$  32,147 delta=++-5,521 plants=44/63 animals=16/12
+         Day 18: us=$  35,293 opp=$  33,862 delta=+++1,431 plants=40/63 animals=16/12
+      >>> Day 19: us=$  36,039 opp=$  42,494 delta=++-6,455 plants=40/63 animals=16/12
+      << Day 20: us=$  47,389 opp=$  51,808 delta=++-4,419 plants=31/63 animals=16/12
+      >>> Day 21: us=$  49,220 opp=$  58,956 delta=++-9,736 plants=31/59 animals=16/12
+      >>> Day 22: us=$  57,463 opp=$  70,099 delta=+-12,636 plants=33/59 animals=16/13
+      >>> Day 23: us=$  62,190 opp=$  76,968 delta=+-14,778 plants=40/61 animals=16/13
+      >>> Day 24: us=$  64,110 opp=$  85,438 delta=+-21,328 plants=38/62 animals=16/13
+      >>> Day 25: us=$  76,227 opp=$  94,235 delta=+-18,008 plants=35/60 animals=16/13
+      >>> Day 26: us=$  80,394 opp=$ 102,248 delta=+-21,854 plants=35/62 animals=16/13
+      >>> Day 27: us=$  82,263 opp=$ 106,992 delta=+-24,729 plants=18/62 animals=16/13
+      >>> Day 28: us=$  94,326 opp=$ 113,367 delta=+-19,041 plants=7/45 animals=16/13
+      >>> Day 29: us=$  94,710 opp=$ 121,268 delta=+-26,558 plants=4/27 animals=16/13
+
+  Analyzing: 91640589_0 seat 0 (margin -24,025)
+    Final: us=$73,782 vs opp=$97,807
+    Day-by-day money delta:
+         Day  1: us=$      55 opp=$      10 delta=++++++45 plants=9/10 animals=5/5
+         Day  2: us=$     123 opp=$       9 delta=+++++114 plants=9/10 animals=5/5
+         Day  3: us=$     590 opp=$     164 delta=+++++426 plants=9/10 animals=5/5
+         Day  4: us=$     521 opp=$     176 delta=+++++345 plants=9/14 animals=6/5
+         Day  5: us=$     758 opp=$     530 delta=+++++228 plants=9/14 animals=6/5
+         Day  6: us=$   1,113 opp=$     497 delta=+++++616 plants=9/19 animals=6/6
+         Day  7: us=$     599 opp=$      65 delta=+++++534 plants=29/19 animals=12/7
+         Day  8: us=$     887 opp=$      43 delta=+++++844 plants=33/31 animals=12/10
+         Day  9: us=$   1,139 opp=$      68 delta=+++1,071 plants=33/35 animals=13/11
+         Day 10: us=$   2,030 opp=$   1,923 delta=+++++107 plants=34/35 animals=13/11
+      << Day 11: us=$     983 opp=$   3,407 delta=++-2,424 plants=40/50 animals=13/11
+      << Day 12: us=$   1,047 opp=$   4,485 delta=++-3,438 plants=53/53 animals=14/11
+      << Day 13: us=$     847 opp=$   5,810 delta=++-4,963 plants=52/53 animals=15/11
+      >>> Day 14: us=$     927 opp=$   7,055 delta=++-6,128 plants=52/53 animals=15/11
+      << Day 15: us=$   6,293 opp=$   9,663 delta=++-3,370 plants=51/53 animals=16/11
+      >>> Day 16: us=$   7,128 opp=$  14,329 delta=++-7,201 plants=52/53 animals=16/11
+         Day 17: us=$  20,490 opp=$  19,727 delta=+++++763 plants=40/53 animals=16/11
+         Day 18: us=$  27,553 opp=$  20,866 delta=+++6,687 plants=43/53 animals=16/11
+         Day 19: us=$  32,219 opp=$  29,162 delta=+++3,057 plants=43/53 animals=16/11
+         Day 20: us=$  38,411 opp=$  33,538 delta=+++4,873 plants=35/53 animals=16/11
+      << Day 21: us=$  42,725 opp=$  43,500 delta=++++-775 plants=35/52 animals=16/11
+      << Day 22: us=$  47,052 opp=$  50,652 delta=++-3,600 plants=40/54 animals=16/12
+      << Day 23: us=$  51,487 opp=$  56,109 delta=++-4,622 plants=45/57 animals=16/12
+      >>> Day 24: us=$  54,403 opp=$  62,672 delta=++-8,269 plants=46/59 animals=16/12
+      >>> Day 25: us=$  58,092 opp=$  70,405 delta=+-12,313 plants=48/58 animals=16/12
+      >>> Day 26: us=$  61,455 opp=$  74,342 delta=+-12,887 plants=41/60 animals=16/12
+      >>> Day 27: us=$  65,888 opp=$  78,552 delta=+-12,664 plants=25/60 animals=16/12
+      >>> Day 28: us=$  70,157 opp=$  84,926 delta=+-14,769 plants=8/43 animals=16/12
+      >>> Day 29: us=$  72,586 opp=$  89,300 delta=+-16,714 plants=0/27 animals=16/12
+
+  Analyzing: 91640589_0 seat 1 (margin -26,551)
+    Final: us=$67,838 vs opp=$94,389
+    Day-by-day money delta:
+         Day  1: us=$      55 opp=$      10 delta=++++++45 plants=9/10 animals=5/5
+         Day  2: us=$     123 opp=$       9 delta=+++++114 plants=9/10 animals=5/5
+         Day  3: us=$     590 opp=$     164 delta=+++++426 plants=9/10 animals=5/5
+         Day  4: us=$     521 opp=$     176 delta=+++++345 plants=9/14 animals=6/5
+         Day  5: us=$     758 opp=$     530 delta=+++++228 plants=9/14 animals=6/5
+         Day  6: us=$   1,113 opp=$     497 delta=+++++616 plants=9/19 animals=6/6
+         Day  7: us=$     599 opp=$      65 delta=+++++534 plants=29/19 animals=12/7
+         Day  8: us=$     887 opp=$      43 delta=+++++844 plants=33/31 animals=12/10
+         Day  9: us=$   1,139 opp=$      68 delta=+++1,071 plants=33/35 animals=13/11
+         Day 10: us=$   2,030 opp=$   1,923 delta=+++++107 plants=34/35 animals=13/11
+      << Day 11: us=$     983 opp=$   3,407 delta=++-2,424 plants=40/50 animals=13/11
+      << Day 12: us=$   1,406 opp=$   4,485 delta=++-3,079 plants=54/54 animals=14/11
+      << Day 13: us=$     820 opp=$   5,810 delta=++-4,990 plants=53/54 animals=15/11
+      >>> Day 14: us=$     969 opp=$   7,055 delta=++-6,086 plants=52/54 animals=15/11
+      << Day 15: us=$   6,334 opp=$   9,669 delta=++-3,335 plants=51/54 animals=16/11
+      >>> Day 16: us=$   6,656 opp=$  14,339 delta=++-7,683 plants=50/54 animals=16/11
+      << Day 17: us=$  18,684 opp=$  20,130 delta=++-1,446 plants=37/54 animals=16/11
+         Day 18: us=$  26,153 opp=$  21,384 delta=+++4,769 plants=39/54 animals=16/11
+         Day 19: us=$  31,847 opp=$  29,702 delta=+++2,145 plants=39/54 animals=16/11
+         Day 20: us=$  35,497 opp=$  34,086 delta=+++1,411 plants=40/54 animals=16/11
+      << Day 21: us=$  39,067 opp=$  43,935 delta=++-4,868 plants=38/53 animals=16/11
+      >>> Day 22: us=$  44,514 opp=$  50,647 delta=++-6,133 plants=35/55 animals=16/12
+      >>> Day 23: us=$  49,991 opp=$  56,555 delta=++-6,564 plants=43/58 animals=16/12
+      >>> Day 24: us=$  52,996 opp=$  62,738 delta=++-9,742 plants=43/60 animals=16/12
+      >>> Day 25: us=$  55,989 opp=$  70,071 delta=+-14,082 plants=48/59 animals=16/12
+      >>> Day 26: us=$  57,973 opp=$  73,358 delta=+-15,385 plants=43/61 animals=16/12
+      >>> Day 27: us=$  62,001 opp=$  77,670 delta=+-15,669 plants=25/61 animals=16/12
+      >>> Day 28: us=$  66,187 opp=$  83,241 delta=+-17,054 plants=9/44 animals=16/12
+      >>> Day 29: us=$  67,032 opp=$  86,861 delta=+-19,829 plants=0/27 animals=16/12
+
+  Analyzing: 91642568_0 seat 0 (margin -22,020)
+    Final: us=$59,258 vs opp=$81,278
+    Day-by-day money delta:
+         Day  1: us=$      55 opp=$      10 delta=++++++45 plants=9/10 animals=5/5
+         Day  2: us=$     123 opp=$       9 delta=+++++114 plants=9/10 animals=5/5
+         Day  3: us=$     590 opp=$     164 delta=+++++426 plants=9/10 animals=5/5
+         Day  4: us=$     524 opp=$     176 delta=+++++348 plants=9/14 animals=6/5
+         Day  5: us=$     688 opp=$     531 delta=+++++157 plants=9/14 animals=6/5
+         Day  6: us=$   1,017 opp=$     488 delta=+++++529 plants=9/19 animals=6/6
+         Day  7: us=$     355 opp=$      65 delta=+++++290 plants=33/19 animals=13/7
+         Day  8: us=$     891 opp=$      64 delta=+++++827 plants=33/31 animals=13/10
+         Day  9: us=$   1,135 opp=$      22 delta=+++1,113 plants=29/36 animals=13/11
+         Day 10: us=$   2,059 opp=$   1,967 delta=++++++92 plants=34/36 animals=13/11
+      << Day 11: us=$     839 opp=$   3,482 delta=++-2,643 plants=38/51 animals=13/11
+      << Day 12: us=$   1,003 opp=$   4,606 delta=++-3,603 plants=59/54 animals=14/11
+      >>> Day 13: us=$     779 opp=$   5,931 delta=++-5,152 plants=59/54 animals=14/11
+      >>> Day 14: us=$     746 opp=$   7,129 delta=++-6,383 plants=58/54 animals=14/11
+      << Day 15: us=$   7,886 opp=$   9,768 delta=++-1,882 plants=57/54 animals=14/11
+      >>> Day 16: us=$   8,674 opp=$  14,446 delta=++-5,772 plants=52/54 animals=15/11
+      << Day 17: us=$  19,044 opp=$  19,979 delta=++++-935 plants=33/54 animals=15/11
+         Day 18: us=$  25,788 opp=$  21,184 delta=+++4,604 plants=42/54 animals=15/11
+         Day 19: us=$  30,294 opp=$  29,434 delta=+++++860 plants=46/54 animals=15/11
+         Day 20: us=$  34,249 opp=$  33,916 delta=+++++333 plants=44/54 animals=15/11
+      >>> Day 21: us=$  36,448 opp=$  44,342 delta=++-7,894 plants=41/53 animals=15/11
+      >>> Day 22: us=$  41,666 opp=$  51,194 delta=++-9,528 plants=37/55 animals=15/12
+      >>> Day 23: us=$  47,050 opp=$  56,570 delta=++-9,520 plants=35/58 animals=15/12
+      >>> Day 24: us=$  49,566 opp=$  61,270 delta=+-11,704 plants=40/60 animals=15/12
+      >>> Day 25: us=$  51,335 opp=$  65,877 delta=+-14,542 plants=45/58 animals=15/12
+      >>> Day 26: us=$  52,600 opp=$  68,231 delta=+-15,631 plants=46/60 animals=15/12
+      >>> Day 27: us=$  54,799 opp=$  70,414 delta=+-15,615 plants=33/60 animals=15/12
+      >>> Day 28: us=$  57,157 opp=$  72,769 delta=+-15,612 plants=10/43 animals=15/12
+      >>> Day 29: us=$  57,907 opp=$  75,214 delta=+-17,307 plants=0/27 animals=15/12
+
+  Analyzing: 91642568_0 seat 1 (margin -25,812)
+    Final: us=$74,524 vs opp=$100,336
+    Day-by-day money delta:
+         Day  1: us=$      55 opp=$      10 delta=++++++45 plants=9/10 animals=5/5
+         Day  2: us=$     123 opp=$       9 delta=+++++114 plants=9/10 animals=5/5
+         Day  3: us=$     590 opp=$     164 delta=+++++426 plants=9/10 animals=5/5
+         Day  4: us=$     524 opp=$     176 delta=+++++348 plants=9/14 animals=6/5
+         Day  5: us=$     688 opp=$     531 delta=+++++157 plants=9/14 animals=6/5
+         Day  6: us=$   1,017 opp=$     488 delta=+++++529 plants=9/19 animals=6/6
+         Day  7: us=$     355 opp=$      65 delta=+++++290 plants=33/19 animals=13/7
+         Day  8: us=$     891 opp=$      64 delta=+++++827 plants=33/31 animals=13/10
+         Day  9: us=$   1,135 opp=$      22 delta=+++1,113 plants=29/36 animals=13/11
+         Day 10: us=$   2,059 opp=$   1,967 delta=++++++92 plants=34/36 animals=13/11
+      << Day 11: us=$     839 opp=$   3,482 delta=++-2,643 plants=38/51 animals=13/11
+      << Day 12: us=$   1,326 opp=$   4,606 delta=++-3,280 plants=57/54 animals=14/11
+      >>> Day 13: us=$     595 opp=$   5,941 delta=++-5,346 plants=57/54 animals=14/11
+      >>> Day 14: us=$     711 opp=$   7,141 delta=++-6,430 plants=56/54 animals=14/11
+      << Day 15: us=$   9,758 opp=$   9,840 delta=+++++-82 plants=55/54 animals=16/11
+      << Day 16: us=$   9,904 opp=$  14,663 delta=++-4,759 plants=55/54 animals=16/11
+         Day 17: us=$  21,141 opp=$  20,546 delta=+++++595 plants=34/54 animals=16/11
+         Day 18: us=$  28,050 opp=$  21,820 delta=+++6,230 plants=39/54 animals=16/11
+         Day 19: us=$  31,471 opp=$  30,726 delta=+++++745 plants=43/54 animals=16/11
+         Day 20: us=$  35,842 opp=$  35,741 delta=+++++101 plants=41/54 animals=16/11
+      >>> Day 21: us=$  40,449 opp=$  46,591 delta=++-6,142 plants=39/53 animals=16/11
+      >>> Day 22: us=$  45,856 opp=$  54,364 delta=++-8,508 plants=33/55 animals=16/12
+      >>> Day 23: us=$  51,569 opp=$  61,028 delta=++-9,459 plants=30/58 animals=16/12
+      >>> Day 24: us=$  54,305 opp=$  67,814 delta=+-13,509 plants=39/60 animals=16/12
+      >>> Day 25: us=$  57,789 opp=$  75,557 delta=+-17,768 plants=55/58 animals=16/12
+      >>> Day 26: us=$  61,714 opp=$  79,350 delta=+-17,636 plants=50/60 animals=16/12
+      >>> Day 27: us=$  65,421 opp=$  83,426 delta=+-18,005 plants=27/60 animals=16/12
+      >>> Day 28: us=$  72,426 opp=$  89,581 delta=+-17,155 plants=9/43 animals=16/12
+      >>> Day 29: us=$  73,307 opp=$  93,161 delta=+-19,854 plants=0/27 animals=16/12
+
+  Analyzing: 91642568_1 seat 0 (margin -22,020)
+    Final: us=$59,258 vs opp=$81,278
+    Day-by-day money delta:
+         Day  1: us=$      55 opp=$      10 delta=++++++45 plants=9/10 animals=5/5
+         Day  2: us=$     123 opp=$       9 delta=+++++114 plants=9/10 animals=5/5
+         Day  3: us=$     590 opp=$     164 delta=+++++426 plants=9/10 animals=5/5
+         Day  4: us=$     524 opp=$     176 delta=+++++348 plants=9/14 animals=6/5
+         Day  5: us=$     688 opp=$     531 delta=+++++157 plants=9/14 animals=6/5
+         Day  6: us=$   1,017 opp=$     488 delta=+++++529 plants=9/19 animals=6/6
+         Day  7: us=$     355 opp=$      65 delta=+++++290 plants=33/19 animals=13/7
+         Day  8: us=$     891 opp=$      64 delta=+++++827 plants=33/31 animals=13/10
+         Day  9: us=$   1,135 opp=$      22 delta=+++1,113 plants=29/36 animals=13/11
+         Day 10: us=$   2,059 opp=$   1,967 delta=++++++92 plants=34/36 animals=13/11
+      << Day 11: us=$     839 opp=$   3,482 delta=++-2,643 plants=38/51 animals=13/11
+      << Day 12: us=$   1,003 opp=$   4,606 delta=++-3,603 plants=59/54 animals=14/11
+      >>> Day 13: us=$     779 opp=$   5,931 delta=++-5,152 plants=59/54 animals=14/11
+      >>> Day 14: us=$     746 opp=$   7,129 delta=++-6,383 plants=58/54 animals=14/11
+      << Day 15: us=$   7,886 opp=$   9,768 delta=++-1,882 plants=57/54 animals=14/11
+      >>> Day 16: us=$   8,674 opp=$  14,446 delta=++-5,772 plants=52/54 animals=15/11
+      << Day 17: us=$  19,044 opp=$  19,979 delta=++++-935 plants=33/54 animals=15/11
+         Day 18: us=$  25,788 opp=$  21,184 delta=+++4,604 plants=42/54 animals=15/11
+         Day 19: us=$  30,294 opp=$  29,434 delta=+++++860 plants=46/54 animals=15/11
+         Day 20: us=$  34,249 opp=$  33,916 delta=+++++333 plants=44/54 animals=15/11
+      >>> Day 21: us=$  36,448 opp=$  44,342 delta=++-7,894 plants=41/53 animals=15/11
+      >>> Day 22: us=$  41,666 opp=$  51,194 delta=++-9,528 plants=37/55 animals=15/12
+      >>> Day 23: us=$  47,050 opp=$  56,570 delta=++-9,520 plants=35/58 animals=15/12
+      >>> Day 24: us=$  49,566 opp=$  61,270 delta=+-11,704 plants=40/60 animals=15/12
+      >>> Day 25: us=$  51,335 opp=$  65,877 delta=+-14,542 plants=45/58 animals=15/12
+      >>> Day 26: us=$  52,600 opp=$  68,231 delta=+-15,631 plants=46/60 animals=15/12
+      >>> Day 27: us=$  54,799 opp=$  70,414 delta=+-15,615 plants=33/60 animals=15/12
+      >>> Day 28: us=$  57,157 opp=$  72,769 delta=+-15,612 plants=10/43 animals=15/12
+      >>> Day 29: us=$  57,907 opp=$  75,214 delta=+-17,307 plants=0/27 animals=15/12
+
+  Analyzing: 91642568_1 seat 1 (margin -25,812)
+    Final: us=$74,524 vs opp=$100,336
+    Day-by-day money delta:
+         Day  1: us=$      55 opp=$      10 delta=++++++45 plants=9/10 animals=5/5
+         Day  2: us=$     123 opp=$       9 delta=+++++114 plants=9/10 animals=5/5
+         Day  3: us=$     590 opp=$     164 delta=+++++426 plants=9/10 animals=5/5
+         Day  4: us=$     524 opp=$     176 delta=+++++348 plants=9/14 animals=6/5
+         Day  5: us=$     688 opp=$     531 delta=+++++157 plants=9/14 animals=6/5
+         Day  6: us=$   1,017 opp=$     488 delta=+++++529 plants=9/19 animals=6/6
+         Day  7: us=$     355 opp=$      65 delta=+++++290 plants=33/19 animals=13/7
+         Day  8: us=$     891 opp=$      64 delta=+++++827 plants=33/31 animals=13/10
+         Day  9: us=$   1,135 opp=$      22 delta=+++1,113 plants=29/36 animals=13/11
+         Day 10: us=$   2,059 opp=$   1,967 delta=++++++92 plants=34/36 animals=13/11
+      << Day 11: us=$     839 opp=$   3,482 delta=++-2,643 plants=38/51 animals=13/11
+      << Day 12: us=$   1,326 opp=$   4,606 delta=++-3,280 plants=57/54 animals=14/11
+      >>> Day 13: us=$     595 opp=$   5,941 delta=++-5,346 plants=57/54 animals=14/11
+      >>> Day 14: us=$     711 opp=$   7,141 delta=++-6,430 plants=56/54 animals=14/11
+      << Day 15: us=$   9,758 opp=$   9,840 delta=+++++-82 plants=55/54 animals=16/11
+      << Day 16: us=$   9,904 opp=$  14,663 delta=++-4,759 plants=55/54 animals=16/11
+         Day 17: us=$  21,141 opp=$  20,546 delta=+++++595 plants=34/54 animals=16/11
+         Day 18: us=$  28,050 opp=$  21,820 delta=+++6,230 plants=39/54 animals=16/11
+         Day 19: us=$  31,471 opp=$  30,726 delta=+++++745 plants=43/54 animals=16/11
+         Day 20: us=$  35,842 opp=$  35,741 delta=+++++101 plants=41/54 animals=16/11
+      >>> Day 21: us=$  40,449 opp=$  46,591 delta=++-6,142 plants=39/53 animals=16/11
+      >>> Day 22: us=$  45,856 opp=$  54,364 delta=++-8,508 plants=33/55 animals=16/12
+      >>> Day 23: us=$  51,569 opp=$  61,028 delta=++-9,459 plants=30/58 animals=16/12
+      >>> Day 24: us=$  54,305 opp=$  67,814 delta=+-13,509 plants=39/60 animals=16/12
+      >>> Day 25: us=$  57,789 opp=$  75,557 delta=+-17,768 plants=55/58 animals=16/12
+      >>> Day 26: us=$  61,714 opp=$  79,350 delta=+-17,636 plants=50/60 animals=16/12
+      >>> Day 27: us=$  65,421 opp=$  83,426 delta=+-18,005 plants=27/60 animals=16/12
+      >>> Day 28: us=$  72,426 opp=$  89,581 delta=+-17,155 plants=9/43 animals=16/12
+      >>> Day 29: us=$  73,307 opp=$  93,161 delta=+-19,854 plants=0/27 animals=16/12
+
+  Analyzing: 91639766_1 seat 0 (margin -24,894)
+    Final: us=$99,812 vs opp=$124,706
+    Day-by-day money delta:
+         Day  1: us=$      55 opp=$      10 delta=++++++45 plants=9/10 animals=5/5
+         Day  2: us=$     123 opp=$       9 delta=+++++114 plants=9/10 animals=5/5
+         Day  3: us=$     590 opp=$     164 delta=+++++426 plants=9/10 animals=5/5
+         Day  4: us=$     524 opp=$     176 delta=+++++348 plants=9/14 animals=6/5
+         Day  5: us=$     688 opp=$     531 delta=+++++157 plants=9/14 animals=6/5
+         Day  6: us=$   1,017 opp=$     488 delta=+++++529 plants=9/19 animals=6/6
+         Day  7: us=$     383 opp=$      64 delta=+++++319 plants=33/19 animals=13/7
+         Day  8: us=$     900 opp=$      57 delta=+++++843 plants=33/31 animals=13/10
+         Day  9: us=$     845 opp=$      15 delta=+++++830 plants=29/36 animals=13/11
+      << Day 10: us=$   2,061 opp=$   2,249 delta=++++-188 plants=34/36 animals=13/11
+      << Day 11: us=$   1,248 opp=$   3,333 delta=++-2,085 plants=41/52 animals=13/11
+      << Day 12: us=$   1,066 opp=$   3,633 delta=++-2,567 plants=57/58 animals=14/11
+      << Day 13: us=$     846 opp=$   4,825 delta=++-3,979 plants=57/58 animals=14/11
+      << Day 14: us=$     905 opp=$   5,867 delta=++-4,962 plants=55/58 animals=14/11
+      << Day 15: us=$   5,499 opp=$   9,051 delta=++-3,552 plants=53/58 animals=16/11
+      >>> Day 16: us=$   7,596 opp=$  15,671 delta=++-8,075 plants=53/58 animals=16/11
+      << Day 17: us=$  19,221 opp=$  22,450 delta=++-3,229 plants=35/58 animals=16/11
+         Day 18: us=$  25,546 opp=$  23,629 delta=+++1,917 plants=39/58 animals=16/11
+      << Day 19: us=$  29,817 opp=$  32,949 delta=++-3,132 plants=39/58 animals=16/11
+      >>> Day 20: us=$  34,097 opp=$  39,268 delta=++-5,171 plants=35/58 animals=16/11
+      >>> Day 21: us=$  38,552 opp=$  52,174 delta=+-13,622 plants=34/56 animals=16/11
+      >>> Day 22: us=$  48,133 opp=$  61,902 delta=+-13,769 plants=30/57 animals=16/13
+      >>> Day 23: us=$  57,717 opp=$  69,693 delta=+-11,976 plants=32/58 animals=16/13
+      >>> Day 24: us=$  63,884 opp=$  79,564 delta=+-15,680 plants=34/57 animals=16/13
+      >>> Day 25: us=$  73,594 opp=$  89,796 delta=+-16,202 plants=40/58 animals=16/13
+      >>> Day 26: us=$  77,329 opp=$  95,000 delta=+-17,671 plants=40/58 animals=16/13
+      >>> Day 27: us=$  85,008 opp=$ 100,160 delta=+-15,152 plants=27/58 animals=16/13
+      >>> Day 28: us=$  95,063 opp=$ 109,782 delta=+-14,719 plants=9/43 animals=16/13
+      >>> Day 29: us=$  98,491 opp=$ 116,061 delta=+-17,570 plants=0/23 animals=16/13
+
+  Analyzing: 91639766_1 seat 1 (margin -18,998)
+    Final: us=$105,048 vs opp=$124,046
+    Day-by-day money delta:
+         Day  1: us=$      55 opp=$      10 delta=++++++45 plants=9/10 animals=5/5
+         Day  2: us=$     123 opp=$       9 delta=+++++114 plants=9/10 animals=5/5
+         Day  3: us=$     590 opp=$     164 delta=+++++426 plants=9/10 animals=5/5
+         Day  4: us=$     524 opp=$     176 delta=+++++348 plants=9/14 animals=6/5
+         Day  5: us=$     688 opp=$     531 delta=+++++157 plants=9/14 animals=6/5
+         Day  6: us=$   1,017 opp=$     488 delta=+++++529 plants=9/18 animals=6/6
+         Day  7: us=$     383 opp=$      64 delta=+++++319 plants=33/19 animals=13/7
+         Day  8: us=$     900 opp=$      57 delta=+++++843 plants=33/31 animals=13/10
+         Day  9: us=$     845 opp=$      15 delta=+++++830 plants=29/36 animals=13/11
+      << Day 10: us=$   1,907 opp=$   2,249 delta=++++-342 plants=34/36 animals=13/11
+      << Day 11: us=$   1,324 opp=$   3,333 delta=++-2,009 plants=42/52 animals=13/11
+      << Day 12: us=$   1,119 opp=$   3,632 delta=++-2,513 plants=57/58 animals=14/11
+      << Day 13: us=$   1,341 opp=$   4,824 delta=++-3,483 plants=57/58 animals=15/11
+      << Day 14: us=$   1,134 opp=$   5,869 delta=++-4,735 plants=56/58 animals=15/11
+      << Day 15: us=$   7,612 opp=$   9,004 delta=++-1,392 plants=55/58 animals=16/11
+      >>> Day 16: us=$   8,889 opp=$  15,065 delta=++-6,176 plants=55/58 animals=16/11
+      << Day 17: us=$  19,370 opp=$  21,251 delta=++-1,881 plants=33/58 animals=16/11
+         Day 18: us=$  27,606 opp=$  22,934 delta=+++4,672 plants=35/58 animals=16/11
+         Day 19: us=$  33,508 opp=$  31,817 delta=+++1,691 plants=44/58 animals=16/11
+         Day 20: us=$  40,318 opp=$  37,663 delta=+++2,655 plants=45/58 animals=16/11
+      << Day 21: us=$  49,116 opp=$  49,602 delta=++++-486 plants=43/56 animals=16/11
+      << Day 22: us=$  53,936 opp=$  58,366 delta=++-4,430 plants=33/58 animals=16/13
+      << Day 23: us=$  61,529 opp=$  65,798 delta=++-4,269 plants=37/58 animals=16/13
+      >>> Day 24: us=$  67,854 opp=$  76,770 delta=++-8,916 plants=38/57 animals=16/13
+      >>> Day 25: us=$  74,322 opp=$  86,276 delta=+-11,954 plants=41/58 animals=16/13
+      >>> Day 26: us=$  79,570 opp=$  91,789 delta=+-12,219 plants=44/58 animals=16/13
+      >>> Day 27: us=$  86,600 opp=$  97,606 delta=+-11,006 plants=29/58 animals=16/13
+      >>> Day 28: us=$  96,550 opp=$ 105,006 delta=++-8,456 plants=6/43 animals=16/13
+      >>> Day 29: us=$ 102,984 opp=$ 112,356 delta=++-9,372 plants=0/23 animals=16/13
+
+  Analyzing: 91640589_1 seat 0 (margin -21,674)
+    Final: us=$90,698 vs opp=$112,372
+    Day-by-day money delta:
+         Day  1: us=$      55 opp=$      10 delta=++++++45 plants=9/10 animals=5/5
+         Day  2: us=$     123 opp=$       9 delta=+++++114 plants=9/10 animals=5/5
+         Day  3: us=$     590 opp=$     164 delta=+++++426 plants=9/10 animals=5/5
+         Day  4: us=$     521 opp=$     176 delta=+++++345 plants=9/14 animals=6/5
+         Day  5: us=$     758 opp=$     530 delta=+++++228 plants=9/14 animals=6/5
+         Day  6: us=$   1,113 opp=$     497 delta=+++++616 plants=9/19 animals=6/6
+         Day  7: us=$     599 opp=$      65 delta=+++++534 plants=29/19 animals=12/7
+         Day  8: us=$     888 opp=$      42 delta=+++++846 plants=33/31 animals=12/10
+         Day  9: us=$   1,140 opp=$       4 delta=+++1,136 plants=33/36 animals=13/11
+      << Day 10: us=$   2,032 opp=$   2,085 delta=+++++-53 plants=34/36 animals=13/11
+      << Day 11: us=$     966 opp=$   3,188 delta=++-2,222 plants=38/51 animals=13/11
+      << Day 12: us=$   1,213 opp=$   3,297 delta=++-2,084 plants=55/56 animals=13/11
+      << Day 13: us=$     961 opp=$   3,663 delta=++-2,702 plants=55/56 animals=13/11
+      << Day 14: us=$     710 opp=$   5,384 delta=++-4,674 plants=54/56 animals=13/11
+      << Day 15: us=$   6,206 opp=$   8,311 delta=++-2,105 plants=53/56 animals=16/11
+      << Day 16: us=$   8,314 opp=$  12,958 delta=++-4,644 plants=53/56 animals=16/11
+         Day 17: us=$  20,084 opp=$  17,685 delta=+++2,399 plants=36/56 animals=16/11
+         Day 18: us=$  27,147 opp=$  20,450 delta=+++6,697 plants=40/56 animals=16/11
+         Day 19: us=$  30,563 opp=$  27,855 delta=+++2,708 plants=41/56 animals=16/11
+      << Day 20: us=$  34,036 opp=$  34,140 delta=++++-104 plants=39/56 animals=16/11
+      << Day 21: us=$  40,112 opp=$  43,962 delta=++-3,850 plants=36/55 animals=16/11
+      >>> Day 22: us=$  46,261 opp=$  54,436 delta=++-8,175 plants=38/56 animals=16/13
+      << Day 23: us=$  58,541 opp=$  60,702 delta=++-2,161 plants=45/56 animals=16/13
+      >>> Day 24: us=$  60,572 opp=$  70,130 delta=++-9,558 plants=43/57 animals=16/13
+      >>> Day 25: us=$  68,062 opp=$  75,473 delta=++-7,411 plants=42/57 animals=16/13
+      >>> Day 26: us=$  70,608 opp=$  83,727 delta=+-13,119 plants=36/56 animals=16/13
+      >>> Day 27: us=$  79,313 opp=$  87,973 delta=++-8,660 plants=22/59 animals=16/13
+      >>> Day 28: us=$  85,280 opp=$  96,029 delta=+-10,749 plants=12/42 animals=16/13
+      >>> Day 29: us=$  89,522 opp=$ 103,019 delta=+-13,497 plants=0/25 animals=16/13
+
+  Analyzing: 91640589_1 seat 1 (margin -24,772)
+    Final: us=$61,715 vs opp=$86,487
+    Day-by-day money delta:
+         Day  1: us=$      55 opp=$      10 delta=++++++45 plants=9/10 animals=5/5
+         Day  2: us=$     123 opp=$       9 delta=+++++114 plants=9/10 animals=5/5
+         Day  3: us=$     590 opp=$     164 delta=+++++426 plants=9/10 animals=5/5
+         Day  4: us=$     521 opp=$     176 delta=+++++345 plants=9/14 animals=6/5
+         Day  5: us=$     758 opp=$     530 delta=+++++228 plants=9/14 animals=6/5
+         Day  6: us=$   1,113 opp=$     497 delta=+++++616 plants=9/19 animals=6/6
+         Day  7: us=$     599 opp=$      65 delta=+++++534 plants=29/19 animals=12/7
+         Day  8: us=$     888 opp=$      42 delta=+++++846 plants=33/31 animals=12/10
+         Day  9: us=$   1,140 opp=$       4 delta=+++1,136 plants=33/36 animals=13/11
+      << Day 10: us=$   2,032 opp=$   2,085 delta=+++++-53 plants=34/36 animals=13/11
+      << Day 11: us=$     966 opp=$   3,188 delta=++-2,222 plants=38/51 animals=13/11
+      << Day 12: us=$   1,121 opp=$   3,297 delta=++-2,176 plants=57/57 animals=13/11
+      << Day 13: us=$   1,090 opp=$   3,663 delta=++-2,573 plants=57/57 animals=13/11
+      << Day 14: us=$     840 opp=$   5,367 delta=++-4,527 plants=53/57 animals=13/11
+         Day 15: us=$   8,953 opp=$   8,224 delta=+++++729 plants=52/57 animals=13/11
+      << Day 16: us=$   9,097 opp=$  12,191 delta=++-3,094 plants=52/57 animals=14/11
+         Day 17: us=$  22,081 opp=$  16,299 delta=+++5,782 plants=39/57 animals=14/11
+         Day 18: us=$  24,570 opp=$  18,321 delta=+++6,249 plants=44/57 animals=14/11
+         Day 19: us=$  28,063 opp=$  24,801 delta=+++3,262 plants=44/57 animals=14/11
+         Day 20: us=$  30,800 opp=$  29,876 delta=+++++924 plants=41/57 animals=14/11
+      << Day 21: us=$  38,053 opp=$  38,479 delta=++++-426 plants=39/56 animals=13/11
+      << Day 22: us=$  41,443 opp=$  46,364 delta=++-4,921 plants=42/57 animals=15/13
+      >>> Day 23: us=$  44,881 opp=$  51,796 delta=++-6,915 plants=42/57 animals=15/13
+      >>> Day 24: us=$  46,528 opp=$  57,948 delta=+-11,420 plants=42/58 animals=15/13
+      >>> Day 25: us=$  50,680 opp=$  61,712 delta=+-11,032 plants=48/58 animals=15/13
+      >>> Day 26: us=$  51,939 opp=$  66,724 delta=+-14,785 plants=42/57 animals=15/13
+      >>> Day 27: us=$  55,503 opp=$  69,302 delta=+-13,799 plants=29/60 animals=15/13
+      >>> Day 28: us=$  58,949 opp=$  74,328 delta=+-15,379 plants=11/43 animals=15/13
+      >>> Day 29: us=$  60,674 opp=$  78,830 delta=+-18,156 plants=0/25 animals=15/13
+
+======================================================================
+AGGREGATE PATTERNS ACROSS LOSSES
+======================================================================
+
+Days we're behind (count):
+  Day 10: behind in 7/20 games
+  Day 11: behind in 20/20 games
+  Day 12: behind in 20/20 games
+  Day 13: behind in 20/20 games
+  Day 14: behind in 20/20 games
+  Day 15: behind in 19/20 games
+  Day 16: behind in 20/20 games
+  Day 17: behind in 14/20 games
+  Day 18: behind in 2/20 games
+  Day 19: behind in 10/20 games
+  Day 20: behind in 11/20 games
+  Day 21: behind in 19/20 games
+  Day 22: behind in 20/20 games
+  Day 23: behind in 20/20 games
+  Day 24: behind in 20/20 games
+  Day 25: behind in 20/20 games
+  Day 26: behind in 20/20 games
+  Day 27: behind in 20/20 games
+  Day 28: behind in 20/20 games
+  Day 29: behind in 20/20 games
+
+  Day 5 avg: us plants=9.0 animals=6.0 | opp plants=13.9 animals=5.0
+
+  Day 10 avg: us plants=35.6 animals=13.2 | opp plants=36.1 animals=11.1
+
+  Day 15 avg: us plants=54.4 animals=15.6 | opp plants=55.2 animals=11.1
+
+  Day 20 avg: us plants=40.5 animals=15.8 | opp plants=55.3 animals=11.1
+
+  Day 25 avg: us plants=39.8 animals=15.8 | opp plants=58.4 animals=12.2
+
+Full analysis saved to C:\Users\Vinee\Desktop\Kaggriculture\.loss_analysis.json
+
+
+--- STDERR ---
+
+OpenSpiel exception: Unknown game 'universal_poker'. Available games are:
+2048
+add_noise
+amazons
+amazons_proxy
+ant_foraging_arena
+antichess
+backgammon
+backgammon_proxy
+banqi
+bargaining
+bargaining_proxy
+battleship
+blackjack
+blotto
+breakthrough
+breakthrough_proxy
+bridge
+bridge_arena
+bridge_uncontested_bidding
+cached_tree
+capture_the_flag
+capture_the_flag_proxy
+catch
+chat_game
+checkers
+checkers_proxy
+chess
+chinese_checkers
+cliff_walking
+clobber
+clobber_proxy
+coin_game
+coin_game_arena
+coin_game_proxy
+colored_trails
+connect_four
+connect_four_proxy
+coop_box_pushing
+coop_to_1p
+coordinated_mp
+crazy_eights
+crazyhouse
+cribbage
+crossword
+cursor_go
+dark_chess
+dark_hex
+dark_hex_ir
+dark_hex_proxy
+deep_sea
+dots_and_boxes
+dots_and_boxes_proxy
+dou_dizhu
+efg_game
+einstein_wurfelt_nicht
+euchre
+first_sealed_auction
+gin_rummy
+gin_rummy_proxy
+go
+go_fish
+go_fish_proxy
+go_proxy
+gomoku
+goofspiel
+havannah
+havannah_proxy
+hearts
+hex
+hive
+hive_proxy
+kriegspiel
+kuhn_poker
+laser_tag
+latent_ttt
+leduc_poker
+lewis_signaling
+liars_dice
+liars_dice_ir
+lines_of_action
+lines_of_action_proxy
+maedn
+mancala
+mancala_proxy
+markov_soccer
+markov_soccer_proxy
+matching_pennies_3p
+matrix_bos
+matrix_brps
+matrix_cd
+matrix_coordination
+matrix_mp
+matrix_pd
+matrix_rps
+matrix_rpsw
+matrix_sh
+matrix_shapleys_game
+mfg_crowd_modelling
+mfg_crowd_modelling_2d
+mfg_dynamic_routing
+mfg_garnet
+misere
+mnk
+morpion_solitaire
+negotiation
+negotiation_proxy
+nfg_game
+nim
+nine_mens_morris
+nine_mens_morris_proxy
+normal_form_extensive_game
+oh_hell
+oshi_zumo
+oshi_zumo_proxy
+othello
+othello_proxy
+oware
+pathfinding
+pentago
+phantom_go
+phantom_ttt
+phantom_ttt_ir
+pig
+python_ant_foraging
+python_ant_foraging_proxy
+python_block_dominoes
+python_dynamic_routing
+python_hangman
+python_iterated_prisoners_dilemma
+python_kuhn_poker
+python_liars_poker
+python_pokerkit_wrapper
+python_pokerkit_wrapper_acpc_style
+python_repeated_pokerkit
+python_team_dominoes
+python_tic_tac_toe
+quoridor
+rbc
+repeated_game
+repeated_leduc_poker
+restricted_nash_response
+sheriff
+shogi
+shogi_proxy
+skat
+snake
+snake_proxy
+social_deduction
+solitaire
+spades
+start_at
+stones_and_gems
+tarok
+tic_tac_toe
+tiny_bridge_2p
+tiny_bridge_4p
+tiny_hanabi
+trade_comm
+turn_based_simultaneous_game
+twixt
+ultimate_tic_tac_toe
+ultimate_tic_tac_toe_proxy
+xiangqi
+y
+y_proxy
+yacht
+zerosum
+OpenSpiel exception: Unknown game 'repeated_poker'. Available games are:
+2048
+add_noise
+amazons
+amazons_proxy
+ant_foraging_arena
+antichess
+backgammon
+backgammon_proxy
+banqi
+bargaining
+bargaining_proxy
+battleship
+blackjack
+blotto
+breakthrough
+breakthrough_proxy
+bridge
+bridge_arena
+bridge_uncontested_bidding
+cached_tree
+capture_the_flag
+capture_the_flag_proxy
+catch
+chat_game
+checkers
+checkers_proxy
+chess
+chinese_checkers
+cliff_walking
+clobber
+clobber_proxy
+coin_game
+coin_game_arena
+coin_game_proxy
+colored_trails
+connect_four
+connect_four_proxy
+coop_box_pushing
+coop_to_1p
+coordinated_mp
+crazy_eights
+crazyhouse
+cribbage
+crossword
+cursor_go
+dark_chess
+dark_hex
+dark_hex_ir
+dark_hex_proxy
+deep_sea
+dots_and_boxes
+dots_and_boxes_proxy
+dou_dizhu
+efg_game
+einstein_wurfelt_nicht
+euchre
+first_sealed_auction
+gin_rummy
+gin_rummy_proxy
+go
+go_fish
+go_fish_proxy
+go_proxy
+gomoku
+goofspiel
+havannah
+havannah_proxy
+hearts
+hex
+hive
+hive_proxy
+kriegspiel
+kuhn_poker
+laser_tag
+latent_ttt
+leduc_poker
+lewis_signaling
+liars_dice
+liars_dice_ir
+lines_of_action
+lines_of_action_proxy
+maedn
+mancala
+mancala_proxy
+markov_soccer
+markov_soccer_proxy
+matching_pennies_3p
+matrix_bos
+matrix_brps
+matrix_cd
+matrix_coordination
+matrix_mp
+matrix_pd
+matrix_rps
+matrix_rpsw
+matrix_sh
+matrix_shapleys_game
+mfg_crowd_modelling
+mfg_crowd_modelling_2d
+mfg_dynamic_routing
+mfg_garnet
+misere
+mnk
+morpion_solitaire
+negotiation
+negotiation_proxy
+nfg_game
+nim
+nine_mens_morris
+nine_mens_morris_proxy
+normal_form_extensive_game
+oh_hell
+oshi_zumo
+oshi_zumo_proxy
+othello
+othello_proxy
+oware
+pathfinding
+pentago
+phantom_go
+phantom_ttt
+phantom_ttt_ir
+pig
+python_ant_foraging
+python_ant_foraging_proxy
+python_block_dominoes
+python_dynamic_routing
+python_hangman
+python_iterated_prisoners_dilemma
+python_kuhn_poker
+python_liars_poker
+python_pokerkit_wrapper
+python_pokerkit_wrapper_acpc_style
+python_repeated_pokerkit
+python_team_dominoes
+python_tic_tac_toe
+quoridor
+rbc
+repeated_game
+repeated_leduc_poker
+restricted_nash_response
+sheriff
+shogi
+shogi_proxy
+skat
+snake
+snake_proxy
+social_deduction
+solitaire
+spades
+start_at
+stones_and_gems
+tarok
+tic_tac_toe
+tiny_bridge_2p
+tiny_bridge_4p
+tiny_hanabi
+trade_comm
+turn_based_simultaneous_game
+twixt
+ultimate_tic_tac_toe
+ultimate_tic_tac_toe_proxy
+xiangqi
+y
+y_proxy
+yacht
+zerosum

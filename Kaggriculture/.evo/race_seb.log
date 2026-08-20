@@ -1,0 +1,8 @@
+race vs retreat -- opponent f_90639963_p1.py (8 seeds x 2 seats)
+
+preset              W-L   win%      mean     worst      best
+off                6-10  37.5%    -2,177    -8,256    +5,019  <= control (v27)
+race               6-10  37.5%    -2,203    -8,278    +5,016
+retreat            6-10  37.5%    -2,176    -8,236    +4,993
+race_slot          6-10  37.5%    -2,602    -8,845    +4,557
+retreat_slot       6-10  37.5%    -3,134    -9,188    +4,856

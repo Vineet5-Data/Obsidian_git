@@ -1,0 +1,92 @@
+Act as an ECONOMETRICIAN / OPERATIONS-RESEARCH theorist for the Kaggle
+"Kaggriculture" 2-player farming simulation (https://www.kaggle.com/competitions/kaggriculture).
+RESEARCH ONLY. Do not modify files. Do not run long simulations.
+
+Reward is FINAL MARGIN (my money minus rival money) at step 719. 720 steps =
+30 days x 24 turns. Both players share ONE market.
+
+=== ENGINE FACTS (verified in installed kaggle_environments 1.32.4) ===
+- price p(I) = base +/- amp * shape(|I - I0|), I0 = 10000, floor $1. Price
+  DECREASES in inventory I.
+- Market orders are matched BY SLOT INDEX between the two players, then settled
+  in a per-unit lockstep loop: unit k of a SELL is priced against inventory
+  already raised by units 1..k-1. Within a matched slot both players are quoted
+  off the SAME pre-commit inventory (simultaneous, no first-mover edge inside a
+  turn). Racing is ACROSS turns only.
+- Max 10 market orders per player per turn.
+- Exogenous demand DRAINS inventory: 8 shops fire every 4 steps; town centre
+  every 12 steps with multiplier 1x/2x/4x from days 0/10/20. Town centre
+  excludes FERTILIZER. Single-product shops consume 2x.
+- Measured glut (2-player supply / seasonal drain): WHEAT 1.00, WOOL 1.20,
+  STRAWBERRY 1.21, MILK 1.45, MELON 2.29 (0 shops), FERTILIZER infinite
+  (0 shops AND excluded from town centre => demand exactly zero).
+- Labour: HIRE cost follows a Fibonacci schedule (each additional hire costs
+  strictly more). Land and animals also purchasable.
+- Rival unit positions and the shared market inventory are PUBLIC. Rival's shed
+  and cash are NOT directly observable.
+
+=== WHAT I HAVE ALREADY ESTABLISHED (verify or REFUTE; do not just restate) ===
+A) "Sell immediately" dominates: glut >= 1 for every good means every price path
+   declines, so withholding always loses. ~75 tested reserve-price / inventory-
+   holding policies ALL lost money, monotonically in how much they held.
+B) NEW AND IMPORTANT: while WHEN to sell is state-independent, HOW SPREAD OUT
+   the selling is matters a lot. Bunching many SELLs into one turn walks the
+   price down within that turn (per-unit lockstep); spreading the same volume
+   across adjacent turns lets shop/town drain refill demand in between. I
+   implemented "advance a sell into a spare slot in an earlier turn whenever the
+   shed verifiably holds the goods" and it gained +572 mean margin across a
+   288-game panel (win rate 56.2% -> 62.5%) and improved ALL 7 market-parameter
+   stress regimes.
+C) An evolutionary search over the market channel (48 children, single edits)
+   found ZERO improvements: 42% of edits had exactly no effect, the rest ran to
+   -35,572. Diagnosis: the action tape is CASH-SATURATED -- adding a purchase is
+   silently rejected for want of money, removing one cascades.
+D) Perturbing the herd mix away from the recorded 8 COW / 6 SHEEP is strictly
+   worse. A from-scratch greedy production controller scores far worse than the
+   recorded tape.
+
+=== THE TWO UNSOLVED MATCHUPS ===
+1) "Seb": strictly BIGGER build than mine -- 309 hires vs my 259, 3 land vs 2,
+   19 animals (13 cow + 6 sheep) vs my 14, and 248 sell orders vs my 157. He
+   floods MILK (287 units vs my 213) and sells almost NO WHEAT (81 vs my 273).
+   I win only 16.7% against him, mean margin -2,995.
+2) A near-mirror opponent running the SAME route as me, where I now lose by only
+   -256. Residual is slot ordering within contested turns.
+
+=== RESEARCH QUESTIONS ===
+Q1. OPTIMAL EXECUTION. My "spread the sells" result looks like a rediscovery of
+    optimal trade execution under market impact. Map this problem precisely onto
+    the literature: Almgren-Chriss (temporary vs permanent impact, TWAP/VWAP
+    optimality), and especially Obizhaeva-Wang and successors on a RESILIENT
+    limit order book, since my "resilience" is the deterministic periodic shop /
+    town-centre drain. Given (i) deterministic periodic resilience rather than
+    exponential decay, (ii) a hard cap of 10 orders per turn, (iii) a finite
+    horizon with zero terminal value for unsold goods, what is the OPTIMAL
+    liquidation trajectory? Is it uniform (TWAP), or the OW-style
+    block-trickle-block? State the condition that decides which.
+Q2. COMPETITIVE EXECUTION. Same question but with TWO sellers liquidating into
+    the same book, matched by slot index, each seeing only aggregate inventory.
+    Is there a known "predatory trading" / "sunshine trading" result here
+    (Brunnermeier-Pedersen, Carlin-Lobo-Viswanathan)? Against a rival who floods
+    one good, does theory say I should RACE him in that good (sell before his
+    supply lands) or RETREAT to goods he ignores? My reward is relative margin,
+    which should matter for the answer.
+Q3. CAPITAL ACCUMULATION. Seb out-produces me by reinvesting more into labour
+    (Fibonacci-priced), land, and herd. Framed as finite-horizon optimal growth
+    with a convex investment cost and zero terminal capital value, what does
+    theory say about the optimal reinvestment path and, critically, the optimal
+    STOPPING time for reinvestment? Is there a turnpike / "last useful
+    investment" result that tells me the latest step at which hiring still pays?
+Q4. RELATIVE-PERFORMANCE OBJECTIVE. Because reward is MARGIN, not profit, this
+    is closer to a zero-sum differential game than to profit maximisation. Does
+    that change the optimal policy versus maximising own profit? Specifically:
+    is there ever a positive-value action that LOWERS my own profit but lowers
+    the rival's by more (e.g. deliberately crashing a good the rival is
+    concentrated in)? Name the relevant framework.
+Q5. Search Kaggle discussions/notebooks for this competition for published
+    strategy insight on market timing, order slots, hiring schedules, or herd
+    sizing that is NOT already covered above.
+
+Deliver a cited synthesis. Be explicit and blunt about where you DISAGREE with
+claims A-D. Prioritise Q1, Q2 and Q3 -- they map directly onto levers I can
+still pull.

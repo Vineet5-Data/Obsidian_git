@@ -1,0 +1,7 @@
+{
+  "concept_name": "Animal Herd Scaling",
+  "mechanic_exploited": "Exploits livestock production cycles, Wheat feeding requirements (1 Wheat/animal/day to prevent animal escape), CARE yield banking on fed days, and town shop demand absorption. Cows produce Milk (base price $160) every 2 days and Sheep produce Wool (base price $200) every 3 days. Cow herd scaling dominates because 3 town shops consume 18 Milk/day (preventing price decay and sustaining sales above base $160 up to $266), whereas Wool gluts quickly due to only 1 town shop demanding 12 Wool/day. Geese (Egg base price $50) yield low revenue per action despite 2 town shops. Maximizing Cow ratio to Wheat feed costs delivers optimal income per action.",
+  "implementation_complexity": "Moderate (~50-100 lines for pasture construction, wheat feed purchasing, daily feeding/care action loops, and milk sell order management)",
+  "expected_yield_gain": "+4,450 to +15,000+ coins net gain over mixed-herd or unoptimized livestock strategies",
+  "uncertain": []
+}

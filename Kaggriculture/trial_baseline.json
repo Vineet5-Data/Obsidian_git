@@ -1,0 +1,65 @@
+{
+  "agent": "v36_codex.py",
+  "games": 12,
+  "wins": 4,
+  "losses": 8,
+  "mean_margin": -2524.8333333333335,
+  "median_margin": -12352.0,
+  "minimum_margin": -16648.0,
+  "details": {
+    "90916074_0": {
+      "wins": 0,
+      "losses": 2,
+      "mean_margin": -16584.5,
+      "margins": [
+        -16527.0,
+        -16642.0
+      ]
+    },
+    "90916074_1": {
+      "wins": 0,
+      "losses": 2,
+      "mean_margin": -16254.5,
+      "margins": [
+        -16622.0,
+        -15887.0
+      ]
+    },
+    "90916037_0": {
+      "wins": 0,
+      "losses": 2,
+      "mean_margin": -16432.0,
+      "margins": [
+        -16216.0,
+        -16648.0
+      ]
+    },
+    "90920155_1": {
+      "wins": 0,
+      "losses": 2,
+      "mean_margin": -8817.0,
+      "margins": [
+        -8817.0,
+        -8817.0
+      ]
+    },
+    "90915190_1": {
+      "wins": 2,
+      "losses": 0,
+      "mean_margin": 8837.5,
+      "margins": [
+        6699.0,
+        10976.0
+      ]
+    },
+    "90917654_0": {
+      "wins": 2,
+      "losses": 0,
+      "mean_margin": 34101.5,
+      "margins": [
+        34902.0,
+        33301.0
+      ]
+    }
+  }
+}

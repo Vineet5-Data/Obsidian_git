@@ -1,0 +1,9 @@
+{
+  "concept_name": "Grid Search Optimization Meta",
+  "mechanic_exploited": "Exploits the turn-based economic engine by performing offline grid search over thousands of simulated game scenarios to identify a dominant, fixed production and sales schedule, effectively bypassing the need for a reactive, dynamic agent.",
+  "implementation_complexity": "High offline compute, low runtime code complexity",
+  "expected_yield_gain": "[uncertain]",
+  "uncertain": [
+    "expected_yield_gain"
+  ]
+}

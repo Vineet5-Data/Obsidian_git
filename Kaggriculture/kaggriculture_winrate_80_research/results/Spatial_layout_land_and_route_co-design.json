@@ -1,0 +1,107 @@
+{
+  "hypothesis": "Choosing build and planting tiles by discounted lifetime travel, while buying land only when the added near-shed serviceable capacity repays its price and route burden, will reduce the 162-167 movement actions/day seen in the failed v204 regime and convert more worker-turns into completed harvest and animal service. The gain should come without increasing crop or animal counts.",
+  "exact_code_lever": {
+    "single_cause_candidate": "Replace the current empty-tile choice for PLANT, BUILD_COOP, and BUILD_PASTURE with layout_score(tile, project) and leave portfolio sizes, job values, hiring, and market logic unchanged.",
+    "layout_score": "project_net_terminal_value - movement_shadow_price * expected_remaining_visits * min_Manhattan_distance_to_shed_access - 0.5 * movement_shadow_price * distance_to_same_service_cluster - lane_block_penalty.",
+    "zone_order": [
+      "Reserve the four shed-access tiles (4,4), (5,4), (4,5), and (5,5) as unplanted transit/deposit lanes whenever an alternative tile exists.",
+      "Place animals, which may need FEED, CARE, COLLECT_FERTILIZER, and HARVEST repeatedly, in compact rings nearest a shed-access tile.",
+      "Place ongoing TOMATO/STRAWBERRY in the next compact bands because they need repeated WATER, FERTILIZE, and HARVEST visits.",
+      "Place short one-time WHEAT/CARROT and then MELON farther out, ordered by forecast visits and expiry risk."
+    ],
+    "land_gate": "Do not change the BUY_LAND action in the first experiment; audit it with added_capacity_value - land_price - route_cost. In a follow-up single-cause test, buy the next fixed-order quadrant only when forecast utilization is below 0.80, at least eight of its 25 tiles have positive net projects, post-purchase reserve remains intact, and payback occurs before the terminal service cutoff. Numerical thresholds are [uncertain]."
+  },
+  "affected_phase": "Tile placement applies whenever a new plant or structure is created, with the largest effect after day 4 when NE and SW can unlock and before long-lived crops are planted. Land audit applies from baseline unlock gates around days 4 and 7 through the last profitable planting date; no expansion should be admitted in the final seven days or during congestion. Evaluate especially days 15-24, all seats, and opponents that induce contested premium production.",
+  "engine_mechanism": "The 10x10 board has four 5x5 quadrants; only NW starts unlocked, and BUY_LAND unlocks NE, then SW, then SE for 1000, 2000, and 4000 coins. Units may cross locked tiles but all tile operations there silently no-op. The four center tiles are shed-access points, day rollover respawns units there, and DROP/PLACE/PICKUP require one of those tiles. Every recurring plant or animal service therefore incurs Manhattan travel from current routes and often from the shed. Structures require BUILD, animal purchase into the shed, PICKUP, travel, and PLACE before production. A land purchase provides capacity, not labor; its value is negative when added projects cannot be repeatedly serviced.",
+  "regime_trigger_and_forecast_error": {
+    "trigger": "Switch from growth layout to consolidation when 24-turn forecast utilization exceeds 0.75, movement share exceeds 50% over the last 24 turns, minimum mandatory slack is below four turns, or completed-job distance exceeds its seven-day median by 25%. Exit only after two daily windows below 0.65 utilization and below 45% movement.",
+    "forecast": "Estimate remaining visits per project from crop lifecycle, daily survival watering, scheduled ongoing production, animal daily FEED/CARE/COLLECT, expected harvests, and terminal return. Compare forecast visits and travel with realized action traces per tile and quadrant.",
+    "error_risk": "Nearest-shed distance understates multi-stop route cost and may overvalue central congestion; expected visit counts depend on future prices and whether optional CARE/FERTILIZE is admitted. Thresholds are [uncertain]."
+  },
+  "decision_score_audit": "For every candidate empty tile log project type, quadrant, distance to each shed access, expected visits, same-service neighbors within radius two, lane penalty, project gross/net value, travel debit, chosen rank, best rejected rank, and rejection reason. For each land decision log quadrant price, usable near-shed tile count, forecast projects, workload increment, expected cash, reserve, payback day, and score gap versus no purchase.",
+  "admissible_workload_and_minimum_slack": "Before placing a project, add its full remaining-horizon service actions and a route lower bound to existing mandatory workload. Reject if day-level utilization exceeds 0.80 or any existing survival/expiry job loses its two-turn minimum slack. Count land capacity only for projects passing that gate; empty tiles alone are not demand. Preserve room for return-to-shed routes before day boundaries and DUMP_STEP.",
+  "constraint_utilization_profile": "Profile workers and movement by quadrant; money tied in land/structures/seeds; occupied, empty, weed, and reserved-lane tiles; shed occupancy; carried inventory; and market-order use. Key comparisons are movement share, jobs completed per unlocked tile, productive tiles per paid quadrant, central-lane blocking, and cash payback by unlock. A fourth quadrant at low occupancy is a failure even if total production rises.",
+  "job_queue_health": "Break queue age, lateness, and abandonment down by quadrant and service cluster. A good layout should reduce the old tail of FEED, WATER, and HARVEST jobs in outer tiles and reduce jobs that expire while a worker traverses between quadrants. Track stranded structures, empty coops/pastures, weeds delaying routes, and projects never serviced after placement.",
+  "spatial_logistics_metrics": {
+    "primary": [
+      "Manhattan movement per completed service job",
+      "movement actions per day and as a share of all unit actions",
+      "empty travel and shed-return distance per deposited unit",
+      "route switches between quadrants and service clusters",
+      "mean/95th-percentile shed distance weighted by realized visits"
+    ],
+    "secondary": [
+      "batch size of adjacent same-resource work", "shed trips", "central-lane occupancy", "productive output per tile-day", "payback day per quadrant"
+    ],
+    "target": "Reduce movement share toward below 45% without reducing mandatory service execution or increasing idle PASS caused by inaccessible work."
+  },
+  "expected_terminal_value": "[uncertain] Positive value is expected from fewer route actions and fewer expired or unserviced assets, offset by potentially selecting a locally convenient tile over the highest immediate-value crop. Measure terminal cash and paired margin; do not monetize a movement saved unless the released turn completes positive-net work.",
+  "marginal_value_per_worker_turn": "For a tile/project use incremental terminal revenue net of seed/structure/animal cost and market impact divided by build/plant, forecast service, harvest, deposit, and travel actions. For land, divide net incremental terminal cash by both its 1000/2000/4000 coin cost and incremental labor; report added output and cash per added movement turn.",
+  "shadow_price_vector": {
+    "money": "Highest foregone positive-net project or feed/hire reserve per coin spent on land and structures.",
+    "labor": "Best rejected service value per action in the relevant day window.",
+    "movement": "Best rejected service value times expected extra Manhattan steps; calibrate separately for normal and congested phases.",
+    "tile": "Marginal net value of the best serviceable project, not the best unconstrained project.",
+    "shed": "Overflow loss or forced-sale cost created by shortening return paths and increasing throughput.",
+    "cargo": "No physical engine cap; price only time-to-deposit and overflow exposure.",
+    "market_order": "Best displaced sale or necessity order when expansion adds purchases. Numerical values are [uncertain]."
+  },
+  "gross_to_net_value_decomposition": "For every project/land decision start with forecast product revenue and known town absorption. Subtract seed, land, structure, animal and feed cost; price impact from own and opponent supply; all build/service/harvest/deposit travel valued at phase labor and movement prices; shed overflow; financing delay; expiry; and displaced work. Add avoided future travel relative to the baseline chosen tile. Report realized decomposition by quadrant.",
+  "market_and_opponent_dependence": "Layout geometry is opponent-agnostic, but project mix and land payback use current market inventory, visible opponent assets, and unlocked town shops. Cap the exploitation component so a visible rival crop cannot justify a remote project that fails workload admission. Stratify results by rivals that expand early, overproduce premium crops, run animals, or stay on one quadrant.",
+  "action_validity_and_noop_breakdown": "Count invalid PLANT/BUILD/DIG/PLACE on locked or nonempty tiles, PLACE with wrong structure or absent carried animal, PICKUP/DROP away from shed, same-target collisions, seed over-request, and BUY_LAND attempts when unaffordable or all land is owned. Verify reserved shed-access tiles remain usable and that movement through locked tiles is never mistaken for action permission.",
+  "micro_scenario_coverage": [
+    "NW-only farm chooses a daily-service animal tile nearer (4,4) than an equal-value outer tile.",
+    "NE and SW are scored separately after their ordered unlocks; SE cannot be bought first.",
+    "A locked center-adjacent tile is traversable but rejected for PLANT/BUILD.",
+    "The four shed-access tiles remain deposit-capable under the lane-reservation rule.",
+    "Two equal-distance tiles prefer adjacency to an existing same-resource cluster.",
+    "A 4000-coin SE purchase fails when fewer than eight positive serviceable projects remain.",
+    "A long-lived crop near the end of season fails payback even on a near-shed tile.",
+    "A weed in the preferred band triggers a valid DIG-before-PLANT path rather than a stale PLANT."
+  ],
+  "terminal_feasibility": "The last profitable project date must include maturation, all required survival service, harvest, Manhattan return to a center tile, deposit, and a SELL slot. Land and structure purchases are rejected when this chain cannot finish before the final executable action. From DUMP_STEP=648, score tile positions only for liquidation reachability; after FINAL_FARM_STEP=696 create no new projects.",
+  "paired_test_design": {
+    "control": "a_v186.py at SHA-256 8e24e4236a9b8c0b877f86695845985d4b4df5d797f465bc4f88277b0351a26a",
+    "candidate": "[uncertain] a_v186_spatial_layout.py with only tile selection changed",
+    "screen": "80 opponents, both seats, four fixed seeds: 640 games per agent. Primary metric paired wins; mechanism metrics movement/completed job and mandatory-service completion.",
+    "validation": "Freeze layout weights and run 11 untouched offset-20 seeds against 80 opponents, both seats: 1760 games per agent.",
+    "command": "python _loss_analysis.py a_v186.py a_v186_spatial_layout.py --opponents 80 --seeds 11 --offset 20 --out spatial_layout_validation.json"
+  },
+  "paired_discordance_and_effect_interval": "[uncertain] Publish candidate-only and control-only wins, McNemar exact test, paired win-uplift interval, and paired bootstrap intervals for terminal margin, movement/completed job, and expiry. Actual discordance determines power; at 1760 games an uplift around 3-4 points is a rough detectable range under 25-35% discordance.",
+  "random_stream_alignment": "Use identical environment seeds, opponent, and seat, but audit alignment after the first different tile choice. Because weed RNG is consumed only for empty unlocked tiles and precedes shop selection, different layouts can alter both subsequent weed and shop draws. Add weedSpawnChance=0 and fixed-shop deterministic panels to separate geometry from RNG-path effects.",
+  "optional_stopping_and_multiple_testing_budget": "No stopping inside the fixed 640-game screen or 1760-game validation. This is one predeclared candidate in the 24-item family; use Holm-adjusted family-wise alpha 0.05 for final promotion. Treat a land-gate follow-up as a separate hypothesis, not an unreported retune.",
+  "tuning_validation_separation": "Tune no more than six combinations of visit weight, cluster weight, and lane penalty on offsets 0-5. Freeze the selected values and exact zone rules before offset-20 validation. Do not use the 1760-game validation to alter layout or unlock thresholds.",
+  "distributional_guardrails": "Require non-inferior survival failures, held-yield expiry, harvest execution, and lower-tail margin. Reject if either seat loses more than 2 points, any opponent archetype loses more than 3, 10th-percentile margin drops over 2000 coins, catastrophic loss rate rises over 1 point, or movement falls only because productive service also falls.",
+  "robustness_regret": "[uncertain] Report max and median regret versus the best tested layout across early-expansion, no-expansion, animal, premium-crop, staple, and passive opponent strata. Worst-stratum regret relative to a_v186 must be within 2 win-rate points.",
+  "rare_event_stress_results": "[uncertain] Pending tests for near-shed weed barriers, all four access tiles occupied, early low liquidity, unaffordable ordered land, remote simultaneous expiry, 100-item shed, a fourth-quadrant glut, and terminal cargo on corner tiles. Record reachability, no-ops, overflow, expiry, and cash.",
+  "interaction_and_ablation_matrix": "[uncertain] Test tile scoring alone, lane reservation alone, cluster term alone, and leave-one-out versions. Only after isolated success, cross with workload admission, route batching, crop portfolio, harvest urgency, and fertilizer co-location; include a land-gate-only row to distinguish layout from expansion quantity.",
+  "promotion_margin_and_reversion_trigger": "Promote only with at least +1.5 observed win-rate points, positive Holm-adjusted paired evidence, positive median terminal-margin change, lower movement/completed job, and all guardrails. Revert if paid quadrants remain below 25% productive occupancy for three days, route distance rises, survival/expiry worsens, shed access is blocked, or decision time exceeds budget. Final combination must validate at 80% or above on a fresh panel.",
+  "confidence_and_status": "High confidence in geometry and engine preconditions; moderate confidence that shorter recurring routes release valuable actions; [uncertain] confidence in weights, quadrant thresholds, and win uplift. Status: research complete, candidate not implemented or benchmarked.",
+  "computational_budget": "Precompute 100 tile-to-shed and tile-to-tile Manhattan distances. Score at most 100 empty tiles for each admitted project, O(projects*tiles), and cache expected visit counts by crop age. Target below 50 ms/turn and under 1 MB state. On timeout, use a_v186's original tile order and preserve mandatory service.",
+  "artifact_metadata": {
+    "research_date": "2026-08-19",
+    "baseline_record": "1203-557, 68.4%, 1760 games",
+    "baseline_path": "C:/Users/Vinee/Desktop/Kaggriculture/a_v186.py",
+    "baseline_sha256": "8e24e4236a9b8c0b877f86695845985d4b4df5d797f465bc4f88277b0351a26a",
+    "engine_path_and_sha256": "C:/Users/Vinee/Desktop/Kaggriculture/_env_src.py; c11baf358548d8dd6f3cba031899bc1614c0fcb31a27366f12753563154307e6",
+    "failure_reference": "kaggriculture_winrate_80_research/outline.yaml: v204 movement about 162-167 actions/day on days 15-24 and harvest assignment 23.8-26.0%",
+    "candidate_path": "[uncertain] C:/Users/Vinee/Desktop/Kaggriculture/a_v186_spatial_layout.py",
+    "external_references_from_outline": [
+      "https://doi.org/10.1016/j.orp.2016.09.002",
+      "https://archive.org/details/operationsresear0000wins_04ed"
+    ]
+  },
+  "uncertain": [
+    "exact_code_lever",
+    "regime_trigger_and_forecast_error",
+    "expected_terminal_value",
+    "shadow_price_vector",
+    "paired_test_design",
+    "paired_discordance_and_effect_interval",
+    "robustness_regret",
+    "rare_event_stress_results",
+    "interaction_and_ablation_matrix",
+    "confidence_and_status",
+    "artifact_metadata"
+  ]
+}

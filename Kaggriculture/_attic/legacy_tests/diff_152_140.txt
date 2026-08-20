@@ -1,0 +1,271 @@
+--- 
++++ 
+@@ -1,4 +1,104 @@
+-"""v132 -- residual-market animal species allocator on the v128 frontier.
++"""v140 + no-op service suppression.  See V140_SERVICE_LOOP_FINDINGS.md.
++
++WHAT THE LOSS SET ACTUALLY SAYS.  v140 goes 1241-359 (77.6%), and the 359
++losses are not strategy losses.  Money delta runs +579 / -976 / +1,573 /
++**+9,438** / +2,507 across days 5..25: the lead is decisive at day 20 and is
++handed back over days 20-29.  Net cash is us +41,975 vs +26,785 through day 19,
++then us +27,740 vs +39,921 and us +24,353 vs +31,288.  Over the same window the
++crop footprint falls 46.0 -> 41.6 tiles while the rival's climbs 54.8 -> 58.9,
++and the rival takes 162.9 strawberry units off 15.3 tiles against our 85.7 off
++21.1 -- more tiles, less than half the output.
++
++WHAT THE ENGINE SAYS.  All of the following is in kaggriculture.py, not in any
++opponent model:
++
++  * `_daily_refresh_plants` clamps held yield at max_yield, so a full tile
++    silently discards its entire production tick;
++  * on the last tick it sets `max_lifespan_step`, after which `_decay_plants`
++    destroys one unit every two steps and the tile becomes a WEED;
++  * `PLANT` requires an empty tile, so a weed is a permanent loss of farm area;
++  * FERTILIZE doubles the daily tick, and only on a day the tile was watered;
++  * worker inventory is uncapped, so HARVEST is free at any market price.
++
++WHAT WAS TRIED, AND MEASURED.  Head-to-head against this file's own baseline
++(`a_v140_market_dominance.baseline.py`), 12 seeds x both seats, margin per game:
++
++    re-price HARVEST/CARE/FEED off a floor instead of spot   -4,746   t -3.21
++    reclaim decayed tiles + weeds with a real DIG value      -5,281   t -4.32
++    reserve fertilizer from sale the way wheat already is    -6,019   t -5.0
++    all three together                                       -7,873   t -6.33
++    widen FERTILIZE into the full 3-day buff window          -1,057   t -0.90
++    buy the 4th quadrant (LAND_PRICES[2], unreachable)       -5,009   t -3.05
++    move_rate: median of the board, MOVE_FRAC 0.25           -3,490   t -2.91
++    move_rate: median of the board, MOVE_FRAC 10.0           -9,522   t -5.07
++    MAX_HANDS 12 -> 14                                       -4,947   t -5.49
++    MAX_HANDS 12 -> 16                                      -24,702   t -28.1
++
++Four whole axes are closed by that table, and they close in the same direction.
++Re-pricing the service loop loses.  Letting workers travel loses -- the huge
++move_rate is load-bearing, not a bug: on a dense board nearest-job-first
++maximises total services delivered, and crossing the board for one good job
++burns 5-9 turns of foregone work.  Buying 25 more tiles loses.  Hiring more
++hands loses (wages are Fibonacci; hire_bill(18) is 6,764 PER DAY).
++
++The one thing that wins is deleting work that the engine was going to discard
++anyway.  v140 is labour-bound -- 13 workers, ~63 assets, 51% of worker-turns
++spent moving, PASS at 1.6/day -- so a freed worker-turn is the only currency.
++
++Every one of them loses.  The engine facts above are real, but the baseline's
++price gates encode something stronger: when a product is worth less than the
++labour and inputs needed to chase it, the tick is not worth rescuing.  The
++decisive number is that strawberry clears at ~$206/unit for BOTH sides during
++days 20-24, so withholding a $100 fertilizer unit to grow one more crop unit is
++simply a bad trade, and re-pricing HARVEST upward only pulls workers off jobs
++that were already worth more.  v140's service loop is at a local optimum.
++
++WHAT SURVIVED.  Only the suppression of provably no-op work, which changes no
++valuation at all:
++
++  * FERTILIZE is not scheduled onto a tile already at max_yield (the engine
++    clamps the bonus straight back off) or onto a doomed tile;
++  * WATER is not scheduled onto a doomed tile -- `_decay_plants` is keyed on
++    `max_lifespan_step` alone and no worker action reverses it.
++
++  3. the WATER window bonus is only advertised while the tile can still take
++     it.  The engine does `yield_units = min(max_yield, yield_units + bonus)`,
++     so on a full tile that 1,000-point priority signal pulls a worker across
++     the board to buy nothing.  MELON is the case that bites: max_yield 6 over
++     a days 6-12 window, so it caps around day 10 and keeps advertising for the
++     rest of it.  This also removes the WATER-after-HARVEST overlap behind the
++     92-96% WATER exec rate -- harvesting a non-ongoing tile clears it to None,
++     and any WATER still queued against that tile fails.
++
++CONFIRMED on the full 1600-game benchmark, same 80 opponents and the same seed
++set (generator index k=1..10) throughout:
++
++    baseline                 1241-359   77.6%
++    + items 1 and 2          1270-330   79.4%   +1.8 pts
++    + item 3                 1365-235   85.3%   +5.9 pts   (+7.7 total)
++
++Item 3 outweighs items 1 and 2 three to one, and the reason is worth keeping:
++1,000 is enormous next to a real job value of 40-600, so a capped MELON tile was
++stealing a TOP-priority worker slot to buy nothing.  Deleting a large fake
++priority beats deleting a small real waste, because worker-turns are the binding
++currency.  Days 0-14 are byte-identical across the two runs and every window
++from day 15 on moved, which is exactly where melon reaches its cap.
++
++Note that the same change measured +82 mean margin, t +0.44, in a local
++mirror-match screen -- i.e. parity.  Mirror screening is BLIND to this class of
++gain: both sides share one market, so extra production crashes the price and
++the gain cancels.  Reject large mirror losers cheaply, but never accept a
++mirror near-zero as evidence of no effect.  `screen_top.py` runs the paired
++comparison on the real .top/ tapes instead.
++
++Still outstanding: every run so far used generator seeds k=1..10.  Re-run with
++`--offset 10` for a fresh, non-overlapping sample before treating 85.3% as the
++true rate.  The risk is low -- all three items were derived from the engine
++source rather than fitted to results -- but it has not been checked.
++
++--- inherited notes -------------------------------------------------------
++
++v132 -- residual-market animal species allocator on the v128 frontier.
+ 
+ v128 is the validated frontier at 1132-468 (70.8%). v129, v130 and v131
+ changed assignment or late service timing and all failed to move the economic
+@@ -887,9 +987,12 @@
+     if held > 0:
+         near_cap = held >= animal["mh"] - 1
+         terminal = 5.0 if step >= DUMP_STEP else 1.0
+-        harvest_price = max(float(product_price), 0.5 * MP[animal["prod"]]["base"])
++        harvest_price = (0.0 if (product_price < 50
++                         and animal["prod"] in
++                         ("MELON", "STRAWBERRY", "MILK", "WOOL"))
++                         else product_price)
+         jobs.append((held * harvest_price * (2.0 if near_cap else 1.0)
+-                     * terminal + (200.0 if near_cap else 50.0), (x, y), ["HARVEST"], None))
++                     * terminal, (x, y), ["HARVEST"], None))
+     if tile.get("fertilizer_available"):
+         jobs.append((collect_fertilizer_value(spot("FERTILIZER"), step),
+                      (x, y), ["COLLECT_FERTILIZER"], None))
+@@ -914,26 +1017,43 @@
+     product_price = spot(tile["crop"])
+     age = day - int(tile.get("planted_day", day) or 0)
+     held = int(tile.get("yield_units", 0) or 0)
++    try:
++        lifespan = int(tile.get("max_lifespan_step", -1) or -1)
++    except (TypeError, ValueError):
++        lifespan = -1
++    # `_daily_refresh_plants` sets max_lifespan_step once a tile has produced
++    # its last tick; from then on `_decay_plants` destroys a unit every two
++    # steps and the tile becomes a WEED.  Nothing a worker does reverses that,
++    # so WATER and FERTILIZE spent here are pure no-ops.
++    doomed = 0 <= lifespan <= step
++    at_cap = cd["ong"] and held >= cd["my"]
+     if held > 0 and age >= cd["fyd"]:
+         terminal = 5.0 if step >= DUMP_STEP else 1.0
+-        try:
+-            lifespan = int(tile.get("max_lifespan_step", -1) or -1)
+-        except (TypeError, ValueError):
+-            lifespan = -1
+         expiring = 0 <= lifespan <= step + TPD
+-        at_cap = cd["ong"] and held >= cd["my"]
+-
+-        harvest_price = max(float(product_price), 0.5 * MP[tile["crop"]]["base"])
+-        base_gain = (held * harvest_price + (14 if not cd["ong"] else 50.0)) * terminal
+-        if expiring:
+-            base_gain += 5000.0  # Emergency priority to guarantee collection before decay
++
++        if (product_price < 50
++                and tile["crop"] in ("MELON", "STRAWBERRY", "MILK", "WOOL")):
++            if at_cap and not expiring:
++                harvest_price = max(
++                    product_price,
++                    hold_fraction(step, day, storage_load) * MP[tile["crop"]]["base"])
++            else:
++                harvest_price = float(product_price)
++        else:
++            harvest_price = float(product_price)
++        base_gain = (held * harvest_price + (14 if not cd["ong"] else 0)) * terminal
+         gain = base_gain
+-        if storage_load > 95 and not expiring:
++        if storage_load > 90:
+             gain *= 0.1
+         jobs.append((gain, (x, y), ["HARVEST"], None))
++        if expiring and base_gain < 25.0:
++            jobs.append((25.0, (x, y), ["DIG"], None))
+ 
+     fertilizer_jobs = 0
+-    if (step < FINAL_FARM_STEP and cd["ong"]
++    # Fertilizer on a tile already at max_yield buys nothing: the engine clamps
++    # `yield_units + 2` straight back down to the cap.  On a doomed tile it buys
++    # nothing either.  Both spend a worker turn AND a $100 unit for zero.
++    if (step < FINAL_FARM_STEP and cd["ong"] and not at_cap and not doomed
+             and int(tile.get("fertilized_until_day", -1) or -1) < day):
+         planted_day = tile.get("planted_day", day)
+         planted_day = day if planted_day is None else int(planted_day)
+@@ -957,14 +1077,23 @@
+                              + denial_bonus),
+                          (x, y), ["FERTILIZE"], "FERTILIZER"))
+ 
+-    if step < FINAL_FARM_STEP and not tile.get("watered_today"):
++    if step < FINAL_FARM_STEP and not tile.get("watered_today") and not doomed:
+         if cd["ong"]:
+             gain = float(product_price)
+         else:
+             water_start = (cd["myd"] + 1) // 2
+             gain = float(product_price) if water_start <= age <= cd["myd"] else 0.0
+-        # If it's in the bonus window, give it a large gain so we don't miss it
+-        if not cd["ong"] and water_start <= age <= cd["myd"]:
++        # If it's in the bonus window, give it a large gain so we don't miss it.
++        # Only while the tile can still take the bonus, though: the engine does
++        # `yield_units = min(max_yield, yield_units + bonus)`, so on a full tile
++        # this 1,000-point signal pulls a worker across the board to buy zero.
++        # MELON is the case that bites -- max_yield 6 over a days 6-12 window,
++        # so it reaches the cap around day 10 and then keeps advertising.
++        # Dropping it also removes the WATER-after-HARVEST overlap that shows up
++        # as a 92-96% WATER exec rate: harvesting a non-ongoing tile clears it
++        # to None, and any WATER still queued against that tile fails.
++        if (not cd["ong"] and water_start <= age <= cd["myd"]
++                and held < cd["my"]):
+             gain += 1000.0 + product_price
+         if int(tile.get("consecutive_unwatered", 0) or 0) >= 1:
+             gain += 50000.0 + 3.0 * product_price * max(1, cd["my"] - held)
+@@ -1999,10 +2128,64 @@
+     }
+ 
+ 
++def _self_check():
++    """Assert the no-op suppressions, without needing a full episode."""
++    def spot(item):
++        # The crop must clear the `product_price - fertilizer_spot > 12` gate,
++        # otherwise these fixtures test the price gate rather than the guards.
++        return 40 if item == "FERTILIZER" else 200
++
++    live = {"crop": "STRAWBERRY", "planted_day": 5, "yield_units": 1,
++            "max_lifespan_step": -1, "watered_today": False,
++            "fertilized_until_day": -1}
++    jobs, fert = crop_service_jobs(1, 1, live, 16 * TPD, 16, 0, spot, {})
++    assert fert == 1, "a live due tile should still be fertilized"
++    assert any(j[2][0] == "WATER" for j in jobs), "a live tile must be watered"
++
++    # At max_yield the engine clamps `yield_units + 2` back to the cap, so the
++    # fertilizer unit buys nothing.
++    full = dict(live, yield_units=CROPS["STRAWBERRY"]["my"])
++    _jobs, fert = crop_service_jobs(1, 1, full, 16 * TPD, 16, 0, spot, {})
++    assert fert == 0, "fertilized a tile already at max_yield"
++
++    # Past max_lifespan_step the tile decays to a WEED regardless of service.
++    dead = dict(live, max_lifespan_step=16 * TPD - 1)
++    jobs, fert = crop_service_jobs(1, 1, dead, 16 * TPD, 16, 0, spot, {})
++    assert fert == 0, "fertilized a doomed tile"
++    assert not any(j[2][0] == "WATER" for j in jobs), "watered a doomed tile"
++    # ...but its held yield is still worth collecting.
++    assert any(j[2][0] == "HARVEST" for j in jobs), "doomed tile lost its harvest"
++
++    # A non-ongoing tile below max_yield takes the water bonus; at max_yield the
++    # engine clamps it away, so the 1,000-point signal must not be advertised.
++    def water_gain(units):
++        melon = {"crop": "MELON", "planted_day": 4, "yield_units": units,
++                 "max_lifespan_step": -1, "watered_today": False,
++                 "fertilized_until_day": -1}
++        rows = crop_service_jobs(1, 1, melon, 14 * TPD, 14, 0, spot, {})[0]
++        return max([j[0] for j in rows if j[2][0] == "WATER"] or [0.0])
++
++    assert water_gain(CROPS["MELON"]["my"] - 1) > 1000.0, "lost the water bonus"
++    assert water_gain(CROPS["MELON"]["my"]) < 1000.0, "bonus on a full tile"
++    print("self-check OK")
++
++
+ if __name__ == "__main__":
++    _self_check()
+     from kaggle_environments import make
+     env = make("kaggriculture", configuration={"episodeSteps": 720, "seed": 7})
+     env.run([agent, agent])
+     last = env.steps[-1]
+     assert last[0].status == "DONE", last[0].status
+     print("v132 self-play:", int(last[0].reward), int(last[1].reward))
++
++
++# kaggle_environments resolves a submitted file with
++#     [v for v in env.values() if callable(v)][-1]
++# i.e. the LAST callable bound in the module, ignoring its name.  This file
++# defines `_plan` and `_self_check` after `agent`, so a submission ran
++# `_self_check(observation, configuration)`, which raises TypeError (it takes no
++# arguments); the engine then substitutes the default PASS for all 720 steps and
++# the agent scores its starting money.  Local harnesses call `agent` by name and
++# never see it.  Binding the entry point last pins the resolution.
++_kaggle_agent_entry = agent

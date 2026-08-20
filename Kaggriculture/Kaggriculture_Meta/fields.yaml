@@ -1,0 +1,16 @@
+fields:
+  - name: concept_name
+    description: Strategy name.
+    detail_level: brief
+  - name: mechanic_exploited
+    description: Game rule targeted.
+    detail_level: moderate
+  - name: implementation_complexity
+    description: Code change size.
+    detail_level: brief
+  - name: expected_yield_gain
+    description: Coin delta impact.
+    detail_level: brief
+  - name: uncertain
+    description: Need web search check.
+    detail_level: brief

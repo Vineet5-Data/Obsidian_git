@@ -1,0 +1,17 @@
+- [Kaggriculture benchmark workflow](kaggriculture-benchmark-workflow.md) — build + smoke test ONLY; a local paired screen is not a smoke test, ask first; never write to Kaggle unasked.
+- [Kaggle entry point must be last callable](kaggle-entry-point-must-be-last-callable.md) — a `def` after `agent` makes Kaggle run it instead; every turn silently becomes PASS. Verify with `get_last_callable` before submitting.
+- [Kaggriculture candidate loop](kaggriculture-candidate-loop.md) — one hypothesis, one change, prove the branch fires, hand over the filename; user benchmarks and returns the loss analysis.
+- [Kaggriculture file locations](kaggriculture-file-locations.md) — the user looks for agent files in Downloads, not the repo; deliver to both and re-sync after edits.
+- [v140 service loop is a local optimum](v140-service-loop-is-a-local-optimum.md) — re-pricing HARVEST/FERTILIZE/DIG off engine mechanics measured −4.7k to −7.9k; the price gates are correct, don't re-litigate.
+- [v140: only deleting work wins](v140-only-deleting-work-wins.md) — labour-bound agent; no-op suppression took 77.6% → 79.4%, six other axes measured dead.
+- [Mirror screening is blind to real gains](mirror-screening-is-blind-to-real-gains.md) — mirror match said parity (+82) for a change worth +1.8pp; use screen_top.py for anything near zero.
+- [Non-ongoing crops are destroyed by their own harvest](non-ongoing-crops-are-destroyed-by-their-own-harvest.md) — real mechanism, but the v160 fix LOST at 81.4%; per-tile yield is not the lever.
+- [Job-board truncation drops zero-travel jobs](job-board-truncation-drops-zero-travel-jobs.md) — ranks on raw value, optimises value−move_rate·d; 2,003 under-foot jobs cut per game.
+- [The gap vs top players is the dawn ramp](the-gap-vs-top-players-is-the-dawn-ramp.md) — parity from hour 4 on; hours 0-3 they do animal chores (CARE 39.4 vs 14.6) and we PASS. Hands are wiped nightly.
+- [move_rate is inflated by synthetic priority flags](move-rate-inflated-by-synthetic-priority-flags.md) — repair gate runs at 23,585/tile vs a real 360, refusing 303 feasible jobs/game; same constant is safe as a ranking, destructive as a veto.
+- [v180 losses are strawberry price spikes](v180-losses-are-strawberry-price-spikes.md) — 88.2% champion; loses only when strawberry goes scarce ($188 vs $103) and we hold 59% of their volume off the same tiles.
+- [Loss analyzer inflated opponent revenue](loss-analyzer-inflates-opponent-revenue.md) — requested-qty x one quote, ~4x on spammy opponents; fixed 2026-08-20 with an exact replay, watch `cash_residual`.
+- [_env_src.py must be copied from the installed engine](env-src-must-be-copied-from-installed-engine.md) — it had drifted on the town-demand model and produced a confident, wrong finding; verify against kaggle_environments before deriving mechanics.
+- [Live engine is 1.32.7](engine-upgraded-and-reset-the-baseline.md) — town demand fell 140→30/season (68.4%→50.0%), and 1.32.7's `hinge` curve makes CARROT/TOMATO/EGG spike when scarce; stale price tables under-price tomato by $768.
+- [Never run local benchmarks over 20 games](never-run-local-benchmarks-over-20-games.md) — hard cap; user benchmarks full sets on Kaggle TPU. Smoke tests only, 1-4 games.
+- [v206 wheat mirror won; conversion is next](v206-wheat-mirror-won-conversion-is-next.md) — 59.1% new baseline (+9.1); v207 job admission −9.8, v208 price-sync neutral; wheat acreage now matches the rival but revenue is 1/12th.

@@ -1,0 +1,896 @@
+{
+  "agent": "v98_state_machine.py",
+  "games": 160,
+  "opponents": 80,
+  "wins": 68,
+  "losses": 92,
+  "ties": 0,
+  "win_rate": 0.425,
+  "mean_margin": -1241.41875,
+  "median_margin": -2455.0,
+  "minimum_margin": -23441.0,
+  "maximum_margin": 45953.0,
+  "unbeaten_opponents": 25,
+  "details": {
+    "91631405_0": {
+      "wins": 2,
+      "losses": 0,
+      "ties": 0,
+      "mean_margin": 11721.0,
+      "minimum_margin": 11721.0,
+      "margins": [
+        11721.0,
+        11721.0
+      ]
+    },
+    "91631405_1": {
+      "wins": 2,
+      "losses": 0,
+      "ties": 0,
+      "mean_margin": 11721.0,
+      "minimum_margin": 11721.0,
+      "margins": [
+        11721.0,
+        11721.0
+      ]
+    },
+    "91631479_0": {
+      "wins": 2,
+      "losses": 0,
+      "ties": 0,
+      "mean_margin": 30262.0,
+      "minimum_margin": 25838.0,
+      "margins": [
+        25838.0,
+        34686.0
+      ]
+    },
+    "91631479_1": {
+      "wins": 2,
+      "losses": 0,
+      "ties": 0,
+      "mean_margin": 13116.5,
+      "minimum_margin": 10346.0,
+      "margins": [
+        15887.0,
+        10346.0
+      ]
+    },
+    "91635004_0": {
+      "wins": 1,
+      "losses": 1,
+      "ties": 0,
+      "mean_margin": 5708.5,
+      "minimum_margin": -8890.0,
+      "margins": [
+        -8890.0,
+        20307.0
+      ]
+    },
+    "91635004_1": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -13491.0,
+      "minimum_margin": -16288.0,
+      "margins": [
+        -16288.0,
+        -10694.0
+      ]
+    },
+    "91635144_0": {
+      "wins": 1,
+      "losses": 1,
+      "ties": 0,
+      "mean_margin": 1935.5,
+      "minimum_margin": -4081.0,
+      "margins": [
+        7952.0,
+        -4081.0
+      ]
+    },
+    "91635144_1": {
+      "wins": 1,
+      "losses": 1,
+      "ties": 0,
+      "mean_margin": 1087.5,
+      "minimum_margin": -1189.0,
+      "margins": [
+        -1189.0,
+        3364.0
+      ]
+    },
+    "91636055_0": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -11548.0,
+      "minimum_margin": -13414.0,
+      "margins": [
+        -9682.0,
+        -13414.0
+      ]
+    },
+    "91636055_1": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -11672.5,
+      "minimum_margin": -13414.0,
+      "margins": [
+        -9931.0,
+        -13414.0
+      ]
+    },
+    "91636821_0": {
+      "wins": 2,
+      "losses": 0,
+      "ties": 0,
+      "mean_margin": 11086.0,
+      "minimum_margin": 11086.0,
+      "margins": [
+        11086.0,
+        11086.0
+      ]
+    },
+    "91636821_1": {
+      "wins": 2,
+      "losses": 0,
+      "ties": 0,
+      "mean_margin": 11086.0,
+      "minimum_margin": 11086.0,
+      "margins": [
+        11086.0,
+        11086.0
+      ]
+    },
+    "91636880_0": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -11295.0,
+      "minimum_margin": -12556.0,
+      "margins": [
+        -12556.0,
+        -10034.0
+      ]
+    },
+    "91636880_1": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -14643.0,
+      "minimum_margin": -15735.0,
+      "margins": [
+        -15735.0,
+        -13551.0
+      ]
+    },
+    "91637005_0": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -6011.5,
+      "minimum_margin": -8232.0,
+      "margins": [
+        -8232.0,
+        -3791.0
+      ]
+    },
+    "91637005_1": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -5436.5,
+      "minimum_margin": -10417.0,
+      "margins": [
+        -10417.0,
+        -456.0
+      ]
+    },
+    "91637006_0": {
+      "wins": 1,
+      "losses": 1,
+      "ties": 0,
+      "mean_margin": -6079.0,
+      "minimum_margin": -12991.0,
+      "margins": [
+        833.0,
+        -12991.0
+      ]
+    },
+    "91637006_1": {
+      "wins": 1,
+      "losses": 1,
+      "ties": 0,
+      "mean_margin": -4574.0,
+      "minimum_margin": -13479.0,
+      "margins": [
+        4331.0,
+        -13479.0
+      ]
+    },
+    "91637781_0": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -530.0,
+      "minimum_margin": -530.0,
+      "margins": [
+        -530.0,
+        -530.0
+      ]
+    },
+    "91637781_1": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -3859.0,
+      "minimum_margin": -3859.0,
+      "margins": [
+        -3859.0,
+        -3859.0
+      ]
+    },
+    "91637797_0": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -15997.0,
+      "minimum_margin": -16213.0,
+      "margins": [
+        -16213.0,
+        -15781.0
+      ]
+    },
+    "91637797_1": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -20874.5,
+      "minimum_margin": -21260.0,
+      "margins": [
+        -21260.0,
+        -20489.0
+      ]
+    },
+    "91637901_0": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -7289.0,
+      "minimum_margin": -10999.0,
+      "margins": [
+        -10999.0,
+        -3579.0
+      ]
+    },
+    "91637901_1": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -6537.5,
+      "minimum_margin": -9937.0,
+      "margins": [
+        -3138.0,
+        -9937.0
+      ]
+    },
+    "91637919_0": {
+      "wins": 1,
+      "losses": 1,
+      "ties": 0,
+      "mean_margin": 2841.5,
+      "minimum_margin": -4792.0,
+      "margins": [
+        10475.0,
+        -4792.0
+      ]
+    },
+    "91637919_1": {
+      "wins": 2,
+      "losses": 0,
+      "ties": 0,
+      "mean_margin": 8289.5,
+      "minimum_margin": 6104.0,
+      "margins": [
+        10475.0,
+        6104.0
+      ]
+    },
+    "91637929_0": {
+      "wins": 2,
+      "losses": 0,
+      "ties": 0,
+      "mean_margin": 8181.0,
+      "minimum_margin": 4566.0,
+      "margins": [
+        11796.0,
+        4566.0
+      ]
+    },
+    "91637929_1": {
+      "wins": 2,
+      "losses": 0,
+      "ties": 0,
+      "mean_margin": 8465.5,
+      "minimum_margin": 8032.0,
+      "margins": [
+        8032.0,
+        8899.0
+      ]
+    },
+    "91638760_0": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -11617.5,
+      "minimum_margin": -12913.0,
+      "margins": [
+        -10322.0,
+        -12913.0
+      ]
+    },
+    "91638760_1": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -8349.0,
+      "minimum_margin": -12951.0,
+      "margins": [
+        -3747.0,
+        -12951.0
+      ]
+    },
+    "91638795_0": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -9133.5,
+      "minimum_margin": -9212.0,
+      "margins": [
+        -9055.0,
+        -9212.0
+      ]
+    },
+    "91638795_1": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -3795.5,
+      "minimum_margin": -4284.0,
+      "margins": [
+        -3307.0,
+        -4284.0
+      ]
+    },
+    "91638831_0": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -6285.0,
+      "minimum_margin": -10644.0,
+      "margins": [
+        -10644.0,
+        -1926.0
+      ]
+    },
+    "91638831_1": {
+      "wins": 2,
+      "losses": 0,
+      "ties": 0,
+      "mean_margin": 5391.0,
+      "minimum_margin": 2307.0,
+      "margins": [
+        8475.0,
+        2307.0
+      ]
+    },
+    "91638872_0": {
+      "wins": 2,
+      "losses": 0,
+      "ties": 0,
+      "mean_margin": 20912.5,
+      "minimum_margin": 19827.0,
+      "margins": [
+        19827.0,
+        21998.0
+      ]
+    },
+    "91638872_1": {
+      "wins": 1,
+      "losses": 1,
+      "ties": 0,
+      "mean_margin": 266.5,
+      "minimum_margin": -4551.0,
+      "margins": [
+        -4551.0,
+        5084.0
+      ]
+    },
+    "91638877_0": {
+      "wins": 1,
+      "losses": 1,
+      "ties": 0,
+      "mean_margin": -6687.0,
+      "minimum_margin": -13564.0,
+      "margins": [
+        -13564.0,
+        190.0
+      ]
+    },
+    "91638877_1": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -7649.0,
+      "minimum_margin": -13915.0,
+      "margins": [
+        -1383.0,
+        -13915.0
+      ]
+    },
+    "91639766_0": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -3970.0,
+      "minimum_margin": -4267.0,
+      "margins": [
+        -4267.0,
+        -3673.0
+      ]
+    },
+    "91639766_1": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -3195.0,
+      "minimum_margin": -4984.0,
+      "margins": [
+        -1406.0,
+        -4984.0
+      ]
+    },
+    "91639786_0": {
+      "wins": 2,
+      "losses": 0,
+      "ties": 0,
+      "mean_margin": 20194.0,
+      "minimum_margin": 20194.0,
+      "margins": [
+        20194.0,
+        20194.0
+      ]
+    },
+    "91639786_1": {
+      "wins": 2,
+      "losses": 0,
+      "ties": 0,
+      "mean_margin": 20194.0,
+      "minimum_margin": 20194.0,
+      "margins": [
+        20194.0,
+        20194.0
+      ]
+    },
+    "91639820_0": {
+      "wins": 1,
+      "losses": 1,
+      "ties": 0,
+      "mean_margin": -2709.0,
+      "minimum_margin": -7200.0,
+      "margins": [
+        1782.0,
+        -7200.0
+      ]
+    },
+    "91639820_1": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -5016.0,
+      "minimum_margin": -8397.0,
+      "margins": [
+        -1635.0,
+        -8397.0
+      ]
+    },
+    "91640589_0": {
+      "wins": 1,
+      "losses": 1,
+      "ties": 0,
+      "mean_margin": 3552.5,
+      "minimum_margin": -2202.0,
+      "margins": [
+        9307.0,
+        -2202.0
+      ]
+    },
+    "91640589_1": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -9016.0,
+      "minimum_margin": -9805.0,
+      "margins": [
+        -8227.0,
+        -9805.0
+      ]
+    },
+    "91640674_0": {
+      "wins": 2,
+      "losses": 0,
+      "ties": 0,
+      "mean_margin": 16219.5,
+      "minimum_margin": 13036.0,
+      "margins": [
+        13036.0,
+        19403.0
+      ]
+    },
+    "91640674_1": {
+      "wins": 2,
+      "losses": 0,
+      "ties": 0,
+      "mean_margin": 1761.5,
+      "minimum_margin": 1117.0,
+      "margins": [
+        1117.0,
+        2406.0
+      ]
+    },
+    "91640700_0": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -5963.0,
+      "minimum_margin": -10138.0,
+      "margins": [
+        -1788.0,
+        -10138.0
+      ]
+    },
+    "91640700_1": {
+      "wins": 1,
+      "losses": 1,
+      "ties": 0,
+      "mean_margin": -710.5,
+      "minimum_margin": -3078.0,
+      "margins": [
+        1657.0,
+        -3078.0
+      ]
+    },
+    "91640711_0": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -6427.5,
+      "minimum_margin": -7896.0,
+      "margins": [
+        -4959.0,
+        -7896.0
+      ]
+    },
+    "91640711_1": {
+      "wins": 2,
+      "losses": 0,
+      "ties": 0,
+      "mean_margin": 11443.5,
+      "minimum_margin": 8240.0,
+      "margins": [
+        14647.0,
+        8240.0
+      ]
+    },
+    "91640723_0": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -9242.0,
+      "minimum_margin": -10831.0,
+      "margins": [
+        -7653.0,
+        -10831.0
+      ]
+    },
+    "91640723_1": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -11812.0,
+      "minimum_margin": -12793.0,
+      "margins": [
+        -12793.0,
+        -10831.0
+      ]
+    },
+    "91640724_0": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -8089.0,
+      "minimum_margin": -8359.0,
+      "margins": [
+        -8359.0,
+        -7819.0
+      ]
+    },
+    "91640724_1": {
+      "wins": 2,
+      "losses": 0,
+      "ties": 0,
+      "mean_margin": 4606.5,
+      "minimum_margin": 3862.0,
+      "margins": [
+        3862.0,
+        5351.0
+      ]
+    },
+    "91640728_0": {
+      "wins": 2,
+      "losses": 0,
+      "ties": 0,
+      "mean_margin": 8813.0,
+      "minimum_margin": 6082.0,
+      "margins": [
+        11544.0,
+        6082.0
+      ]
+    },
+    "91640728_1": {
+      "wins": 2,
+      "losses": 0,
+      "ties": 0,
+      "mean_margin": 7492.0,
+      "minimum_margin": 4746.0,
+      "margins": [
+        4746.0,
+        10238.0
+      ]
+    },
+    "91640732_0": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -12626.0,
+      "minimum_margin": -16129.0,
+      "margins": [
+        -16129.0,
+        -9123.0
+      ]
+    },
+    "91640732_1": {
+      "wins": 1,
+      "losses": 1,
+      "ties": 0,
+      "mean_margin": 458.5,
+      "minimum_margin": -1814.0,
+      "margins": [
+        2731.0,
+        -1814.0
+      ]
+    },
+    "91641501_0": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -16882.0,
+      "minimum_margin": -23441.0,
+      "margins": [
+        -10323.0,
+        -23441.0
+      ]
+    },
+    "91641501_1": {
+      "wins": 1,
+      "losses": 1,
+      "ties": 0,
+      "mean_margin": 4068.5,
+      "minimum_margin": -1883.0,
+      "margins": [
+        10020.0,
+        -1883.0
+      ]
+    },
+    "91641521_0": {
+      "wins": 2,
+      "losses": 0,
+      "ties": 0,
+      "mean_margin": 38331.0,
+      "minimum_margin": 30709.0,
+      "margins": [
+        45953.0,
+        30709.0
+      ]
+    },
+    "91641521_1": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -10067.0,
+      "minimum_margin": -16374.0,
+      "margins": [
+        -3760.0,
+        -16374.0
+      ]
+    },
+    "91641532_0": {
+      "wins": 2,
+      "losses": 0,
+      "ties": 0,
+      "mean_margin": 513.0,
+      "minimum_margin": 513.0,
+      "margins": [
+        513.0,
+        513.0
+      ]
+    },
+    "91641532_1": {
+      "wins": 1,
+      "losses": 1,
+      "ties": 0,
+      "mean_margin": 1359.5,
+      "minimum_margin": -4354.0,
+      "margins": [
+        7073.0,
+        -4354.0
+      ]
+    },
+    "91641553_0": {
+      "wins": 1,
+      "losses": 1,
+      "ties": 0,
+      "mean_margin": -1038.0,
+      "minimum_margin": -11202.0,
+      "margins": [
+        -11202.0,
+        9126.0
+      ]
+    },
+    "91641553_1": {
+      "wins": 2,
+      "losses": 0,
+      "ties": 0,
+      "mean_margin": 4623.5,
+      "minimum_margin": 3353.0,
+      "margins": [
+        3353.0,
+        5894.0
+      ]
+    },
+    "91641640_0": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -6437.5,
+      "minimum_margin": -8277.0,
+      "margins": [
+        -4598.0,
+        -8277.0
+      ]
+    },
+    "91641640_1": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -13946.0,
+      "minimum_margin": -21423.0,
+      "margins": [
+        -6469.0,
+        -21423.0
+      ]
+    },
+    "91642421_0": {
+      "wins": 1,
+      "losses": 1,
+      "ties": 0,
+      "mean_margin": 1077.5,
+      "minimum_margin": -9788.0,
+      "margins": [
+        -9788.0,
+        11943.0
+      ]
+    },
+    "91642421_1": {
+      "wins": 1,
+      "losses": 1,
+      "ties": 0,
+      "mean_margin": -3755.0,
+      "minimum_margin": -9793.0,
+      "margins": [
+        -9793.0,
+        2283.0
+      ]
+    },
+    "91642424_0": {
+      "wins": 2,
+      "losses": 0,
+      "ties": 0,
+      "mean_margin": 514.0,
+      "minimum_margin": 444.0,
+      "margins": [
+        584.0,
+        444.0
+      ]
+    },
+    "91642424_1": {
+      "wins": 2,
+      "losses": 0,
+      "ties": 0,
+      "mean_margin": 4134.5,
+      "minimum_margin": 313.0,
+      "margins": [
+        7956.0,
+        313.0
+      ]
+    },
+    "91642489_0": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -22124.0,
+      "minimum_margin": -23359.0,
+      "margins": [
+        -23359.0,
+        -20889.0
+      ]
+    },
+    "91642489_1": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -22304.5,
+      "minimum_margin": -23213.0,
+      "margins": [
+        -21396.0,
+        -23213.0
+      ]
+    },
+    "91642568_0": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -19603.0,
+      "minimum_margin": -22774.0,
+      "margins": [
+        -22774.0,
+        -16432.0
+      ]
+    },
+    "91642568_1": {
+      "wins": 0,
+      "losses": 2,
+      "ties": 0,
+      "mean_margin": -19603.0,
+      "minimum_margin": -22774.0,
+      "margins": [
+        -22774.0,
+        -16432.0
+      ]
+    },
+    "91642587_0": {
+      "wins": 2,
+      "losses": 0,
+      "ties": 0,
+      "mean_margin": 4113.5,
+      "minimum_margin": 3594.0,
+      "margins": [
+        4633.0,
+        3594.0
+      ]
+    },
+    "91642587_1": {
+      "wins": 1,
+      "losses": 1,
+      "ties": 0,
+      "mean_margin": 3035.0,
+      "minimum_margin": -2708.0,
+      "margins": [
+        8778.0,
+        -2708.0
+      ]
+    }
+  }
+}

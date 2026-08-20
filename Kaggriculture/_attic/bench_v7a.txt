@@ -1,0 +1,13 @@
+elite_replay_p0    seat=0 seed=165073887  money=$   101917 opponent=$    98101 status=DONE/DONE
+elite_replay_p0    seat=1 seed=165073887  money=$   101917 opponent=$    98101 status=DONE/DONE
+elite_replay_p1    seat=0 seed=165073887  money=$   101747 opponent=$    97985 status=DONE/DONE
+elite_replay_p1    seat=1 seed=165073887  money=$   101747 opponent=$    97985 status=DONE/DONE
+ref_top30          seat=0 seed=1000       money=$   101425 opponent=$    92370 status=DONE/DONE
+ref_top30          seat=1 seed=1000       money=$   101088 opponent=$    92370 status=DONE/DONE
+ref_top30          seat=0 seed=1001       money=$   132942 opponent=$   133577 status=DONE/DONE
+ref_top30          seat=1 seed=1001       money=$   132380 opponent=$   133619 status=DONE/DONE
+mirror             seat=0 seed=1000       money=$   114128 opponent=$   113762 status=DONE/DONE
+mirror             seat=1 seed=1000       money=$   113762 opponent=$   114128 status=DONE/DONE
+mirror             seat=0 seed=1001       money=$   149942 opponent=$   149942 status=DONE/DONE
+mirror             seat=1 seed=1001       money=$   149942 opponent=$   149942 status=DONE/DONE
+SUMMARY games=12 mean=$116,911.4 median=$107,839.5 min=$101,088 max=$149,942 stdev=$18,474.7 opponent_mean=$114,323.5 wins=7 target=$150,000 passed=False

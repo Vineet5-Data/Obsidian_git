@@ -1,0 +1,7 @@
+{
+  "concept_name": "Turn 648 Phased Liquidation",
+  "mechanic_exploited": "Exploits the 720-turn fixed season length (turns 0 to 719), the turn-719 bank balance win condition (where unsold produce, animals, and unharvested tile crops count as $0), the market order execution cap of 10 orders per turn (maxMarketOrdersPerTurn = 10), and post-Day 20 town center demand scaling (4x demand every 12 turns plus unlocked town shop absorption every 4 turns). At Turn 648 (start of Day 27, leaving 72 turns / 71 remaining steps), capital reinvestment in seeds, animals, and land is completely halted because long-cycle crops cannot mature. Field worker actions are shifted to sweeping mature tile harvest and shed hauling. To avoid dynamic price collapse on glut-sensitive items (Melon, Strawberry, Milk, Wool) and prevent order-dropping due to the 10-order per turn limit, shed inventory is liquidated via a phased, prioritized sell queue across turns 648\u2013719 matching town demand absorption rates.",
+  "implementation_complexity": "Low to Moderate (~30-60 lines of code for turn-threshold checking, reinvestment cutoffs, harvest sweeping, and prioritized 10-order/turn sell queue scheduling)",
+  "expected_yield_gain": "+5,000 to +25,000+ coins net margin gain by converting all accumulated crops, livestock produce, and shed inventory into liquid bank cash while avoiding single-turn market price collapse and order-capping loss",
+  "uncertain": []
+}

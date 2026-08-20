@@ -1,0 +1,15 @@
+topic: Top Player Advanced Meta
+items:
+  - name: Aggressive Cow Rushing
+    category: Top Player Meta
+    description: Forcing 16-cow herd over crop diversification.
+  - name: Turn 648 Phased Liquidation
+    category: Top Player Meta
+    description: Order queue optimization for final 71 turns.
+  - name: Glut Defense
+    category: Top Player Meta
+    description: Halting premium placement when opponent wave detected.
+execution:
+  batch_size: 5
+  items_per_agent: 1
+  output_dir: ./results

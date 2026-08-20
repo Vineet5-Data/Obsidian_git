@@ -1,0 +1,9 @@
+{
+  "concept_name": "Fibonacci Wage Capping",
+  "mechanic_exploited": "Farm hand hire cost increases following the Fibonacci sequence (1, 1, 2, 3, 5, 8...) based on the number of daily hires, resetting each night. Hiring late in the day yields fewer working turns for the same cost. The strategy caps the hiring window (e.g., hour <= 9) and enforces a maximum cost limit to prevent paying steep Fibonacci wages when there are insufficient remaining turns to be profitable.",
+  "implementation_complexity": "Low",
+  "expected_yield_gain": "[uncertain]",
+  "uncertain": [
+    "expected_yield_gain"
+  ]
+}

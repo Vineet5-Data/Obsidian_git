@@ -1,0 +1,118 @@
+with open('v97_cap70.py') as f:
+    v97_code = f.read()
+
+import re
+
+# want_hands is preceded by 4 spaces
+v97_code = re.sub(r'(?m)^    want_hands = min\(MAX_HANDS, max\(computed_hands, floor_hands\)\)',
+    '''    try:
+        hc = ACTIVE_SPEC['hire_curve']
+        want_hands = hc[min(day, len(hc)-1)]
+    except Exception:
+        want_hands = min(MAX_HANDS, max(computed_hands, floor_hands))''',
+    v97_code)
+
+# unlock_day is preceded by 8 spaces
+v97_code = re.sub(r'(?m)^        unlock_day = \(4, 7, 10\)\[owned_extra\]',
+    '''        try:
+            ld = ACTIVE_SPEC.get('land_days', [4, 7, 10])
+            unlock_day = ld[owned_extra] if owned_extra < len(ld) else 999
+        except Exception:
+            unlock_day = (4, 7, 10)[owned_extra]''',
+    v97_code)
+
+# pressure is preceded by 8 spaces
+v97_code = re.sub(r'(?m)^        pressure = \(occupied \+ sum\(want_crop\.values\(\)\) \+ sum\(want_animal\.values\(\)\)\) / available',
+    '        pressure = 1.0',
+    v97_code)
+
+import json
+with open('archetypes.json') as f:
+    archetypes = f.read()
+
+lines = v97_code.split('\n')
+start_idx, end_idx = -1, -1
+for i, line in enumerate(lines):
+    if line.startswith('    if days_left < 8:'):
+        start_idx = i
+    if line.startswith('    remaining_crop_slots = crop_slots - sum(want_crop.values())'):
+        end_idx = i
+        break
+
+loader_code = f"""
+    if not hasattr(obs, 'current_arch_idx'):
+        obs.archetypes = json.loads('''{archetypes}''')
+        with open('payoff.json') as f:
+            obs.payoff = json.load(f)
+        obs.current_arch_idx = 0
+        
+    def get_focus(opp_crops, opp_animals):
+        c_val = sum(opp_crops.values())
+        a_val = sum(opp_animals.values())
+        if a_val > c_val:
+            if opp_animals.get('COW', 0) > opp_animals.get('SHEEP', 0):
+                return "MILK"
+            return "WOOL"
+        else:
+            if opp_crops.get('MELON', 0) > 0.2:
+                return "MELON"
+            return "STRAWBERRY"
+
+    if step == 71:
+        opp_crops = opp.get('crop_counts', {{}})
+        opp_animals = opp.get('animal_counts', {{}})
+        opp_focus = get_focus(opp_crops, opp_animals)
+        
+        demands = {{'WHEAT': 0, 'STRAWBERRY': 0, 'MILK': 0, 'EGG': 0, 'CARROT': 0, 'TOMATO': 0, 'WOOL': 0, 'MELON': 0}}
+        shops = obs.town.get('unlocked_shops', [])
+        for shop in shops:
+            if shop == 'YARN_STORE': demands['WOOL'] += 2
+            elif shop == 'BAKERY': demands['WHEAT'] += 1; demands['EGG'] += 1; demands['MILK'] += 1
+            elif shop == 'GREENGROCER': demands['CARROT'] += 1; demands['TOMATO'] += 1; demands['STRAWBERRY'] += 1
+            elif shop == 'DAIRY': demands['MILK'] += 2
+            elif shop == 'FARMERS_MARKET': demands['WHEAT'] += 1; demands['STRAWBERRY'] += 1
+        
+        top_demand = max(demands.items(), key=lambda x: x[1])[0]
+        if demands[top_demand] == 0:
+            top_demand = "WHEAT"
+        
+        key = f"{{top_demand}}_{{opp_focus}}"
+        best_idx = obs.payoff.get(key, 0)
+        
+        obs.current_arch_idx = best_idx
+        
+    ACTIVE_SPEC = obs.archetypes[obs.current_arch_idx]
+    spec_animals = ACTIVE_SPEC.get('animals', {{}})
+    
+    if days_left < 8:
+        animal_target = current_animal_assets
+    elif day < 3:
+        animal_target = 4
+    else:
+        animal_target = sum(spec_animals.values())
+        
+    animal_need = max(0, animal_target - len(beasts) - pending_animals)
+    structure_need = min(slots, max(0, animal_target - current_animal_assets))
+    
+    want_animal = {{}}
+    for name, target in spec_animals.items():
+        owned = (own_animal_counts.get(name, 0)
+                 + int(shed.get(name, 0) or 0)
+                 + int(carried_all.get(name, 0) or 0))
+        if target > owned:
+            want_animal[name] = target - owned
+            
+    crop_slots = max(0, min(60, slots - structure_need))
+    portfolio_size = len(plants) + crop_slots
+    want_crop = {{}}
+    spec_crops = ACTIVE_SPEC.get('crops', {{}})
+    for crop, ratio in spec_crops.items():
+        target = int(round(portfolio_size * ratio))
+        already = own_crop_counts.get(crop, 0)
+        if target > already:
+            want_crop[crop] = target - already
+"""
+
+new_lines = ["import json"] + lines[:start_idx] + [loader_code] + lines[end_idx:]
+with open('selector_agent.py', 'w') as f:
+    f.write('\n'.join(new_lines))

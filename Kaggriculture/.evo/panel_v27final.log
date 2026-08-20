@@ -1,0 +1,11 @@
+v27.py  --  24 seeds x 2 seats per opponent
+
+opponent                            W-L-T   win%      mean     worst      best
+family B (Nat Bel, ladder)         40-8-0  83.3%    +3,024    -2,928   +11,011
+mirror (Leon Christians)           6-42-0  12.5%      -256      -839      +221
+Seb 4-quadrant milk flood          8-40-0  16.7%    -2,995    -8,256    +5,019
+Khanh                             38-10-0  79.2%    +1,403    -1,864    +4,269
+Youssef EL MSIYAH                  40-8-0  83.3%    +1,331    -1,772    +4,461
+Wufang Hong (current top)          48-0-0 100.0%    +2,444    +1,268    +4,539
+
+OVERALL 180-108-0  (62.5%)  mean +825  worst -8,256

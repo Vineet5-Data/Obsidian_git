@@ -1,0 +1,1780 @@
+[
+ {
+  "episode": "90629703",
+  "seat": 0,
+  "team": "OceanMix",
+  "bank": 139289.0,
+  "hash": "25a5a5ef1d014505",
+  "fp": {
+   "max_hands": 14,
+   "hires": 260,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "seeds": {
+    "WHEAT": 372,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "MELON": 24,
+    "WHEAT": 106,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "sell_qty": {
+    "STRAWBERRY": 291,
+    "WHEAT": 281,
+    "MILK": 213,
+    "FERTILIZER": 209,
+    "WOOL": 150,
+    "MELON": 144
+   },
+   "pass_ops": 1051,
+   "total_ops": 6594
+  }
+ },
+ {
+  "episode": "90629703",
+  "seat": 1,
+  "team": "Dahoui Alex Armel ",
+  "bank": 135859.0,
+  "hash": "64dcd5e6697688fe",
+  "fp": {
+   "max_hands": 14,
+   "hires": 273,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "seeds": {
+    "WHEAT": 1021,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "WHEAT": 91,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "COW": 8,
+    "SHEEP": 6,
+    "MILK": 1,
+    "WOOL": 1,
+    "FERTILIZER": 2,
+    "WHEAT": 1
+   },
+   "sell_qty": {
+    "STRAWBERRY": 1535,
+    "MILK": 1116,
+    "MELON": 1014,
+    "WOOL": 928,
+    "WHEAT": 774,
+    "FERTILIZER": 261
+   },
+   "pass_ops": 527,
+   "total_ops": 6816
+  }
+ },
+ {
+  "episode": "90629709",
+  "seat": 0,
+  "team": "\u2570\u2508\u27a4\u02ce\u02ca\u02d7 www.sleepyai.org",
+  "bank": 136257.0,
+  "hash": "2aa192ed04143938",
+  "fp": {
+   "max_hands": 14,
+   "hires": 277,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "seeds": {
+    "WHEAT": 1072,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "WHEAT": 92,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "sell_qty": {
+    "WHEAT": 825,
+    "STRAWBERRY": 313,
+    "MILK": 237,
+    "FERTILIZER": 233,
+    "WOOL": 164,
+    "MELON": 144
+   },
+   "pass_ops": 813,
+   "total_ops": 6901
+  }
+ },
+ {
+  "episode": "90629709",
+  "seat": 1,
+  "team": "Marco DG",
+  "bank": 135859.0,
+  "hash": "8b4e76cce3534961",
+  "fp": {
+   "max_hands": 14,
+   "hires": 277,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "seeds": {
+    "WHEAT": 1072,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "WHEAT": 92,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "sell_qty": {
+    "WHEAT": 828,
+    "STRAWBERRY": 313,
+    "MILK": 237,
+    "FERTILIZER": 233,
+    "WOOL": 164,
+    "MELON": 144
+   },
+   "pass_ops": 813,
+   "total_ops": 6901
+  }
+ },
+ {
+  "episode": "90630455",
+  "seat": 0,
+  "team": "manual player",
+  "bank": 130541.0,
+  "hash": "87819651a87edae3",
+  "fp": {
+   "max_hands": 14,
+   "hires": 259,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "seeds": {
+    "WHEAT": 374,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "MELON": 24,
+    "WHEAT": 109,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "sell_qty": {
+    "STRAWBERRY": 299,
+    "WHEAT": 279,
+    "MILK": 213,
+    "FERTILIZER": 208,
+    "WOOL": 144,
+    "MELON": 144
+   },
+   "pass_ops": 1002,
+   "total_ops": 6571
+  }
+ },
+ {
+  "episode": "90630455",
+  "seat": 1,
+  "team": "Raj Aryan",
+  "bank": 123994.0,
+  "hash": "d84382eb23c777a1",
+  "fp": {
+   "max_hands": 14,
+   "hires": 277,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "seeds": {
+    "WHEAT": 1072,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "WHEAT": 92,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "sell_qty": {
+    "WHEAT": 833,
+    "STRAWBERRY": 313,
+    "MILK": 237,
+    "FERTILIZER": 234,
+    "WOOL": 164,
+    "MELON": 144
+   },
+   "pass_ops": 812,
+   "total_ops": 6901
+  }
+ },
+ {
+  "episode": "90630478",
+  "seat": 0,
+  "team": "The T-MAN",
+  "bank": 144119.0,
+  "hash": "7e9adbdac82639af",
+  "fp": {
+   "max_hands": 14,
+   "hires": 259,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "seeds": {
+    "WHEAT": 374,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "MELON": 24,
+    "WHEAT": 109,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "sell_qty": {
+    "STRAWBERRY": 299,
+    "WHEAT": 279,
+    "MILK": 213,
+    "FERTILIZER": 208,
+    "WOOL": 144,
+    "MELON": 144
+   },
+   "pass_ops": 1002,
+   "total_ops": 6571
+  }
+ },
+ {
+  "episode": "90630478",
+  "seat": 1,
+  "team": "hongqian miao",
+  "bank": 141107.0,
+  "hash": "856d5640461283d4",
+  "fp": {
+   "max_hands": 14,
+   "hires": 277,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "seeds": {
+    "WHEAT": 1072,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "WHEAT": 92,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "sell_qty": {
+    "WHEAT": 825,
+    "STRAWBERRY": 313,
+    "MILK": 237,
+    "FERTILIZER": 233,
+    "WOOL": 164,
+    "MELON": 144
+   },
+   "pass_ops": 812,
+   "total_ops": 6901
+  }
+ },
+ {
+  "episode": "90630506",
+  "seat": 0,
+  "team": "THUNDER THUNDER",
+  "bank": 144167.0,
+  "hash": "9b45788a8fc1a2f6",
+  "fp": {
+   "max_hands": 14,
+   "hires": 259,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "COW": 5,
+    "SHEEP": 10
+   },
+   "seeds": {
+    "WHEAT": 369,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "MELON": 24,
+    "WHEAT": 110,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "SHEEP": 9,
+    "COW": 5
+   },
+   "sell_qty": {
+    "STRAWBERRY": 291,
+    "WHEAT": 274,
+    "WOOL": 217,
+    "FERTILIZER": 209,
+    "MILK": 150,
+    "MELON": 144
+   },
+   "pass_ops": 1000,
+   "total_ops": 6567
+  }
+ },
+ {
+  "episode": "90630506",
+  "seat": 1,
+  "team": "venks",
+  "bank": 143251.0,
+  "hash": "142c574ea8f0439f",
+  "fp": {
+   "max_hands": 14,
+   "hires": 260,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "seeds": {
+    "WHEAT": 373,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "MELON": 24,
+    "WHEAT": 109,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "sell_qty": {
+    "STRAWBERRY": 293,
+    "WHEAT": 274,
+    "MILK": 213,
+    "FERTILIZER": 210,
+    "WOOL": 152,
+    "MELON": 144
+   },
+   "pass_ops": 1004,
+   "total_ops": 6592
+  }
+ },
+ {
+  "episode": "90631223",
+  "seat": 0,
+  "team": "Wufang Hong",
+  "bank": 114676.0,
+  "hash": "862cc65a59a7faaa",
+  "fp": {
+   "max_hands": 14,
+   "hires": 259,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "seeds": {
+    "WHEAT": 374,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "MELON": 24,
+    "WHEAT": 109,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "sell_qty": {
+    "STRAWBERRY": 299,
+    "WHEAT": 279,
+    "MILK": 213,
+    "FERTILIZER": 208,
+    "WOOL": 144,
+    "MELON": 144
+   },
+   "pass_ops": 1002,
+   "total_ops": 6571
+  }
+ },
+ {
+  "episode": "90631223",
+  "seat": 1,
+  "team": "\u2570\u2508\u27a4\u02ce\u02ca\u02d7 www.sleepyai.org",
+  "bank": 112947.0,
+  "hash": "55b726c70b378ce6",
+  "fp": {
+   "max_hands": 14,
+   "hires": 277,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "seeds": {
+    "WHEAT": 1072,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "WHEAT": 92,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "sell_qty": {
+    "WHEAT": 828,
+    "STRAWBERRY": 313,
+    "MILK": 237,
+    "FERTILIZER": 233,
+    "WOOL": 164,
+    "MELON": 144
+   },
+   "pass_ops": 813,
+   "total_ops": 6901
+  }
+ },
+ {
+  "episode": "90631991",
+  "seat": 0,
+  "team": "venks",
+  "bank": 117717.0,
+  "hash": "47d59f7279fc68a5",
+  "fp": {
+   "max_hands": 14,
+   "hires": 260,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "seeds": {
+    "WHEAT": 373,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "MELON": 24,
+    "WHEAT": 109,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "sell_qty": {
+    "STRAWBERRY": 293,
+    "WHEAT": 274,
+    "MILK": 213,
+    "FERTILIZER": 210,
+    "WOOL": 152,
+    "MELON": 144
+   },
+   "pass_ops": 1004,
+   "total_ops": 6592
+  }
+ },
+ {
+  "episode": "90631991",
+  "seat": 1,
+  "team": "Wufang Hong",
+  "bank": 120299.0,
+  "hash": "8eb003fac57ad746",
+  "fp": {
+   "max_hands": 14,
+   "hires": 259,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "seeds": {
+    "WHEAT": 372,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "MELON": 24,
+    "WHEAT": 105,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "sell_qty": {
+    "STRAWBERRY": 292,
+    "WHEAT": 273,
+    "MILK": 213,
+    "FERTILIZER": 210,
+    "WOOL": 149,
+    "MELON": 144
+   },
+   "pass_ops": 1030,
+   "total_ops": 6567
+  }
+ },
+ {
+  "episode": "90632818",
+  "seat": 0,
+  "team": "Anas Riaz",
+  "bank": 94560.0,
+  "hash": "69844bfe24e17172",
+  "fp": {
+   "max_hands": 14,
+   "hires": 277,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "seeds": {
+    "WHEAT": 1072,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "WHEAT": 92,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "sell_qty": {
+    "WHEAT": 828,
+    "STRAWBERRY": 313,
+    "MILK": 237,
+    "FERTILIZER": 233,
+    "WOOL": 164,
+    "MELON": 144
+   },
+   "pass_ops": 813,
+   "total_ops": 6901
+  }
+ },
+ {
+  "episode": "90632818",
+  "seat": 1,
+  "team": "manual player",
+  "bank": 100666.0,
+  "hash": "87819651a87edae3",
+  "fp": {
+   "max_hands": 14,
+   "hires": 259,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "seeds": {
+    "WHEAT": 374,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "MELON": 24,
+    "WHEAT": 109,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "sell_qty": {
+    "STRAWBERRY": 299,
+    "WHEAT": 279,
+    "MILK": 213,
+    "FERTILIZER": 208,
+    "WOOL": 144,
+    "MELON": 144
+   },
+   "pass_ops": 1002,
+   "total_ops": 6571
+  }
+ },
+ {
+  "episode": "90634316",
+  "seat": 0,
+  "team": "TAUIL Abd Elilah",
+  "bank": 82969.0,
+  "hash": "f6b9435adfcf4b71",
+  "fp": {
+   "max_hands": 14,
+   "hires": 277,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "seeds": {
+    "WHEAT": 1072,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "WHEAT": 92,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "sell_qty": {
+    "WHEAT": 835,
+    "STRAWBERRY": 313,
+    "MILK": 236,
+    "FERTILIZER": 229,
+    "WOOL": 164,
+    "MELON": 138
+   },
+   "pass_ops": 813,
+   "total_ops": 6901
+  }
+ },
+ {
+  "episode": "90634316",
+  "seat": 1,
+  "team": "David Schindler15",
+  "bank": 89797.0,
+  "hash": "6b5da5199a29a68e",
+  "fp": {
+   "max_hands": 13,
+   "hires": 294,
+   "land_buys": 2,
+   "first_land_step": 209,
+   "first_animal_step": 0,
+   "animals": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "seeds": {
+    "WHEAT": 361,
+    "MELON": 21,
+    "STRAWBERRY": 43
+   },
+   "planted": {
+    "MELON": 20,
+    "WHEAT": 85,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "sell_qty": {
+    "WHEAT": 276,
+    "STRAWBERRY": 244,
+    "MILK": 226,
+    "FERTILIZER": 211,
+    "WOOL": 154,
+    "MELON": 120
+   },
+   "pass_ops": 635,
+   "total_ops": 7436
+  }
+ },
+ {
+  "episode": "90635229",
+  "seat": 0,
+  "team": "Loren-wen",
+  "bank": 145688.0,
+  "hash": "ce9807734d75ea07",
+  "fp": {
+   "max_hands": 14,
+   "hires": 277,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "seeds": {
+    "WHEAT": 1072,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "WHEAT": 92,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "sell_qty": {
+    "WHEAT": 828,
+    "STRAWBERRY": 313,
+    "MILK": 237,
+    "FERTILIZER": 233,
+    "WOOL": 164,
+    "MELON": 144
+   },
+   "pass_ops": 813,
+   "total_ops": 6901
+  }
+ },
+ {
+  "episode": "90635229",
+  "seat": 1,
+  "team": "Youssef EL MSIYAH",
+  "bank": 145950.0,
+  "hash": "a6939667a4a4ca07",
+  "fp": {
+   "max_hands": 14,
+   "hires": 261,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "seeds": {
+    "WHEAT": 377,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "MELON": 24,
+    "WHEAT": 108,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "sell_qty": {
+    "STRAWBERRY": 295,
+    "WHEAT": 280,
+    "MILK": 213,
+    "FERTILIZER": 208,
+    "WOOL": 152,
+    "MELON": 144
+   },
+   "pass_ops": 1017,
+   "total_ops": 6611
+  }
+ },
+ {
+  "episode": "90635979",
+  "seat": 0,
+  "team": "Ryan Adams",
+  "bank": 144716.0,
+  "hash": "b5f9092abe33716d",
+  "fp": {
+   "max_hands": 14,
+   "hires": 277,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "seeds": {
+    "WHEAT": 22528,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "WHEAT": 92,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "sell_qty": {
+    "WHEAT": 1765,
+    "STRAWBERRY": 313,
+    "MILK": 237,
+    "FERTILIZER": 233,
+    "WOOL": 164,
+    "MELON": 144
+   },
+   "pass_ops": 813,
+   "total_ops": 6901
+  }
+ },
+ {
+  "episode": "90635979",
+  "seat": 1,
+  "team": "Khanh",
+  "bank": 147973.0,
+  "hash": "0f101ea7d497d4e3",
+  "fp": {
+   "max_hands": 14,
+   "hires": 262,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "seeds": {
+    "WHEAT": 375,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "MELON": 24,
+    "WHEAT": 108,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "sell_qty": {
+    "STRAWBERRY": 295,
+    "WHEAT": 290,
+    "MILK": 213,
+    "FERTILIZER": 209,
+    "WOOL": 148,
+    "MELON": 144
+   },
+   "pass_ops": 1033,
+   "total_ops": 6633
+  }
+ },
+ {
+  "episode": "90637565",
+  "seat": 0,
+  "team": "kevin park",
+  "bank": 121499.0,
+  "hash": "e893ce70cd5eaca4",
+  "fp": {
+   "max_hands": 14,
+   "hires": 277,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "seeds": {
+    "WHEAT": 1072,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "WHEAT": 92,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "sell_qty": {
+    "WHEAT": 829,
+    "STRAWBERRY": 313,
+    "MILK": 237,
+    "FERTILIZER": 234,
+    "WOOL": 164,
+    "MELON": 144
+   },
+   "pass_ops": 813,
+   "total_ops": 6901
+  }
+ },
+ {
+  "episode": "90637565",
+  "seat": 1,
+  "team": "lemon13418",
+  "bank": 125028.0,
+  "hash": "b5d968b3a99f9303",
+  "fp": {
+   "max_hands": 14,
+   "hires": 260,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "seeds": {
+    "WHEAT": 367,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "MELON": 24,
+    "WHEAT": 108,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "sell_qty": {
+    "STRAWBERRY": 295,
+    "WHEAT": 268,
+    "MILK": 213,
+    "FERTILIZER": 209,
+    "WOOL": 150,
+    "MELON": 144
+   },
+   "pass_ops": 1008,
+   "total_ops": 6594
+  }
+ },
+ {
+  "episode": "90637602",
+  "seat": 0,
+  "team": "Youssef EL MSIYAH",
+  "bank": 79249.0,
+  "hash": "a6939667a4a4ca07",
+  "fp": {
+   "max_hands": 14,
+   "hires": 261,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "seeds": {
+    "WHEAT": 377,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "MELON": 24,
+    "WHEAT": 108,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "sell_qty": {
+    "STRAWBERRY": 295,
+    "WHEAT": 280,
+    "MILK": 213,
+    "FERTILIZER": 208,
+    "WOOL": 152,
+    "MELON": 144
+   },
+   "pass_ops": 1017,
+   "total_ops": 6611
+  }
+ },
+ {
+  "episode": "90637602",
+  "seat": 1,
+  "team": "Mohit Rao",
+  "bank": 80602.0,
+  "hash": "e73d779445568d39",
+  "fp": {
+   "max_hands": 14,
+   "hires": 258,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "seeds": {
+    "WHEAT": 404,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "MELON": 24,
+    "WHEAT": 111,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "sell_qty": {
+    "STRAWBERRY": 303,
+    "WHEAT": 297,
+    "MILK": 213,
+    "FERTILIZER": 210,
+    "WOOL": 150,
+    "MELON": 144
+   },
+   "pass_ops": 986,
+   "total_ops": 6551
+  }
+ },
+ {
+  "episode": "90637613",
+  "seat": 0,
+  "team": "Jiajun HAN",
+  "bank": 128457.0,
+  "hash": "3c2effcb6a7ab365",
+  "fp": {
+   "max_hands": 14,
+   "hires": 257,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "seeds": {
+    "WHEAT": 376,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "MELON": 24,
+    "WHEAT": 106,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "SHEEP": 6,
+    "COW": 8,
+    "WHEAT": 6,
+    "MILK": 2,
+    "WOOL": 1
+   },
+   "sell_qty": {
+    "STRAWBERRY": 286,
+    "WHEAT": 268,
+    "MILK": 213,
+    "FERTILIZER": 212,
+    "WOOL": 152,
+    "MELON": 144
+   },
+   "pass_ops": 1029,
+   "total_ops": 6527
+  }
+ },
+ {
+  "episode": "90637613",
+  "seat": 1,
+  "team": "Loren-wen",
+  "bank": 126515.0,
+  "hash": "a9310e3028392000",
+  "fp": {
+   "max_hands": 14,
+   "hires": 277,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "seeds": {
+    "WHEAT": 1072,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "WHEAT": 92,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "sell_qty": {
+    "WHEAT": 828,
+    "STRAWBERRY": 313,
+    "MILK": 237,
+    "FERTILIZER": 233,
+    "WOOL": 164,
+    "MELON": 144
+   },
+   "pass_ops": 813,
+   "total_ops": 6901
+  }
+ },
+ {
+  "episode": "90638419",
+  "seat": 0,
+  "team": "Dmitry Larko",
+  "bank": 137260.0,
+  "hash": "856d5640461283d4",
+  "fp": {
+   "max_hands": 14,
+   "hires": 277,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "seeds": {
+    "WHEAT": 1072,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "WHEAT": 92,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "sell_qty": {
+    "WHEAT": 825,
+    "STRAWBERRY": 313,
+    "MILK": 237,
+    "FERTILIZER": 233,
+    "WOOL": 164,
+    "MELON": 144
+   },
+   "pass_ops": 812,
+   "total_ops": 6901
+  }
+ },
+ {
+  "episode": "90638419",
+  "seat": 1,
+  "team": "Tom Yim",
+  "bank": 136742.0,
+  "hash": "3ab9c2a53934ec80",
+  "fp": {
+   "max_hands": 14,
+   "hires": 277,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "seeds": {
+    "WHEAT": 1072,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "WHEAT": 92,
+    "MELON": 24,
+    "STRAWBERRY": 41
+   },
+   "placed": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "sell_qty": {
+    "WHEAT": 825,
+    "STRAWBERRY": 305,
+    "MILK": 237,
+    "FERTILIZER": 235,
+    "WOOL": 164,
+    "MELON": 144
+   },
+   "pass_ops": 809,
+   "total_ops": 6901
+  }
+ },
+ {
+  "episode": "90639951",
+  "seat": 0,
+  "team": "Akhil Chinta",
+  "bank": 127098.0,
+  "hash": "286aebe9750a0f73",
+  "fp": {
+   "max_hands": 14,
+   "hires": 277,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "seeds": {
+    "WHEAT": 1072,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "WHEAT": 92,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "sell_qty": {
+    "WHEAT": 828,
+    "STRAWBERRY": 313,
+    "MILK": 237,
+    "FERTILIZER": 233,
+    "WOOL": 200,
+    "MELON": 150
+   },
+   "pass_ops": 813,
+   "total_ops": 6901
+  }
+ },
+ {
+  "episode": "90639951",
+  "seat": 1,
+  "team": "Marcus",
+  "bank": 126371.0,
+  "hash": "33880c4a3397ee0d",
+  "fp": {
+   "max_hands": 14,
+   "hires": 277,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "seeds": {
+    "WHEAT": 1072,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "WHEAT": 92,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "sell_qty": {
+    "WHEAT": 828,
+    "STRAWBERRY": 313,
+    "MILK": 237,
+    "FERTILIZER": 233,
+    "WOOL": 164,
+    "MELON": 144
+   },
+   "pass_ops": 812,
+   "total_ops": 6901
+  }
+ },
+ {
+  "episode": "90639963",
+  "seat": 0,
+  "team": "kevin park",
+  "bank": 91051.0,
+  "hash": "59bb466824c705b1",
+  "fp": {
+   "max_hands": 14,
+   "hires": 277,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "seeds": {
+    "WHEAT": 1072,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "WHEAT": 92,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "sell_qty": {
+    "WHEAT": 824,
+    "STRAWBERRY": 313,
+    "MILK": 237,
+    "FERTILIZER": 235,
+    "WOOL": 164,
+    "MELON": 144
+   },
+   "pass_ops": 812,
+   "total_ops": 6901
+  }
+ },
+ {
+  "episode": "90639963",
+  "seat": 1,
+  "team": "Seb (allegedly)",
+  "bank": 91050.0,
+  "hash": "ae14c07681b5a8e5",
+  "fp": {
+   "max_hands": 12,
+   "hires": 309,
+   "land_buys": 3,
+   "first_land_step": 118,
+   "first_animal_step": 0,
+   "animals": {
+    "COW": 13,
+    "SHEEP": 6
+   },
+   "seeds": {
+    "MELON": 24,
+    "WHEAT": 388,
+    "STRAWBERRY": 41
+   },
+   "planted": {
+    "WHEAT": 29,
+    "MELON": 24,
+    "STRAWBERRY": 41
+   },
+   "placed": {
+    "SHEEP": 6,
+    "COW": 13
+   },
+   "sell_qty": {
+    "FERTILIZER": 321,
+    "MILK": 287,
+    "STRAWBERRY": 286,
+    "WOOL": 140,
+    "MELON": 138,
+    "WHEAT": 81
+   },
+   "pass_ops": 1006,
+   "total_ops": 7748
+  }
+ },
+ {
+  "episode": "90639993",
+  "seat": 0,
+  "team": "Wufang Hong",
+  "bank": 121907.0,
+  "hash": "862cc65a59a7faaa",
+  "fp": {
+   "max_hands": 14,
+   "hires": 259,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "seeds": {
+    "WHEAT": 374,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "MELON": 24,
+    "WHEAT": 109,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "sell_qty": {
+    "STRAWBERRY": 299,
+    "WHEAT": 279,
+    "MILK": 213,
+    "FERTILIZER": 208,
+    "WOOL": 144,
+    "MELON": 144
+   },
+   "pass_ops": 1002,
+   "total_ops": 6571
+  }
+ },
+ {
+  "episode": "90639993",
+  "seat": 1,
+  "team": "Anton Shaniuk",
+  "bank": 119744.0,
+  "hash": "4b30b546d7582c89",
+  "fp": {
+   "max_hands": 14,
+   "hires": 273,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "seeds": {
+    "WHEAT": 1021,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "WHEAT": 91,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "COW": 8,
+    "SHEEP": 6,
+    "MILK": 1,
+    "WOOL": 1,
+    "FERTILIZER": 2,
+    "WHEAT": 1
+   },
+   "sell_qty": {
+    "STRAWBERRY": 1549,
+    "MILK": 1116,
+    "MELON": 1014,
+    "WOOL": 928,
+    "WHEAT": 779,
+    "FERTILIZER": 201
+   },
+   "pass_ops": 497,
+   "total_ops": 6816
+  }
+ },
+ {
+  "episode": "90640773",
+  "seat": 0,
+  "team": "Filip Strza\u0142ka",
+  "bank": 124107.0,
+  "hash": "391b5d363f7a198a",
+  "fp": {
+   "max_hands": 14,
+   "hires": 277,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "seeds": {
+    "WHEAT": 1072,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "WHEAT": 92,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "sell_qty": {
+    "WHEAT": 828,
+    "STRAWBERRY": 313,
+    "MILK": 237,
+    "FERTILIZER": 233,
+    "WOOL": 164,
+    "MELON": 144
+   },
+   "pass_ops": 813,
+   "total_ops": 6901
+  }
+ },
+ {
+  "episode": "90640773",
+  "seat": 1,
+  "team": "kaggricultureomnidimensionalut",
+  "bank": 124087.0,
+  "hash": "abf8e99ffd770e40",
+  "fp": {
+   "max_hands": 14,
+   "hires": 277,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "seeds": {
+    "WHEAT": 1072,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "WHEAT": 92,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "sell_qty": {
+    "WHEAT": 828,
+    "STRAWBERRY": 313,
+    "MILK": 237,
+    "FERTILIZER": 233,
+    "WOOL": 164,
+    "MELON": 144
+   },
+   "pass_ops": 813,
+   "total_ops": 6901
+  }
+ },
+ {
+  "episode": "90640790",
+  "seat": 0,
+  "team": "Khanh",
+  "bank": 125497.0,
+  "hash": "0f101ea7d497d4e3",
+  "fp": {
+   "max_hands": 14,
+   "hires": 262,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "seeds": {
+    "WHEAT": 375,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "MELON": 24,
+    "WHEAT": 108,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "sell_qty": {
+    "STRAWBERRY": 295,
+    "WHEAT": 290,
+    "MILK": 213,
+    "FERTILIZER": 209,
+    "WOOL": 148,
+    "MELON": 144
+   },
+   "pass_ops": 1033,
+   "total_ops": 6633
+  }
+ },
+ {
+  "episode": "90640790",
+  "seat": 1,
+  "team": "Aastik Rajan15",
+  "bank": 123570.0,
+  "hash": "f31e89d0f89a0f7c",
+  "fp": {
+   "max_hands": 14,
+   "hires": 259,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "seeds": {
+    "WHEAT": 374,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "MELON": 24,
+    "WHEAT": 109,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "SHEEP": 6,
+    "COW": 8,
+    "MILK": 2,
+    "WOOL": 1,
+    "WHEAT": 14
+   },
+   "sell_qty": {
+    "WHEAT": 313,
+    "STRAWBERRY": 299,
+    "MILK": 213,
+    "FERTILIZER": 208,
+    "WOOL": 144,
+    "MELON": 144
+   },
+   "pass_ops": 1011,
+   "total_ops": 6571
+  }
+ },
+ {
+  "episode": "90649473",
+  "seat": 0,
+  "team": "Koushik Rudra",
+  "bank": 121702.0,
+  "hash": "9f422655d4e48f3c",
+  "fp": {
+   "max_hands": 14,
+   "hires": 277,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "seeds": {
+    "WHEAT": 1072,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "WHEAT": 92,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "sell_qty": {
+    "WHEAT": 828,
+    "STRAWBERRY": 313,
+    "MILK": 237,
+    "FERTILIZER": 233,
+    "WOOL": 164,
+    "MELON": 144
+   },
+   "pass_ops": 813,
+   "total_ops": 6901
+  }
+ },
+ {
+  "episode": "90649473",
+  "seat": 1,
+  "team": "Loren-wen",
+  "bank": 121702.0,
+  "hash": "d52e3b8a65524d1d",
+  "fp": {
+   "max_hands": 14,
+   "hires": 277,
+   "land_buys": 2,
+   "first_land_step": 168,
+   "first_animal_step": 0,
+   "animals": {
+    "SHEEP": 6,
+    "COW": 8
+   },
+   "seeds": {
+    "WHEAT": 1072,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "planted": {
+    "WHEAT": 92,
+    "MELON": 24,
+    "STRAWBERRY": 42
+   },
+   "placed": {
+    "COW": 8,
+    "SHEEP": 6
+   },
+   "sell_qty": {
+    "WHEAT": 828,
+    "STRAWBERRY": 313,
+    "MILK": 237,
+    "FERTILIZER": 233,
+    "WOOL": 164,
+    "MELON": 144
+   },
+   "pass_ops": 812,
+   "total_ops": 6901
+  }
+ }
+]

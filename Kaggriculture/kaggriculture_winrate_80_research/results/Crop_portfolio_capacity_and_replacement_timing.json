@@ -1,0 +1,89 @@
+{
+  "hypothesis": "Selecting each new or replacement crop only when its complete lifecycle fits serviceable worker capacity and its marginal terminal value remains best after own supply, price impact, travel, and remaining season are included will avoid v204's unserviceable 65% STRAWBERRY expansion. A capacity-constrained diversified portfolio should preserve early premium revenue while preventing the day-20-to-29 expiry and cash collapse.",
+  "exact_code_lever": {
+    "single_cause_candidate": "Replace the target-count crop allocator with an incremental capacity-constrained project selector; leave job execution, hiring, layout, animals, and sales identical to a_v186.",
+    "selection_loop": "For each currently serviceable slot, simulate one tile of each crop through the last bankable harvest, update projected own/market supply after every selection, and choose the crop with maximum positive net terminal value per worker-turn. Stop when no crop is positive, next-day mandatory utilization would exceed 0.80, or minimum deadline slack would fall below two turns.",
+    "replacement_rule": "When a one-time crop is harvested or a doomed crop is dug, treat the empty tile as a new project; do not automatically restore its prior species. For ongoing crops, compare remaining bankable output with DIG plus the best replacement, including the DIG action, new maturation delay, travel, and market impact.",
+    "diversification_guard": "A crop may exceed 50% of serviceable crop projects only when its post-impact marginal value/action is at least 20% above the runner-up and forecast utilization is below 0.65; hard-reject any 65% calendar override. The 0.80, 0.65, 50%, and 20% values are [uncertain] training thresholds."
+  },
+  "affected_phase": "Replan on every empty tile and at day rollover. Early days 0-9 favor fast WHEAT/CARROT cash and only long crops whose future service is reserved. Days 10-19 are the critical premium-capacity window: v204 expanded scarce STRAWBERRY only in days 12-19 and regressed to 49.9%. Days 20-26 emphasize short-payback replacements; days 27-29 admit no new project without a complete maturation-harvest-bank-sell path. Apply to all opponents and seats.",
+  "engine_mechanism": "Crop constants are WHEAT seed 10, first yield day 2, max-yield day 4, max held 6; CARROT 20/2/3/4; TOMATO 50, first production after 8 days, interval 1, four production ticks, ongoing; STRAWBERRY 100, first after 10 days, interval 2, four ticks, ongoing; MELON 80, first yield day 10, max-yield day 12, max held 6. Planting day starts with one consecutive unwatered count; two missed daily refreshes create a weed. Ongoing production is clamped at held cap and the final scheduled tick sets an expiry step; decay removes one held unit every other turn after expiry. HARVEST clears one-time crops but not ongoing crops. Prices respond nonlinearly to shared market inventory and premium gluts can reach the 1-coin floor. Thus a nominal high-price tile is not valuable unless it can be watered, harvested repeatedly, carried, banked, and sold before capacity/expiry and terminal deadlines.",
+  "regime_trigger_and_forecast_error": {
+    "trigger": "Growth mode requires forecast utilization <=0.65 and minimum slack >=4; constrained growth permits projects up to 0.80 utilization and slack >=2; harvest/consolidation mode starts when utilization >0.80, held yield/expiry rises, movement exceeds 50%, or fewer bankable production ticks remain than planned. Use two daily windows below 0.65 to exit consolidation.",
+    "forecast": "For every candidate simulate maturation, required survival watering, bonus watering, optional fertilizer only if separately admitted, scheduled production, harvest cadence needed to avoid held cap, route/deposit/sale actions, own price impact, known town absorption, visible opponent supply, and last bankable step. Compare predicted workload, units, realized prices, and terminal value with telemetry by cohort and plant day.",
+    "error_risk": "Future opponent harvest/sale and random shop unlocks make price and absorption forecasts noisy; travel lower bounds understate route conflicts. All transition thresholds are [uncertain]."
+  },
+  "decision_score_audit": "For every crop considered log empty/replacement tile, plant day, seed cost, predicted first/final bankable yield, expected units with and without fertilizer, service actions, travel, harvest/deposit actions, current and projected price, own and opponent supply, town absorption, gross/net value, value/action, utilization after admission, share after admission, feasibility, rejection reason, selected score, and runner-up gap.",
+  "admissible_workload_and_minimum_slack": "Construct a day-by-day workload ledger through each candidate lifecycle: mandatory anti-death watering, production-day watering, harvests before held cap/expiry, travel lower bound, and terminal banking. Reserve animal service and existing crop deadlines first. Admit a new tile only when every forecast day stays at or below 80% worker utilization and minimum mandatory slack is at least two turns. Serviceable slots equal gated projects, not empty unlocked tiles.",
+  "constraint_utilization_profile": "Report worker and movement utilization by crop cohort; cash in seeds and delayed payback; productive/empty/weed/locked tiles; shed units forecast at each harvest wave; carried cargo; and purchase/sale order slots. Track crop share by tiles, forecast actions, realized actions, units, revenue, and terminal cash, because a low-tile ongoing crop can consume more recurring labor than its count implies.",
+  "job_queue_health": "Attribute open, aged, late, starved, and abandoned WATER/HARVEST/FERTILIZE/DIG/PLANT jobs to crop and planting cohort. Track held-cap ticks, expiry with held yield, weed conversion, empty-tile wait, replacement delay, and planned versus completed harvests. A portfolio passes only if added crop value does not expand the oldest mandatory-job tail.",
+  "spatial_logistics_metrics": "For each crop report movement/completed service, weighted shed distance, route switches, batch length, shed trips, harvest units per return, and cohort dispersion. Include travel in the portfolio score even if layout itself is unchanged; a remote crop loses against an equal-price near crop through higher worker-turn cost.",
+  "expected_terminal_value": "[uncertain] The expected direction is positive from rejecting unserviceable premium capacity and selecting shorter replacements when long crops cannot mature. The failed v204 result is strong negative evidence against calendar-only 65% STRAWBERRY, but it does not establish the optimal mix or uplift. Measure paired terminal cash, win probability, and cash by five-day window.",
+  "marginal_value_per_worker_turn": "For each incremental tile use discounted sale proceeds through its last bankable output minus seed, fertilizer/feed interactions, price impact, financing, decay/expiry, overflow, and displaced work, divided by PLANT + WATER + FERTILIZE + HARVEST + DIG + deposit + travel actions. Recompute after each simulated tile so identical crops face declining marginal price and rising service load.",
+  "shadow_price_vector": {
+    "money": "Best foregone near-term project or survival reserve per seed coin.",
+    "labor": "Best rejected mandatory/discretionary net value per action on each future day.",
+    "movement": "Opportunity value of predicted Manhattan steps by phase.",
+    "tile": "Best serviceable replacement's net value, including weed and DIG costs.",
+    "shed": "Value at risk from synchronized harvest overflow or forced low-price sale.",
+    "cargo": "Return-to-shed time and end-of-day overflow exposure; no engine carry cap.",
+    "market_order": "Best displaced sale, wheat purchase, hire, or seed order among ten slots. Values are [uncertain] until calibrated."
+  },
+  "gross_to_net_value_decomposition": "Gross crop value is expected bankable units times forecast unit prices plus any strategic denial effect. Subtract seed, fertilizer opportunity cost, all service and movement, harvest/deposit, own price depression, opponent-induced glut, financing delay, shed overflow, expiry/held-cap loss, DIG/replacement cost, and highest displaced existing job/project. Report by crop, plant day, and realized cohort.",
+  "market_and_opponent_dependence": "Use live market inventory, known town demand, unlocked shops, and visible opponent tiles to forecast prices, but shrink opponent exploitation toward a robust mix. STRAWBERRY and MELON have severe above-I0 price curves, so diversify sooner under shared glut. WHEAT also has feed value. Report performance against premium mirrors, staple producers, animal farms, early expanders, and passive opponents, plus seat.",
+  "action_validity_and_noop_breakdown": "Count PLANT requests versus seeds, atomic same-crop over-request, nonempty/weed/locked target, WATER after crop cleared, HARVEST immature/zero-yield, FERTILIZE without cargo or on capped/doomed tile, DIG on empty/animal structure, purchase unaffordability, shed-full purchase, and market truncation. Portfolio forecasts must never count an action whose engine precondition is false.",
+  "micro_scenario_coverage": [
+    "One incremental STRAWBERRY lowers the projected price of the next and raises workload before a second is admitted.",
+    "A 65% STRAWBERRY calendar target is rejected when utilization exceeds 0.80.",
+    "A day-12 STRAWBERRY can complete four scheduled ticks by day 28 if service and banking fit; a later cohort receives only bankable ticks.",
+    "Late WHEAT/CARROT can beat long crops when only short maturation fits.",
+    "An ongoing crop at held cap includes an extra HARVEST before its next production tick.",
+    "A doomed empty-yield tile compares DIG-plus-replacement against leaving a weed-bound slot.",
+    "One-time HARVEST clears the tile; ongoing HARVEST preserves it.",
+    "Two missed refreshes kill a nominally high-value under-serviced project."
+  ],
+  "terminal_feasibility": "For each candidate production tick require maturation, prerequisite service, HARVEST, travel to a shed-access tile, DROP/PLACE with headroom, and SELL before the last action. A useful guide is full STRAWBERRY cohorts planted by about day 12 for ticks through day 28, while later cohorts must be valued only for partial bankable output; exact last plant times depend on route and price. Reject all unbankable output rather than crediting nominal lifetime yield.",
+  "paired_test_design": {
+    "control": "a_v186.py, SHA-256 8e24e4236a9b8c0b877f86695845985d4b4df5d797f465bc4f88277b0351a26a",
+    "candidate": "[uncertain] a_v186_crop_portfolio.py containing only the new crop allocator",
+    "screen": "80 opponents x both seats x four fixed seeds = 640 games/agent; paired win is primary, with cohort terminal value, utilization, and expiry as mechanism metrics.",
+    "validation": "Freeze thresholds/mix logic, then 80 opponents x both seats x 11 untouched offset-20 seeds = 1760 games/agent.",
+    "command": "python _loss_analysis.py a_v186.py a_v186_crop_portfolio.py --opponents 80 --seeds 11 --offset 20 --out crop_portfolio_validation.json"
+  },
+  "paired_discordance_and_effect_interval": "[uncertain] Report candidate-only c, control-only b, uplift=(c-b)/1760, exact McNemar p-value, and paired bootstrap intervals for terminal margin, days-20-29 cash, expiry, and output/service action. Estimate MDE from observed discordance; 3-4 points is only a rough expectation for 25-35% discordance.",
+  "random_stream_alignment": "Hold seed, opponent, and seat constant. Different planting/empty-tile patterns condition how many weed RNG draws occur and can change the later shop draw, so log first policy divergence, weeds, shops, and price path. Supplement with zero-weed and fixed-shop tests for portfolio causality.",
+  "optional_stopping_and_multiple_testing_budget": "Complete fixed screens and validation without peeking-based stopping. Count this allocator as one of the 24 outline hypotheses; apply Holm family-wise alpha 0.05 to final claims. Multiple share/utilization settings are training variants and receive only one frozen validation.",
+  "tuning_validation_separation": "Tune at most six parameter sets on offsets 0-5, including utilization/share guards, then freeze. Validate once on offset 20; any post-validation adjustment requires a new candidate and unused seeds. Preserve a_v186 and v204 as fixed controls/evidence.",
+  "distributional_guardrails": "Report median, 10th/5th-percentile margin, catastrophic loss <=-20000, crop/animal death, held expiry, shed overflow, cash by five-day window, and worst opponent/seat. Reject if either seat loses >2 points, any archetype >3, q10 margin worsens >2000, catastrophes rise >1 point, or early cash improves while days 20-29 cash materially collapses.",
+  "robustness_regret": "[uncertain] Calculate policy regret relative to the best mix per opponent archetype and robust a_v186, with special premium-mirror and adverse-shop strata. Require worst-stratum win regret versus a_v186 no worse than 2 points.",
+  "rare_event_stress_results": "[uncertain] Pending tests: premium price at 1, no premium shop, early SMOOTHIE/ICE_CREAM demand, simultaneous mature cohorts, 100-item shed, worker shortage, low seed cash, weeds on replacement tiles, and day-20 held-cap wave. Record admission, service, expiry, overflow, and cash.",
+  "interaction_and_ablation_matrix": "[uncertain] Test capacity gate alone, price-impact marginal selection alone, replacement timing alone, diversification guard alone, full allocator, and leave-one-out variants. Cross later with workload, hiring, spatial, batching, harvest urgency, and fertilizer candidates only after each has independent positive evidence.",
+  "promotion_margin_and_reversion_trigger": "Promote with Holm-adjusted positive paired evidence, at least +1.5 observed points, positive median margin, no days-20-29 cash collapse, and all guardrails. Revert if utilization forecasts understate realized load by >20% for three days, held expiry rises, any crop exceeds the guard without its score gap, terminal unbanked output grows, or latency exceeds budget. Final agent target remains >=80% on fresh 1760 games.",
+  "confidence_and_status": "High confidence that calendar-only 65% STRAWBERRY is unsafe under observed congestion and that lifecycle/price curves are correct; moderate confidence in constrained marginal allocation; threshold and uplift confidence are [uncertain]. Status: research complete, implementation and benchmark pending.",
+  "computational_budget": "Simulate at most five crops for each of at most 100 candidate slots over <=30 days, with cached price/absorption and visit templates. Target <50 ms/turn and <2 MB. On timeout, stop admitting projects and use a_v186's existing portfolio for already-owned assets; never drop mandatory service.",
+  "artifact_metadata": {
+    "research_date": "2026-08-19",
+    "baseline_record": "1203-557, 68.4%, 1760 games",
+    "rejected_record": "a_v204: 878-882, 49.9%, 1760 games",
+    "baseline_path_sha256": "C:/Users/Vinee/Desktop/Kaggriculture/a_v186.py; 8e24e4236a9b8c0b877f86695845985d4b4df5d797f465bc4f88277b0351a26a",
+    "engine_path_sha256": "C:/Users/Vinee/Desktop/Kaggriculture/_env_src.py; c11baf358548d8dd6f3cba031899bc1614c0fcb31a27366f12753563154307e6",
+    "candidate_path": "[uncertain] C:/Users/Vinee/Desktop/Kaggriculture/a_v186_crop_portfolio.py",
+    "external_references_from_outline": [
+      "https://web.mit.edu/~vivekf/www/papers/ADP-rm.pdf",
+      "https://pubsonline.informs.org/doi/10.1287/mnsc.2021.4011"
+    ]
+  },
+  "uncertain": [
+    "exact_code_lever",
+    "regime_trigger_and_forecast_error",
+    "expected_terminal_value",
+    "shadow_price_vector",
+    "paired_test_design",
+    "paired_discordance_and_effect_interval",
+    "robustness_regret",
+    "rare_event_stress_results",
+    "interaction_and_ablation_matrix",
+    "confidence_and_status",
+    "artifact_metadata"
+  ]
+}

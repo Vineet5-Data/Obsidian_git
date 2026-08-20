@@ -1,0 +1,9 @@
+{
+  "concept_name": "Opponent Denial",
+  "mechanic_exploited": "Shared global market inventory price curves (quadratic / super-linear drop for premium goods like Melon, Strawberry, Milk, and Wool past starting supply I0) combined with public opponent farm state visibility. By selling targeted produce right before an opponent's harvest, a player forces market prices down to the $1 floor, denying opponent revenues while relying on glut-resistant staples (Wheat, Egg).",
+  "implementation_complexity": "Moderate (~50-150 lines of code for tracking opponent farm state, predicting harvest timing, and adding preemptive sell orders).",
+  "expected_yield_gain": "[uncertain] Estimated net relative lead of +$1,000 to +$5,000 coins against premium-focused opponents, with minimal direct self yield impact (-$500 to +$1,000 coins).",
+  "uncertain": [
+    "expected_yield_gain"
+  ]
+}

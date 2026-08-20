@@ -1,0 +1,4 @@
+gen  0  baseline v26  fit +3,941  10-6
+gen  1  best +3,941  edits  3  child_best_wins 10/16  337s
+gen  2  best +3,941  edits  3  child_best_wins 10/16  232s
+gen  3  best +3,942  edits  5  child_best_wins 10/16  231s

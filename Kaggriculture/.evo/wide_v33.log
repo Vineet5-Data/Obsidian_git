@@ -1,0 +1,8 @@
+v33.py vs 42 rival routes x 4 seeds x 2 seats = 336 games
+
+OVERALL 324-12  (96.4%)  mean +7,927  worst -3,621
+rival routes that beat us at least once: 4/42
+   f_90629703_p0.py             4/8 losses  worst -1,147
+   f_90631991_p1.py             4/8 losses  worst -3,110
+   f_90630506_p0.py             2/8 losses  worst -3,324
+   f_90634316_p1.py             2/8 losses  worst -3,621

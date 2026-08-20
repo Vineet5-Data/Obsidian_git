@@ -1,0 +1,89 @@
+{
+  "hypothesis": "Valuing fertilizer as a complete source-to-application chain, including foregone sale value, collection/pickup, travel, WATER dependency, held-cap headroom, added HARVEST/return work, and own price impact, will select only fertilizer units with positive terminal value per worker-turn. This should outperform a_v186's coarse 4-5x COLLECT score and spot-price application score while avoiding the measured regressions from blanket fertilizer reservation or indiscriminate wider application.",
+  "exact_code_lever": {
+    "single_cause_candidate": "Replace collect_fertilizer_value and the FERTILIZE job value with fertilizer_chain_value(source, crop_tile, day, route); generate COLLECT, BUY/PICKUP, and FERTILIZE only when one matched chain is positive. Leave animal/crop counts, other jobs, and sales unchanged.",
+    "incremental_yield": "Simulate the three-day inclusive buff. TOMATO can gain up to one extra unit on each watered scheduled tick inside the window, usually at most three; STRAWBERRY usually at most two; a one-time crop gains one extra unit for each bonus-window WATER inside the buff. Clamp every tick to tile headroom and require a planned HARVEST before a future tick that would otherwise clamp.",
+    "source_costs": "COLLECT cost = one action + animal-to-crop route + foregone fertilizer sale value; shed stock cost = foregone sale value + PICKUP + route; market BUY cost = quoted purchase cash + one order slot + PICKUP + route. A fertilizer already carried on a route avoids pickup cost. Choose the lowest positive-net feasible source.",
+    "gate": "net_chain = added bankable crop revenue - fertilizer source/opportunity cost - extra WATER/HARVEST/deposit actions - movement - financing - overflow - price impact - displaced work. Require net_chain>0, value/action above the phase labor shadow price, tile not capped/doomed, active buff not redundant, and survival workload slack >=2. All thresholds and price forecasts are [uncertain]."
+  },
+  "affected_phase": "Active after an animal first makes fertilizer available or BUY_PRODUCT FERTILIZER is affordable and a crop has a bankable bonus window. TOMATO/STRAWBERRY applications matter around their scheduled production, one-time crops only during bonus watering windows. Disable new chains when workload is congested, shed/order capacity is critical, or no added output can be banked before DUMP_STEP/FINAL_FARM_STEP. Evaluate especially days 10-24 and animal-heavy versus crop-heavy opponents.",
+  "engine_mechanism": "A surviving animal sets fertilizer_available=True at every end-of-day refresh; availability does not accumulate, so failing to collect before the next refresh loses a potential unit. COLLECT_FERTILIZER consumes one unit action and places one fertilizer in that worker's uncapped inventory. BUY_PRODUCT FERTILIZER consumes cash and a market order and places it in the capped shed; PICKUP at a center shed-access tile is then required. FERTILIZE consumes one carried unit and sets fertilized_until_day through day+2. For ongoing crops, a watered scheduled production tick yields two instead of one; for one-time crops, a watered bonus-window day adds two instead of one, always capped. Fertilizer gives no benefit without WATER, on a doomed tile, or when held yield is capped without a prior HARVEST. Sales/purchases change the shared nonlinear price, and only ten orders execute per turn.",
+  "regime_trigger_and_forecast_error": {
+    "trigger": "Create a fertilizer chain only when a bankable incremental production tick exists inside three days and forecast mandatory utilization remains <=0.80. Prefer direct animal-to-nearby-crop transfer when it saves PICKUP. Suspend chains when minimum survival/expiry slack<2, shed occupancy>90 without a planned sale, or fertilizer purchase would breach feed/hire reserve.",
+    "forecast": "For each source/tile pair simulate due ticks, WATER state, buff overlap, held headroom, required interim HARVEST, source and route actions, projected price after incremental output, deposit/sale timing, and opportunity value of selling fertilizer itself. Log predicted and realized added units and revenue.",
+    "error_risk": "Future watering/harvest execution, opponent sales, and shop unlocks can erase projected gain. The local history shows blanket fertilizer reserve cost about 6019 margin/game and widening the full window cost about 1057 in a 24-game head-to-head, so broad policies are specifically contraindicated; exact paired generalization is [uncertain]."
+  },
+  "decision_score_audit": "Log every candidate source (animal, shed, market), source coordinate, crop/tile, buff days, scheduled bonus ticks, predicted incremental units before/after cap, required WATER/HARVEST, purchase/foregone-sale price, movement, service actions, projected sale prices, gross/net value, value/action, utilization/slack after admission, chosen source, rejected alternatives, rejection reason, and score gap.",
+  "admissible_workload_and_minimum_slack": "Reserve FEED/WATER survival, imminent HARVEST, and terminal banking first. A fertilizer chain must fit COLLECT or BUY/PICKUP, travel, FERTILIZE, all required WATER, headroom HARVEST, return/deposit, and SELL while preserving at least two turns of mandatory slack and <=0.80 utilization on every affected day. Never count a fertilizer unit merely because it exists.",
+  "constraint_utilization_profile": "Profile worker actions for COLLECT/PICKUP/FERTILIZE/incremental WATER/HARVEST; movement per applied unit; cash spent/foregone; crop headroom; shed fertilizer and total occupancy; carried fertilizer age/distance; and BUY/SELL order slots. Report fertilizer produced, available-but-uncollected days, collected, bought, sold, applied, wasted, and incremental crop units by source.",
+  "job_queue_health": "Track fertilizer chains as linked jobs with source, destination, age, latest useful application step, slack, assignment, execution, lateness, invalidation, abandonment, and realized incremental units. A COLLECT with no positive destination or sale path is not healthy throughput. Track whether fertilizer jobs starve FEED/WATER/HARVEST.",
+  "spatial_logistics_metrics": "Measure animal-to-crop and shed-to-crop distance, movement/application, direct-transfer share, pickups per applied unit, applications per carry batch, route switches, fertilizer carried at day end, and shed trips. Compare co-located direct transfer with shed round trips while holding application economics constant.",
+  "expected_terminal_value": "[uncertain] Selective chains should avoid zero/negative applications and overvalued collection, but may reduce fertilizer volume. Net gain must be paired-tested. Prior local experiments are negative evidence against reserving fertilizer from sale (-6019 margin/game, t about -5) and wider application (-1057, t about -0.90); this proposal is deliberately narrower and makes no uplift claim before validation.",
+  "marginal_value_per_worker_turn": "For each chain, added realized terminal crop cash minus fertilizer purchase or foregone sale, price impact, financing, overflow, and displaced work divided by COLLECT or PICKUP, travel, FERTILIZE, incremental required WATER/HARVEST, return, and deposit actions. Report by source and crop; compare against simply selling a collected unit.",
+  "shadow_price_vector": {
+    "money": "Feed/hire reserve and best foregone project per purchase coin.",
+    "labor": "Best feasible rejected job per chain action, highest during congestion.",
+    "movement": "Phase value of animal/shed-to-crop and crop-to-shed steps.",
+    "tile": "Crop headroom and best replacement value if fertilizer delays harvest/decay handling.",
+    "shed": "Value of the item displaced by bought or deposited fertilizer, or required sale to free a slot.",
+    "cargo": "No physical worker cap; use time-to-use/bank and day-end overflow risk.",
+    "market_order": "Best displaced emergency purchase, hire, or product sale among ten slots. Numerical values are [uncertain]."
+  },
+  "gross_to_net_value_decomposition": "Gross value is incremental units that survive cap/expiry and can be sold at projected marginal prices. Subtract purchase or fertilizer foregone-sale value, COLLECT/PICKUP/FERTILIZE and any extra HARVEST/deposit actions, movement, WATER execution risk, financing, shed overflow, own crop price depression, fertilizer market impact, and best displaced work. Direct transfer receives only the pickup/travel actually saved.",
+  "market_and_opponent_dependence": "Compare fertilizer sale price with the marginal crop revenue, using known town demand, unlocked shops, visible rival crops, and own/rival supply. Fertilizing a premium crop during glut can be negative even when its base price is high; scarcity or town demand can reverse it. Opponent identity may adjust price forecast but cannot bypass workload/headroom gates. Report source/crop economics by archetype and seat.",
+  "action_validity_and_noop_breakdown": "Count COLLECT without availability/animal, PICKUP away from shed/no stock, FERTILIZE without carried unit/nonplant/locked tile/redundant active buff/capped or doomed target, WATER already done/cleared tile, BUY_PRODUCT unaffordable/full shed/invalid item, SELL missing shed stock, and market truncation. Revalidate the destination before every linked action and release its reserved fertilizer on failure.",
+  "micro_scenario_coverage": [
+    "A TOMATO with three due watered ticks and sufficient interim harvest headroom receives up to three incremental units from one buff.",
+    "A STRAWBERRY buff covers only scheduled ticks inside day through day+2.",
+    "A capped ongoing tile rejects FERTILIZE unless HARVEST before the tick is feasible.",
+    "A doomed tile and an already-active equivalent buff reject application.",
+    "Direct COLLECT-to-nearby-crop beats shed pickup only after foregone fertilizer sale is charged.",
+    "Market BUY includes purchase price, order slot, shed room, PICKUP, and liquidity reserve.",
+    "One-time crop receives incremental WATER bonuses only in its legal bonus window.",
+    "A fertilizer chain is cancelled when second-miss FEED/WATER consumes its slack."
+  ],
+  "terminal_feasibility": "Credit incremental yield only if production occurs before crop expiry and the extra units can be HARVESTed, returned to a shed-access tile, deposited with headroom, and SELLed before the last action. Reject applications whose three-day buff extends beyond bankable production. After DUMP_STEP=648 fertilizer normally loses to liquidation; after FINAL_FARM_STEP=696 no application is admissible.",
+  "paired_test_design": {
+    "control": "a_v186.py, SHA-256 8e24e4236a9b8c0b877f86695845985d4b4df5d797f465bc4f88277b0351a26a",
+    "candidate": "[uncertain] a_v186_fertilizer_economics.py with only linked fertilizer valuation/admission changed",
+    "screen": "80 opponents, both seats, four fixed seeds = 640 games/agent; primary paired wins, mechanism co-primary net fertilizer cash/action and mandatory-service non-inferiority.",
+    "validation": "Freeze source and application thresholds, then 80 opponents, both seats, 11 untouched offset-20 seeds = 1760 games/agent.",
+    "command": "python _loss_analysis.py a_v186.py a_v186_fertilizer_economics.py --opponents 80 --seeds 11 --offset 20 --out fertilizer_economics_validation.json"
+  },
+  "paired_discordance_and_effect_interval": "[uncertain] Report b/c discordant wins, exact McNemar test, paired uplift, and bootstrap 95% intervals for terminal margin, fertilizer net value/action, incremental units, movement/application, and survival/expiry. Derive MDE from observed discordance; 3-4 points is a rough N=1760 expectation at 25-35% discordance.",
+  "random_stream_alignment": "Match seed, opponent, and seat, but record first different fertilizer action and later weed/shop paths. Changed harvest/replacement timing can change empty tiles and conditional RNG draws, so pairing is not perfect after divergence. Use zero-weed, fixed-shop, and fixed-market micro-scenarios to isolate fertilizer economics.",
+  "optional_stopping_and_multiple_testing_budget": "No stopping inside fixed screen/validation blocks. This is one of 24 outline hypotheses and requires Holm-adjusted family-wise alpha 0.05 for final promotion. Do not separately claim the best crop/source pair after examining validation; such subgroups are descriptive unless predeclared.",
+  "tuning_validation_separation": "Tune at most six net-value/slack settings on offsets 0-5, freeze all source and crop rules, and validate once at offset 20. Prior negative fertilizer experiments inform priors but are not reused as candidate validation. Any retune needs unused seeds.",
+  "distributional_guardrails": "Report median/q10/q5 margin, catastrophe <=-20000, survival/expiry, shed overflow, cash by five-day window, fertilizer volume/net value, and worst crop/source/opponent/seat strata. Reject if either seat loses >2 points, archetype >3, q10 worsens >2000, catastrophes rise >1 point, or fertilizer consumes more worker-turns while producing nonpositive realized net cash.",
+  "robustness_regret": "[uncertain] Compute regret versus best source/application policy and a_v186 under high/low fertilizer price, premium glut/scarcity, animal-rich/poor farm, adverse shops, congestion, opponent archetype, and seat. Worst-stratum win regret versus control must stay within 2 points.",
+  "rare_event_stress_results": "[uncertain] Pending: fertilizer price 1 or very high, no animals, fertilizer available on every animal, 100-item shed, no crop headroom, missed WATER, simultaneous expiry, low cash/feed reserve, ten occupied order slots, day-28 buff, and worker holding fertilizer at rollover. Record validity, incremental units, overflow, and cash.",
+  "interaction_and_ablation_matrix": "[uncertain] Test accurate application yield alone, source opportunity cost alone, linked route admission alone, direct transfer alone, full chain, and leave-one-out variants. Cross later with spatial co-location, batching, workload admission, harvest urgency, crop portfolio, and animal-count policy only after each isolated candidate passes.",
+  "promotion_margin_and_reversion_trigger": "Promote only with Holm-adjusted positive paired evidence, >=+1.5 observed win points, positive median margin, positive realized fertilizer net value/action, and all guardrails. Revert if blanket stock reservation reappears, collection without destination grows, mandatory service falls, shed overflow rises, or latency exceeds budget. Final combined agent must validate >=80% on fresh games.",
+  "confidence_and_status": "High confidence in exact engine fertilizer mechanics and high confidence that blanket reserve/wider-window policies are risky from local negative tests; moderate confidence in chain valuation; thresholds and win uplift are [uncertain]. Status: research complete, implementation and paired benchmark pending.",
+  "computational_budget": "At most 100 crop tiles x 100 potential sources is too broad; retain the top eight positive crop destinations and nearest three sources each, then score <=24 chains. Cache due-tick simulations and distances. Target <50 ms/turn and <1 MB state; on timeout sell/handle fertilizer exactly as a_v186 and preserve mandatory jobs.",
+  "artifact_metadata": {
+    "research_date": "2026-08-19",
+    "baseline_record": "1203-557, 68.4%, 1760 games",
+    "baseline_path_sha256": "C:/Users/Vinee/Desktop/Kaggriculture/a_v186.py; 8e24e4236a9b8c0b877f86695845985d4b4df5d797f465bc4f88277b0351a26a",
+    "engine_path_sha256": "C:/Users/Vinee/Desktop/Kaggriculture/_env_src.py; c11baf358548d8dd6f3cba031899bc1614c0fcb31a27366f12753563154307e6",
+    "baseline_evidence": "a_v186.py collect_fertilizer_value uses 4x price, 5x in congestion; local notes report reserve-from-sale -6019 margin/game and wide window -1057 in 24 paired games",
+    "candidate_path": "[uncertain] C:/Users/Vinee/Desktop/Kaggriculture/a_v186_fertilizer_economics.py",
+    "external_references_from_outline": [
+      "https://web.mit.edu/~vivekf/www/papers/ADP-rm.pdf",
+      "https://pubsonline.informs.org/doi/10.1287/mnsc.41.12.1935"
+    ]
+  },
+  "uncertain": [
+    "exact_code_lever",
+    "regime_trigger_and_forecast_error",
+    "expected_terminal_value",
+    "shadow_price_vector",
+    "paired_test_design",
+    "paired_discordance_and_effect_interval",
+    "robustness_regret",
+    "rare_event_stress_results",
+    "interaction_and_ablation_matrix",
+    "confidence_and_status",
+    "artifact_metadata"
+  ]
+}

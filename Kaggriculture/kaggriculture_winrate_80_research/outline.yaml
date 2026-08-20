@@ -1,0 +1,121 @@
+topic: "Improve the Kaggriculture agent from a_v186's verified 68.4% win rate toward 80%"
+objective: >-
+  Build and validate single-cause strategy improvements against a_v186, then combine
+  only independently positive changes into a final candidate for user benchmarking.
+
+baseline:
+  control_agent: a_v186.py
+  control_record: "1203-557 (68.4%) over 1760 games"
+  rejected_agent: a_v204.py
+  rejected_record: "878-882 (49.9%) over 1760 games"
+  key_regression_evidence:
+    - "v204 expanded scarce-STRAWBERRY capacity only during days 12-19."
+    - "Movement consumed about 162-167 actions/day during days 15-24."
+    - "HARVEST assignment was only 23.8-26.0%; FERTILIZE assignment was 5.8-6.6%."
+    - "Strawberry held-yield expiry telemetry reached about 1053/game on days 20-24."
+    - "The policy led cumulative cash through day 19, then lost ground in both remaining five-day windows."
+
+items:
+  - id: paired_benchmark_validity
+    name: Paired benchmark validity and opponent stratification
+    description: Verify seeds, seats, opponent strata, random-stream alignment, effect intervals, and minimum detectable uplift.
+  - id: workload_admission
+    name: Deadline-feasible workload admission and load shedding
+    description: Forecast mandatory service and travel demand before admitting crops, animals, land, or discretionary work.
+  - id: rolling_horizon_planning
+    name: Rolling-horizon integrated planning
+    description: Replan crop, animal, labor, inventory, cash, route, and price decisions over a short horizon.
+  - id: endogenous_regimes
+    name: Endogenous growth-to-harvest regime switching
+    description: Replace fixed calendar phases with workload, slack, expiry, price, and utilization triggers.
+  - id: hiring_capacity_reservation
+    name: Worker hiring and capacity reservation
+    description: Price HIRE as capacity and reserve actions for recurring survival and imminent harvest obligations.
+  - id: shadow_price_scoring
+    name: Shadow-price and marginal-value job scoring
+    description: Score terminal value net of money, worker actions, movement, tile, shed, and market-order opportunity costs.
+  - id: utility_stability
+    name: Utility gates, hysteresis, and starvation control
+    description: Add hard feasibility gates, normalized utilities, queue aging, persistence, and cooldowns.
+  - id: spatial_layout
+    name: Spatial layout, land, and route co-design
+    description: Optimize crop zones, structures, quadrant unlocks, and shed distance against recurring travel.
+  - id: batching_logistics
+    name: Integrated task batching and carry logistics
+    description: Jointly batch, assign, sequence, route, pick up, drop, and sell nearby work.
+  - id: crop_portfolio
+    name: Crop portfolio capacity and replacement timing
+    description: Choose crop mix and replacement using serviceable capacity, future prices, remaining lifespan, and diversification.
+  - id: harvest_expiry
+    name: Ongoing-crop harvest urgency and expiry prevention
+    description: Rescue held yield using deadline and net-value logic without broadly crowding out mandatory service.
+  - id: fertilizer_economics
+    name: Fertilizer pickup, transport, and application economics
+    description: Compare fertilizer production, buying, carrying, routing, and incremental yield per worker-turn.
+  - id: animal_service_roi
+    name: Animal count versus FEED and CARE labor burden
+    description: Evaluate each animal by net lifetime value after recurring feed, care, fertilizer collection, and travel.
+  - id: wheat_feed_policy
+    name: Wheat production versus feed purchasing
+    description: Optimize feed security, wheat planting, market purchase, reserve stock, and sell opportunity cost.
+  - id: inventory_control
+    name: Shed and in-transit inventory control
+    description: Model capacity, unit cargo, pickup/drop latency, overflow, spoilage, and emergency liquidation.
+  - id: town_market_forecast
+    name: Town demand and market recovery forecasting
+    description: Forecast town consumption and opponent supply to choose production, sale timing, and holding policy.
+  - id: terminal_policy
+    name: Terminal harvesting, banking, and liquidation
+    description: Admit only cargo-producing jobs that can return, bank, and sell before the final executable action.
+  - id: portfolio_rollouts
+    name: Hierarchical policy portfolio rollouts
+    description: Search a small set of complete short-horizon policies proposed by specialized heuristics.
+  - id: liquidity_investment
+    name: Liquidity and irreversible investment policy
+    description: Maintain recovery reserves and require season-adjusted payback for land, structures, animals, and long-lived crops.
+  - id: opponent_exploitation
+    name: Safe opponent-archetype exploitation
+    description: Spend a bounded exploitation budget only when opponent-specific gain exceeds uncertainty; retain a robust fallback.
+  - id: automated_configuration
+    name: Automated configuration with locked validation
+    description: Race thresholds on training strata, freeze parameters, then evaluate once on a locked validation suite.
+  - id: action_invariants
+    name: Action invariants and silent-no-op tests
+    description: Reproduce every opcode precondition and lifecycle edge in deterministic micro-scenarios.
+  - id: tail_stress
+    name: Rare-event and tail-loss stress testing
+    description: Stress weeds, gluts, shop sequences, low cash, overflow, seat effects, and simultaneous deadlines.
+  - id: combination_ablation
+    name: Safe combination and ablation of proven changes
+    description: Measure interactions, combine only positive children, and remove each component to verify contribution.
+
+execution:
+  batch_size: 2
+  items_per_agent: 6
+  output_dir: ./results
+  baseline_required: a_v186.py
+  candidate_policy: single_cause_first
+  promotion_sequence:
+    - deterministic_micro_tests
+    - paired_seed_screen
+    - opponent_stratified_validation
+    - full_1760_game_validation
+    - interaction_and_leave_one_out_ablation
+
+sources:
+  - "https://archive.org/details/operationsresear0000wins_04ed"
+  - "https://www.gameaipro.com/"
+  - "https://www.gameaipro.com/GameAIPro3/GameAIPro3_Chapter30_Hierarchical_Portfolio_Search_in_Prismata.pdf"
+  - "https://www.gameaipro.com/GameAIPro3/GameAIPro3_Chapter13_Choosing_Effective_Utility-Based_Considerations.pdf"
+  - "https://www.gameaipro.com/GameAIProOnlineEdition2021/GameAIProOnlineEdition2021_Chapter10_AI-Driven_Autoplay_Agents_for_Prelaunch_Game_Tuning.pdf"
+  - "https://www.gameaipro.com/GameAIProOnlineEdition2021/GameAIProOnlineEdition2021_Chapter01_Automated_AI_Testing_Simple_tests_will_save_you_time.pdf"
+  - "https://arxiv.org/abs/2102.04874"
+  - "https://epubs.siam.org/doi/10.1137/S0097539792236882"
+  - "https://arxiv.org/abs/2207.05305"
+  - "https://doi.org/10.1016/j.omega.2018.01.006"
+  - "https://web.mit.edu/~vivekf/www/papers/ADP-rm.pdf"
+  - "https://pubsonline.informs.org/doi/10.1287/mnsc.2021.4011"
+  - "https://pubsonline.informs.org/doi/10.1287/mnsc.41.12.1935"
+  - "https://doi.org/10.1016/j.orp.2016.09.002"
+  - "https://ojs.aaai.org/index.php/AAAI/article/download/7981/7840"
+  - "https://proceedings.mlr.press/v75/luo18a.html"

@@ -1,0 +1,10 @@
+v33.py vs o_90711580.py  -- 8 seeds x 2 seats per regime
+
+regime                W-L   win%      mean     worst
+baseline             16-0 100.0%    +5,841    +3,718
+milk_crash           16-0 100.0%    +8,554    +6,742
+wool_boom            16-0 100.0%   +19,447   +11,627
+wheat_collapse       16-0 100.0%   +10,253    +6,218
+premium_bear         10-6  62.5%      +702    -6,620
+steep_glut           16-0 100.0%    +5,395    +3,121
+thin_demand          16-0 100.0%    +6,310    +4,297

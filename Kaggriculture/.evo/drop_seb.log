@@ -1,0 +1,7 @@
+mid-day DROP vs f_90639963_p1.py (8 seeds x 2 seats)
+
+preset              W-L   win%      mean     worst      best
+off                6-10  37.5%    -2,177    -8,256    +5,019  <= control (v27)
+drop_all           6-10  37.5%    -2,677    -8,928    +4,915
+drop_nowheat       6-10  37.5%    -2,677    -8,928    +4,915
+drop_produce       6-10  37.5%    -2,677    -8,928    +4,915

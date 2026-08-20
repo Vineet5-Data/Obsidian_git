@@ -1,0 +1,89 @@
+{
+  "hypothesis": "Planning short resource-compatible routes instead of assigning isolated jobs each turn will amortize PICKUP, shed returns, and cross-board travel, reduce repeated target switching, and increase completed mandatory service and banked harvest per worker-turn. The improvement should be largest on days 10-24 when a_v186 has up to 13 units and v204 showed very high movement with low HARVEST assignment.",
+  "exact_code_lever": {
+    "single_cause_candidate": "Replace the per-turn isolated Hungarian job columns with bundle columns of at most four executable stops and keep all job creation values, crop/animal counts, hiring, and market policy identical to a_v186.",
+    "bundle_construction": "Start from every class-0/1 deadline job, PICKUP prerequisite, or highest positive-net job. Greedily add up to three unclaimed jobs within Manhattan radius two that share required cargo, service type, or a path toward the shed; require all preconditions and deadlines to remain feasible in sequence.",
+    "bundle_score": "(sum net terminal job values - movement_shadow_price * route_length - pickup/drop action costs - best displaced work) / max(1, total route actions). Assign unit-to-bundle with Hungarian matching, then persist only the next valid stop.",
+    "carry_policy": "For WHEAT or FERTILIZER, PICKUP exactly the number of feasible downstream consumptions in the selected route plus one emergency FEED reserve, bounded by shed stock; replace fixed FEED_CARRY=5 and FERT_CARRY=5 only inside this candidate. Harvested product may remain carried because engine cargo is uncapped, but schedule return before shed overflow or terminal sale deadline. Bundle length four, radius two, and one reserve are [uncertain]."
+  },
+  "affected_phase": "Active once there are at least two compatible open jobs or a pickup/return prerequisite, normally from day 3 onward. Use one-stop fallback in sparse early turns. Tighten route deadlines after day 24, begin forced bank-and-sell routing at DUMP_STEP=648, and create only harvest/deposit/sale routes after FINAL_FARM_STEP=696. Test across both seats and every opponent stratum.",
+  "engine_mechanism": "Each unit performs one action per turn; movement and tile operations therefore compete directly. Unit actions precede market orders, so a DROP or PLACE into the shed can finance a SELL in the same turn. PICKUP and DROP/PLACE require one of four center shed-access tiles. WHEAT and FERTILIZER must be in the acting unit's inventory for FEED/FERTILIZE. Harvest output goes to that unit's inventory, which has no engine cap; only the 100-item shed can overflow, including automatic end-of-day drops. Hired hands vanish and all inventory auto-drops at day end, then units respawn near the shed. Market queues accept only ten orders. These rules favor within-day pickup-service batches and an explicit final return/deposit/sale chain.",
+  "regime_trigger_and_forecast_error": {
+    "trigger": "Enable bundling when at least two compatible jobs are available, isolated assignment predicts more than two movement actions per completed job, or a resource pickup can serve at least two destinations. Break a bundle immediately for a higher-class deadline, invalid next stop, day rollover, predicted shed overflow, or terminal infeasibility.",
+    "forecast": "Predict route length exactly over chosen stops, service actions, required cargo, expected harvested load, deposit action, and deadline slack. Log predicted versus realized stops, travel, load, value, and reasons for bundle truncation.",
+    "error_risk": "Other workers can invalidate stops, jobs can disappear after HARVEST, and prices can change before sale. Greedy radius-two routing is [uncertain] and may miss a better global route."
+  },
+  "decision_score_audit": "For each unit log candidate bundle ID, ordered stops, opcode/target/resource, cargo before and after each stop, reserved shared stock, route length, deadline at every prefix, gross/net value, bundle score, assigned unit, competing isolated score, score gap, and rejection/truncation reason. Shared seeds, shed stock, and exclusive tiles must be decremented in simulated sequence before assignment.",
+  "admissible_workload_and_minimum_slack": "Reserve all current second-miss FEED/WATER and expiring/terminal jobs before discretionary bundles. A route is admissible only if every prefix reaches its target before deadline and the remaining mandatory queue retains at least two turns of slack. Include pickup, movement, service, harvest, return, deposit, and sale-slot actions. Cap route length when fewer turns remain in the day than its worst-case completion time.",
+  "constraint_utilization_profile": "Report unit-action, movement, cash, tile, shed, cargo, and order-slot utilization by day. Cargo has no hard engine limit, so profile carried value, distance-to-shed, and end-of-day overflow exposure instead of a false capacity. Key constraints are worker-turns, shared WHEAT/FERTILIZER, the 100 shed slots, four access tiles, and ten market orders.",
+  "job_queue_health": "Track open and completed jobs by type, route membership, age, deadline, lateness, starvation, invalidation, and abandonment. Add bundle fill rate, stops planned/executed, route completion rate, and value lost when a route is interrupted. No compatible positive-net job may wait solely because it was outside the first constructed bundle.",
+  "spatial_logistics_metrics": "Primary metrics are Manhattan distance per completed job, empty movement share, average stops per pickup, services per carried WHEAT/FERTILIZER batch, harvested units per shed return, route switches, bundle length, shed trips, and same-cluster completion streak. Compare realized route length with the sum of isolated nearest-job distances.",
+  "expected_terminal_value": "[uncertain] Expected gain comes from fewer pickup/return actions and movement, more service completion, and same-turn deposit-to-sale execution. It can be negative if bundling delays an urgent job or carries products into end-of-day overflow; only paired terminal cash and wins establish magnitude.",
+  "marginal_value_per_worker_turn": "For a bundle use total incremental terminal cash, avoided asset/expiry loss, and avoided duplicate pickups minus resource, market impact, overflow, and displaced-work costs, divided by pickup + movement + service + harvest + return + deposit actions. Report both forecast and realized value/action and the delta versus executing the same stops as isolated jobs.",
+  "shadow_price_vector": {
+    "money": "Liquidity cost of held inputs and delayed sales.",
+    "labor": "Best alternative feasible job value for every route action.",
+    "movement": "Phase-specific value of a Manhattan step; movement saved has value only when released capacity is used.",
+    "tile": "Only relevant when bundles include PLANT/BUILD/DIG; use best serviceable replacement value.",
+    "shed": "Marginal value of the item likely to overflow or sale required to free a slot.",
+    "cargo": "Zero physical cap, but positive time-to-bank and overflow-at-refresh exposure.",
+    "market_order": "Value of the best displaced SELL, HIRE, or emergency purchase in the ten-slot queue. Numerical prices are [uncertain]."
+  },
+  "gross_to_net_value_decomposition": "Gross value is the sum of products, avoided missed production, and avoided death/escape/decay over route stops. Subtract WHEAT/FERTILIZER/seed cost or foregone sale, pickup and deposit actions, all route movement, delayed price realization, financing, shed overflow, own market impact, invalidated stops, and opportunity cost of the best excluded urgent job. Credit travel and pickup saved relative to isolated execution.",
+  "market_and_opponent_dependence": "Route feasibility is opponent-independent; route value uses current market prices, known town absorption, and visible opponent supply. Keep sales first in the market queue as a_v186 does. Premium-price collapse may justify carrying product longer, but never past expiry/terminal feasibility or at the cost of mandatory service. Stratify animal-heavy, premium-crop, staple, and rapid-expansion opponents.",
+  "action_validity_and_noop_breakdown": "Count attempted/valid/executed actions and no-ops due to stale bundle target, already completed service, missing carried input, over-reserved shed stock, target collision, wrong structure/tile, insufficient seed, shed not adjacent/full, end-of-day hand disappearance, and market truncation. Bundles must revalidate only their next stop each turn and release reservations immediately on invalidation.",
+  "micro_scenario_coverage": [
+    "One WHEAT pickup feeds three nearby animals in sequence and reserves exactly three units plus the configured emergency reserve.",
+    "Two workers cannot reserve the same final fertilizer or seed.",
+    "A higher-class first-miss FEED interrupts a discretionary harvest route.",
+    "Two adjacent harvests are followed by one shed return, DROP, and same-turn SELL.",
+    "A route crossing midnight is truncated before hands disappear and inventory auto-drops.",
+    "A 99-item shed rejects a deposit route unless a valid sale frees projected room.",
+    "An already-harvested next stop is removed without a movement no-op.",
+    "A far terminal harvest is rejected when return, DROP, and SELL cannot finish."
+  ],
+  "terminal_feasibility": "Every cargo-producing bundle must contain or reserve a route to a shed-access tile, a DROP/PLACE action with projected headroom, and an available SELL order before the final action. From DUMP_STEP=648 shorten bundles to favor banking; after FINAL_FARM_STEP=696 permit only routes whose terminal cash is positive and realizable. Do not rely on end-of-day auto-drop if it can overflow or if no later sale occurs.",
+  "paired_test_design": {
+    "control": "a_v186.py, SHA-256 8e24e4236a9b8c0b877f86695845985d4b4df5d797f465bc4f88277b0351a26a",
+    "candidate": "[uncertain] a_v186_batching_logistics.py with bundle assignment as the only policy change",
+    "screen": "80 opponents, both seats, four fixed seeds, 640 games/agent; primary paired win indicator, mechanism co-primary distance/completed job and completed mandatory jobs.",
+    "validation": "Freeze bundle length, radius, and interruption rules; run 11 untouched offset-20 seeds, 80 opponents, both seats, 1760 games/agent.",
+    "command": "python _loss_analysis.py a_v186.py a_v186_batching_logistics.py --opponents 80 --seeds 11 --offset 20 --out batching_logistics_validation.json"
+  },
+  "paired_discordance_and_effect_interval": "[uncertain] Report control-only and candidate-only wins, exact McNemar test, paired uplift and bootstrap 95% intervals for terminal margin, movement/job, pickup/service ratio, expiry, and overflow. Compute MDE from observed discordance; roughly 3-4 win-rate points is detectable at N=1760 when discordance is 25-35%.",
+  "random_stream_alignment": "Use shared seeds, opponents, and seats, but log first different unit action and subsequent shop/weed path. Action-dependent empty tiles alter conditional weed draws and can alter shop RNG, so paired seeds are correlated scenarios rather than identical post-divergence streams. Run weed-free and fixed-shop deterministic panels to isolate logistics.",
+  "optional_stopping_and_multiple_testing_budget": "No peeking-based stops within 640 or 1760 games. Register this as one of the 24 research hypotheses and use Holm-adjusted family-wise alpha 0.05 for final promotion. Treat alternate bundle lengths or carry policies as tuning variants inside the stated training budget, not independent validation claims.",
+  "tuning_validation_separation": "Use offsets 0-5 for at most six settings of bundle length/radius/reserve. Freeze code before offset-20 validation and never retune on that result. If validation fails, any revised planner needs a new untouched seed offset.",
+  "distributional_guardrails": "Require no worse plant/animal loss, deadline lateness, shed overflow, or lower-tail terminal margin. Reject if either seat drops >2 points, an opponent archetype drops >3, 10th-percentile margin worsens >2000, catastrophic losses rise >1 point, or movement falls because mandatory service/harvest completion falls.",
+  "robustness_regret": "[uncertain] Compute regret versus best bundle setting and a_v186 for animal-dense, crop-dense, sparse, premium-glut, low-cash, and each seat stratum. Worst-stratum regret relative to control must stay within 2 win-rate points.",
+  "rare_event_stress_results": "[uncertain] Pending stress cases: one unit carries all feed, simultaneous second-miss animals, shared-stock collision, 48-job queue, 100-item shed, $1 premium market, route target removed by another worker, midnight rollover, and corner harvest near season end. Record no-ops, route aborts, losses, overflow, and terminal cash.",
+  "interaction_and_ablation_matrix": "[uncertain] Test bundle scoring alone, persistence alone, dynamic pickup quantity alone, deposit/sale chaining alone, full bundle planner, and leave-one-out variants. Cross only after isolated success with spatial layout, workload admission, utility stability, harvest urgency, and fertilizer direct-transfer routing.",
+  "promotion_margin_and_reversion_trigger": "Promote only if observed locked uplift is at least +1.5 points with positive Holm-adjusted paired evidence, median margin improves, movement/completed job declines, and guardrails pass. Revert on any increase in survival failures, overflow, route no-ops, terminal unbanked cargo, or >50 ms decision time. Final combined validation must reach at least 80%.",
+  "confidence_and_status": "High confidence in engine logistics and the existence of duplicated pickup/travel opportunities; moderate confidence in short bundles; thresholds and win effect are [uncertain]. Status: research complete, implementation and paired benchmarks pending.",
+  "computational_budget": "Limit to 48 base jobs, 13 units, four stops, and radius-two additions. Greedy construction plus Hungarian matching should remain O(units*jobs^2) with small constants; target <50 ms and <1 MB persistent route state. On timeout, keep class-0/1 isolated jobs and fall back to a_v186 assignment.",
+  "artifact_metadata": {
+    "research_date": "2026-08-19",
+    "baseline_record": "1203-557, 68.4%, 1760 games",
+    "baseline_path_sha256": "C:/Users/Vinee/Desktop/Kaggriculture/a_v186.py; 8e24e4236a9b8c0b877f86695845985d4b4df5d797f465bc4f88277b0351a26a",
+    "engine_path_sha256": "C:/Users/Vinee/Desktop/Kaggriculture/_env_src.py; c11baf358548d8dd6f3cba031899bc1614c0fcb31a27366f12753563154307e6",
+    "baseline_constants": "FEED_CARRY=5, FERT_CARRY=5, HUNGARIAN_JOBS=48, MOVE_FRAC=1.5, DUMP_STEP=648, FINAL_FARM_STEP=696",
+    "candidate_path": "[uncertain] C:/Users/Vinee/Desktop/Kaggriculture/a_v186_batching_logistics.py",
+    "external_references_from_outline": [
+      "https://doi.org/10.1016/j.orp.2016.09.002",
+      "https://web.mit.edu/~vivekf/www/papers/ADP-rm.pdf"
+    ]
+  },
+  "uncertain": [
+    "exact_code_lever",
+    "regime_trigger_and_forecast_error",
+    "expected_terminal_value",
+    "shadow_price_vector",
+    "paired_test_design",
+    "paired_discordance_and_effect_interval",
+    "robustness_regret",
+    "rare_event_stress_results",
+    "interaction_and_ablation_matrix",
+    "confidence_and_status",
+    "artifact_metadata"
+  ]
+}

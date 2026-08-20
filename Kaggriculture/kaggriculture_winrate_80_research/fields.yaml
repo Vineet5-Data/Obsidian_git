@@ -1,0 +1,167 @@
+topic: "Kaggriculture agent strategy experiments"
+
+categories:
+  identity:
+    - name: hypothesis
+      description: A falsifiable statement describing why the candidate should outperform a_v186.
+      detail_level: detailed
+    - name: exact_code_lever
+      description: The smallest constant, gate, score, or algorithmic change that tests the hypothesis.
+      detail_level: detailed
+    - name: affected_phase
+      description: Days, hours, game states, and opponent strata where the change is active.
+      detail_level: moderate
+
+  mechanism:
+    - name: engine_mechanism
+      description: Relevant turn order, action preconditions, lifecycle rules, inventory rules, and market effects.
+      detail_level: detailed
+    - name: regime_trigger_and_forecast_error
+      description: Trigger causing a policy transition plus predicted versus realized workload and prices.
+      detail_level: detailed
+    - name: decision_score_audit
+      description: Candidate features, normalized score, feasibility gate, priority, rejection reason, and score gap.
+      detail_level: detailed
+
+  workload_and_capacity:
+    - name: admissible_workload_and_minimum_slack
+      description: Mandatory service, travel, available worker-turns, and minimum deadline slack by day.
+      detail_level: detailed
+    - name: constraint_utilization_profile
+      description: Utilization of workers, movement, money, tiles, shed space, cargo, and market-order slots.
+      detail_level: detailed
+    - name: job_queue_health
+      description: Queue count and value by type, age, deadline, lateness, starvation, and abandonment.
+      detail_level: detailed
+    - name: spatial_logistics_metrics
+      description: Distance per completed job, empty travel, route switches, batch size, and shed trips.
+      detail_level: detailed
+
+  economics:
+    - name: expected_terminal_value
+      description: Expected incremental terminal cash and win-probability effect.
+      detail_level: detailed
+    - name: marginal_value_per_worker_turn
+      description: Incremental terminal value divided by service plus travel actions.
+      detail_level: detailed
+    - name: shadow_price_vector
+      description: Estimated phase-specific opportunity cost of money, labor, movement, tile, inventory, and order capacity.
+      detail_level: detailed
+    - name: gross_to_net_value_decomposition
+      description: Production value minus expiry, missed work, movement, financing, overflow, market impact, and opportunity cost.
+      detail_level: detailed
+    - name: market_and_opponent_dependence
+      description: Sensitivity to market state, town demand, opponent supply, archetype, and seat.
+      detail_level: detailed
+
+  operational_correctness:
+    - name: action_validity_and_noop_breakdown
+      description: Attempted, valid, executed, and silent-no-op actions by opcode and reason.
+      detail_level: detailed
+    - name: micro_scenario_coverage
+      description: Lifecycle, inventory, geometry, deadline, and action-precondition cases covered by deterministic tests.
+      detail_level: detailed
+    - name: terminal_feasibility
+      description: Whether cargo-producing work can execute, return, bank, and sell before the last action.
+      detail_level: detailed
+
+  experiment_design:
+    - name: paired_test_design
+      description: Control, candidate, shared seeds, seats, opponent strata, sample size, and primary metric.
+      detail_level: detailed
+    - name: paired_discordance_and_effect_interval
+      description: Control-only wins, candidate-only wins, paired uplift interval, and minimum detectable effect.
+      detail_level: detailed
+    - name: random_stream_alignment
+      description: Evidence that paired stochastic events remain meaningfully comparable after policies diverge.
+      detail_level: moderate
+    - name: optional_stopping_and_multiple_testing_budget
+      description: Predeclared stopping boundary and correction for the number of candidates screened.
+      detail_level: detailed
+    - name: tuning_validation_separation
+      description: Training and validation strata, frozen parameters, and tuning iteration count.
+      detail_level: detailed
+
+  robustness:
+    - name: distributional_guardrails
+      description: Median, lower quantiles, catastrophic-loss rate, and worst opponent and seat strata.
+      detail_level: detailed
+    - name: robustness_regret
+      description: Regret relative to the best policy per archetype and the robust control in the worst stratum.
+      detail_level: detailed
+    - name: rare_event_stress_results
+      description: Results under adverse shop, weed, glut, liquidity, overflow, and deadline scenarios.
+      detail_level: detailed
+    - name: interaction_and_ablation_matrix
+      description: Main effects, pairwise interactions, and leave-one-out results for combined candidates.
+      detail_level: detailed
+
+  promotion:
+    - name: promotion_margin_and_reversion_trigger
+      description: Required uplift, subgroup non-inferiority bounds, guardrails, and exact rollback conditions.
+      detail_level: detailed
+    - name: confidence_and_status
+      description: Evidence confidence, implementation state, benchmark state, and accept/reject decision.
+      detail_level: moderate
+    - name: computational_budget
+      description: Decision latency, rollout depth, memory, and fallback behavior when time expires.
+      detail_level: moderate
+
+  reproducibility:
+    - name: artifact_metadata
+      description: Baseline and candidate paths, hashes, commands, seeds, seats, opponents, reports, and environment version.
+      detail_level: detailed
+
+uncertain: []
+
+# Machine-readable validator index. Descriptions and detail levels remain above.
+field_categories:
+  - category: identity
+    fields:
+      - {name: hypothesis, required: true}
+      - {name: exact_code_lever, required: true}
+      - {name: affected_phase, required: true}
+  - category: mechanism
+    fields:
+      - {name: engine_mechanism, required: true}
+      - {name: regime_trigger_and_forecast_error, required: true}
+      - {name: decision_score_audit, required: true}
+  - category: workload_and_capacity
+    fields:
+      - {name: admissible_workload_and_minimum_slack, required: true}
+      - {name: constraint_utilization_profile, required: true}
+      - {name: job_queue_health, required: true}
+      - {name: spatial_logistics_metrics, required: true}
+  - category: economics
+    fields:
+      - {name: expected_terminal_value, required: true}
+      - {name: marginal_value_per_worker_turn, required: true}
+      - {name: shadow_price_vector, required: true}
+      - {name: gross_to_net_value_decomposition, required: true}
+      - {name: market_and_opponent_dependence, required: true}
+  - category: operational_correctness
+    fields:
+      - {name: action_validity_and_noop_breakdown, required: true}
+      - {name: micro_scenario_coverage, required: true}
+      - {name: terminal_feasibility, required: true}
+  - category: experiment_design
+    fields:
+      - {name: paired_test_design, required: true}
+      - {name: paired_discordance_and_effect_interval, required: true}
+      - {name: random_stream_alignment, required: true}
+      - {name: optional_stopping_and_multiple_testing_budget, required: true}
+      - {name: tuning_validation_separation, required: true}
+  - category: robustness
+    fields:
+      - {name: distributional_guardrails, required: true}
+      - {name: robustness_regret, required: true}
+      - {name: rare_event_stress_results, required: true}
+      - {name: interaction_and_ablation_matrix, required: true}
+  - category: promotion
+    fields:
+      - {name: promotion_margin_and_reversion_trigger, required: true}
+      - {name: confidence_and_status, required: true}
+      - {name: computational_budget, required: true}
+  - category: reproducibility
+    fields:
+      - {name: artifact_metadata, required: true}

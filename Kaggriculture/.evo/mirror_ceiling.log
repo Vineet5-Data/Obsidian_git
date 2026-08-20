@@ -1,0 +1,7 @@
+vs mirror -- 8 seeds x 2 seats
+
+variant                     W-L   win%      mean     worst      best
+v26 (control)              0-16   0.0%    -1,327    -2,001    -1,099
+all 68 mirror edits        2-14  12.5%       -69      -148      +128
+first half (34)            0-16   0.0%    -1,173    -1,488      -948
+second half (34)           2-14  12.5%      -254      -746      +429

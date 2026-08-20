@@ -1,0 +1,9 @@
+[{"stream_name":"stdout","time":0.95583841,"data":"Input dirs: ['datasets']\n"}
+,{"stream_name":"stdout","time":0.95589828,"data":"Contents of /kaggle/input/datasets : ['vineetdairashri']\n"}
+,{"stream_name":"stderr","time":0.95613046,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":0.95614914,"data":"  File \"/kaggle/src/script.py\", line 9, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":0.95615328,"data":"    import v106_smart_sell\n"}
+,{"stream_name":"stderr","time":0.95615638,"data":"ModuleNotFoundError: No module named 'v106_smart_sell'\n"}
+,{"stream_name":"stderr","time":6.691597001,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":9.104689418,"data":"[NbConvertApp] Writing 279633 bytes to __results__.html\n"}
+]

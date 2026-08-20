@@ -1,0 +1,11 @@
+{
+  "concept_name": "Fertilizer Abuse",
+  "mechanic_exploited": "[uncertain]",
+  "implementation_complexity": "[uncertain]",
+  "expected_yield_gain": "[uncertain]",
+  "uncertain": [
+    "mechanic_exploited",
+    "implementation_complexity",
+    "expected_yield_gain"
+  ]
+}

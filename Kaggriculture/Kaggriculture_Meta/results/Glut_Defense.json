@@ -1,0 +1,9 @@
+{
+  "concept_name": "Glut Defense",
+  "mechanic_exploited": "Exploits public opponent farm state visibility (obs['farms'][1-player]['tiles']) combined with asymmetric dynamic market price curves. Premium products (Melon, Strawberry, Cow Milk, Sheep Wool) feature linear or quadratic price decay curves above starting equilibrium supply I0 = 10,000, causing prices to crash straight to the $1 floor upon oversupply. By scanning the opponent's farm grid for planted premium seeds and animal structures to predict harvest/production wave timing, Glut Defense detects impending supply gluts. Upon detection, the agent halts planting matching premium seeds or purchasing matching animals, pivoting capital and land toward non-competing crops, staggered timing, or glut-resistant logarithmic staples (Wheat, Egg) until town demand drains market inventory and recovers premium prices.",
+  "implementation_complexity": "Moderate (~40-80 lines of code for opponent tile scanning, harvest timing prediction, and conditional seed purchasing overrides)",
+  "expected_yield_gain": "[uncertain] Estimated net advantage of +$5,000 to +$25,000 coins by avoiding severe capital destruction (selling premium crops at $1 floor) and reallocating land/capital to high-margin timing or staples.",
+  "uncertain": [
+    "expected_yield_gain"
+  ]
+}

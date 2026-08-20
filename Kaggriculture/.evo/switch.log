@@ -1,0 +1,8 @@
+route switching -- 6 opponents x 10 seeds (6 adversarial + 4 clean) x 2 seats
+
+preset         familyB     Khanh   Youssef    mirror       Seb    Wufang  LOSSES    win%     worst
+v30               8/20      6/20      4/20      0/20      0/20      0/20      18   85.0%    -2,710  <= v30
+always_v31        0/20      0/20      0/20     14/20     12/20      5/20      31   74.2%    -7,524
+switch@1          0/20      6/20      4/20      0/20      0/20      0/20      10   91.7%      -957
+switch@2          0/20      6/20      4/20      0/20      0/20      0/20      10   91.7%      -957
+switch@24         0/20      6/20      4/20      0/20      0/20      0/20      10   91.7%      -957

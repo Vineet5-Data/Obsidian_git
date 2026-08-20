@@ -1,0 +1,7 @@
+{
+  "concept_name": "Aggressive Cow Rushing",
+  "mechanic_exploited": "Exploits early-game starting capital ($3,000 starting money) to rapidly purchase and place a 16-cow herd on pastures without buying expensive land extensions ($1k/$2k/$4k fees), leveraging high-base Milk sales ($160 base price) and massive town shop demand absorption. Cows produce Milk every 2 days indefinitely when fed 1 Wheat/day ($20-$25 market purchase). Daily CARE banking doubles production yield (yielding up to 16 Milk/day across 16 cows). Three unlocked town shops (Pizza Shop, Ice Cream Shop, Smoothie Shop) plus Town Center continuously consume Milk from market supply (I0 = 10,000, anchor T = 122), absorbing high Milk volume and preventing market price collapse (maintaining Milk prices around $160 to $256). Compared to crop diversification, cow rushing eliminates watering schedules, replanting costs, crop decay, and weed risks while maximizing revenue per tile and worker action.",
+  "implementation_complexity": "Low to Moderate (~40\u201380 lines of Python code for pasture construction on starting 5x5 grid, cow placement, daily wheat feed purchasing, feed/care action loops, milk harvesting, and market sell order queueing)",
+  "expected_yield_gain": "+15,000 to +35,000+ coins net margin gain over crop-diversified or unoptimized mixed strategies",
+  "uncertain": []
+}

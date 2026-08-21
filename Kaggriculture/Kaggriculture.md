@@ -24,13 +24,17 @@ updated: 2026-08-20
 
 ## Current state
 
-```
+```text
 a_v186   (baseline, superseded)   880-880    50.0%     --
 a_v206_wheat_mirror              1040-720    59.1%   +9.1   OLD baseline
 a_v208_price_1327                 874-886    49.7%   -0.3   noise
 a_v207_jobboard                   707-1053   40.2%   -9.8   REJECTED
-a_v209_wheat_surplus             1193-567    67.8%   +8.7   ADOPTED
+a_v209_wheat_surplus             1193-567    67.8%   +8.7   ADOPTED (but see note below)
+a_v209_wheat_surplus (vs main.py)   9-11      45.0%   -5.0   Smoke Test (20 games)
 ```
+
+> [!important] Scoreboard Discrepancy (v180 vs v209)
+> Although we changed the loss analysis script and benchmarked the v209 as the best agent with 68% and v180 with 50% but on kaggle scoreboard v180 is peforming much more better. Need to Identify this thing. Our new loss analysis is not worth it.
 
 n = 1760 (88 opponent tapes x seeds k=11..20 x 2 seats), engine 1.32.7.
 **One standard deviation is +/-1.19 points** -- anything under ~2.4 pts is noise.

@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "8b37ad310e6c3dc9",
+        "id": "ed3f7c78012c9827",
         "type": "tabs",
         "children": [
           {
-            "id": "f7cdcab8fec002ce",
+            "id": "953e144c47176abd",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Kaggriculture/RESEARCH_NOTES.md",
+                "file": "Kaggriculture/Kaggriculture.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "RESEARCH_NOTES"
+              "title": "Kaggriculture"
             }
           }
         ]
@@ -186,8 +186,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "f7cdcab8fec002ce",
+  "active": "953e144c47176abd",
   "lastOpenFiles": [
+    "Kaggriculture/context/loss-analyzer-inflates-opponent-revenue.md",
+    "Kaggriculture/RESEARCH_NOTES.md",
     "Kaggriculture/Kaggriculture.md",
     "Kaggriculture/a_v209_wheat_surplus_loss_analysis.md",
     "Kaggriculture/_which_engine.py",
@@ -205,7 +207,6 @@
     "Kaggriculture/v186_loss_analysis.md",
     "Kaggriculture/STRATEGY_FINDINGS.md",
     "Kaggriculture/STRATEGY.md",
-    "Kaggriculture/RESEARCH_NOTES.md",
     "Kaggriculture/REPLAY_ANALYSIS_91759.md",
     "Kaggriculture/README.md",
     "Kaggriculture/NEXT_STEPS_AND_EXPERIMENTS.md",
@@ -222,7 +223,6 @@
     "Kaggriculture/context/move-rate-inflated-by-synthetic-priority-flags.md",
     "Kaggriculture/context/mirror-screening-is-blind-to-real-gains.md",
     "Kaggriculture/context/MEMORY.md",
-    "Kaggriculture/context/loss-analyzer-inflates-opponent-revenue.md",
     "Kaggriculture/context/kaggriculture-file-locations.md",
     "Kaggriculture/context/kaggriculture-candidate-loop.md"
   ]

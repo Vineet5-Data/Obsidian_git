@@ -31,6 +31,7 @@ a_v208_price_1327                 874-886    49.7%   -0.3   noise
 a_v207_jobboard                   707-1053   40.2%   -9.8   REJECTED
 a_v209_wheat_surplus             1193-567    67.8%   +8.7   ADOPTED (but see note below)
 a_v209_wheat_surplus (vs main.py)   9-11      45.0%   -5.0   Smoke Test (20 games)
+a_v213_no_goose                  1174-586    66.7%   --     
 ```
 
 > [!important] Scoreboard Discrepancy (v180 vs v209)

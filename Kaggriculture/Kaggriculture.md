@@ -25,17 +25,47 @@ updated: 2026-08-20
 ## Current state
 
 ```text
-a_v186   (baseline, superseded)   880-880    50.0%     --
-a_v206_wheat_mirror              1040-720    59.1%   +9.1   OLD baseline
-a_v208_price_1327                 874-886    49.7%   -0.3   noise
-a_v207_jobboard                   707-1053   40.2%   -9.8   REJECTED
-a_v209_wheat_surplus             1193-567    67.8%   +8.7   ADOPTED (but see note below)
-a_v209_wheat_surplus (vs v180)      9-11      45.0%   -5.0   Smoke Test (20 games)
-a_v213_no_goose                  1174-586    66.7%   --     
+agent                 pool win%   real-agent W-L (2 seeds)   verdict
+a_v186                   50.0%    7-1 / 5-1 / 1-3 / 2-2      BASELINE (restored)
+a_v206_wheat_mirror      59.1%    identical to v186, 4/4 seeds  INERT no-op
+a_v180_merged               --    2-6 / 2-4 / 2-2 / 0-4      beats v186 on 1 of 4 seeds
+a_v213_no_goose          66.7%       4-4  /  0-6            de-adopted
+a_v209_wheat_surplus     67.8%       0-8  /   --            DE-ADOPTED, loses to all
+a_v208_price_1327        49.7%        --                    noise; correctness only
+a_v207_jobboard          40.2%        --                    REJECTED
 ```
 
-> [!important] Scoreboard Discrepancy (v180 vs v209)
-> Although we changed the loss analysis script and benchmarked the v209 as the best agent with 68% and v180 with 50% but on kaggle scoreboard v180 is peforming much more better. Need to Identify this thing. Our new loss analysis is not worth it.
+Pool win% is measured against 88 open-loop replays and **does not rank agents**.
+Real-agent W-L is `_roundrobin.py`, 4 seeds. v186/v180 is not settled
+(v186 takes 3 of 4, margins swing +/-6k); v209 and v213 are. Confirmed
+independently by your v209-vs-v180 head-to-head (9-11) and the leaderboard.
+
+> [!success] Scoreboard Discrepancy — RESOLVED 2026-08-21
+> **The benchmark opponents cannot react.** Every `.top/t_*.py` is an open-loop
+> replay whose entire agent is `act = _ACTIONS[obs.step]` — it never reads its
+> farm, its cash, the market, or us. The actions were recorded in a *different*
+> game, so replayed here they reference tiles, seeds and cash that need not
+> exist.
+>
+> The only channel we have to a tape is the **shared market**. So an agent that
+> trades harder breaks more of its scripted orders and wins **without farming
+> better**. Against a do-nothing PASS control, one tape scored 147,083 and fell
+> to 87,481 against v209 — its own score swings −60k to +15k on *who it plays*,
+> which is larger than almost every margin we have been reading.
+>
+> `_roundrobin.py` re-ranks the same agents against each other, where both sides
+> respond. **The pool ordering is close to the reverse of the truth**, and your
+> leaderboard observation is correct.
+>
+> Two adoptions are void: **v209 is de-adopted** (baseline reverts to `a_v186`),
+> and **v206's +9.1 is void** — v186 and v206 returned byte-identical results in
+> all 14 round-robin games, so the wheat mirror never fires against a reactive
+> opponent.
+>
+> Your instinct was half right: the loss analysis *arithmetic* is sound (market
+> replay, residual ~0.5%) — it is the **opponent pool** that cannot rank agents.
+> Keep the report for diagnosis; adopt with `_roundrobin.py`.
+> See [[top-tapes-are-open-loop-replays]].
 
 n = 1760 (88 opponent tapes x seeds k=11..20 x 2 seats), engine 1.32.7.
 **One standard deviation is +/-1.19 points** -- anything under ~2.4 pts is noise.
@@ -50,18 +80,16 @@ n = 1760 (88 opponent tapes x seeds k=11..20 x 2 seats), engine 1.32.7.
 
 ## Next action
 
-`a_v209_wheat_surplus.py` is built, fully measured, and **ADOPTED** (67.8% win rate). The next step is to proceed to the strawberry 0.90 factor or fewer hands. The user runs the full sets on Kaggle:
+Rank candidates against **reactive** opponents before adopting anything:
 
 ```bash
-cd /kaggle/working/bisect && python -u _loss_analysis.py a_v209_wheat_surplus.py --workers 222 --seeds 10 --offset 10
+python _roundrobin.py
 ```
 
-Two numbers to read first in the report:
+Then re-test the ideas that the tape pool mis-scored. The engine mechanisms found
+this cycle were read from source and verified by patching the engine directly, so
+they survive; only the win rates attached to them do not.
 
-1. **wheat revenue d20-24** -- v209 successfully closed the wheat revenue gap.
-2. **`cash_residual`** -- market accounting remained stable.
-
-With the wheat-conversion thesis proven, the diagnosis now shifts to the next lowest-hanging fruit (strawberry factor).
 
 ## Start here
 
@@ -170,6 +198,14 @@ sign.
 | MAX_HANDS 12 to 16 | -24,702, t -28.1 |
 | season mirror (v210), harvest race (v211), melon cohort (v212) | inert / unreachable, discarded |
 | per-tile melon yield fix (v160) | lost at 81.4% |
+| **v207** align job admission with the assignment objective | 3-13 vs v186 over 8 seeds -- the pool's -9.8 rejection was right, by accident |
+| **v225** rank species by return per worker-action | inert -- gross and per-action rankings agree |
+| **v223** early herd target scaled to land | 1-7 vs v186 -- the herd at 16 is load-bearing |
+| **v224** early herd target flat 13 | 2-6 vs v186 -- same conclusion from the other angle |
+| **v221** MAX_HANDS 12->10 | 10-14 vs v186 -- worse than the baseline |
+| **v222** MAX_HANDS 12->11 | 7-9 over 8 seeds, mean margin +38 -- null. MAX_HANDS is settled both ways |
+| `a_v188_nogeese.py`, `a_v206_wheat_mirror.py` | inert -- dead-code edit / identical to v186 |
+| **v220** rescue banked CARE on unfed tick days | **7-5 vs v186's 10-2** (3 seeds, roundrobin). Branch fired hard: 1,236 jobs, animal output +39 units (MILK 249->280, WOOL 88->96). Output rose, margin fell -- the FEED turns cost more than the bonus returns. |
 
 Only *increases* to `MAX_HANDS` were ever tested. **Fewer** hands is still open
 -- wages run +58% vs the rival while PASS is about 96/game.
@@ -194,6 +230,6 @@ The Kaggle dataset `kg-bisect` carries `_duel.py`, `_econ_loss_analysis.py`,
 
 - [[a_v206_wheat_mirror_loss_analysis]] -- the adopted baseline
 - [[a_v207_jobboard_loss_analysis]] -- the -9.8 rejection
-- [[a_v208_price_1327_loss_analysis]] -- the neutral price sync
+- [[a_v213_nogoose_loss_analysis]] -- 66.7% on the pool, 0-6 against real agents
 - [[v186_loss_analysis]] -- the corrected 50.0% baseline
 - [[REPLAY_ANALYSIS_91759]] -- single-episode replay teardown
